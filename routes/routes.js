@@ -20,10 +20,12 @@ const authorize = function(req, res, next) {
   });
 };
 
-router.get('/routes/:id', authorize, (req, res, next) => {
+// This information needs to be fed into sorting the buses table in order to
+// get back the information for the plots
+router.get('/routes/:routeId', authorize, (req, res, next) => {
   knex('routes')
-    .where('route_id', req.query.routeId)
-    .then((routes) => res.send(routes.length > 0))
+    .where('id', req.routeId)
+    .then((route) => res.send(camelizeKeys(route)))
     .catch((err) => next(err));
 });
 
@@ -41,16 +43,13 @@ router.get('/routes', authorize, (req, res, next) => {
 });
 
 router.post('/routes', ev(validations.post), authorize, (req, res, next) => {
-  const { routeId } = req.body;
-  const route = { routeId, userId: req.token.userId };
+  const { busNumber, stopNumber, startTime, endTime } = req.body;
+  const route = { userId: req.token.userId, busNumber, stopNumber,
+                  startTime, endTime };
 
-  if (!routeId) {
-    return next(boom.create(400, 'route id must not be blank'));
-  }
   knex('routes')
     .insert(decamelizeKeys(route), '*')
-    .then((rows) => {
-      route.id = rows[0].id;
+    .then((route) => {
       res.send(route);
     })
     .catch((err) => {
