@@ -1,0 +1,111 @@
+#index {
+  background: #f2f2f2;
+  color: #191919;
+}
+
+nav {
+  position: fixed;
+  background: #191919;
+  z-index: 100;
+}
+
+.site-logo {
+  color: #191919;
+  font-size: 30px;
+  margin-left: 9.25%;
+  color: white;
+}
+
+span {
+  color: #4DA778;
+}
+
+.app-description {
+  color: #666;
+}
+
+.welcome-header {
+  margin-top: 125px;
+  font-size: 42px;
+  color: #272727;
+}
+
+.slogan {
+  font-size: 18px;
+}
+
+.key-explanation {
+  font-size: 18px;
+}
+
+.action-button {
+  color: white;
+  background: #4DA778;
+  border: none;
+  height: 42px;
+  width: 165px;
+  text-transform: uppercase;
+  letter-spacing: 1.75px;
+  font-size: 14px;
+  font-family: 'Didact Gothic', sans-serif;
+}
+
+.action-button:focus {
+  background: #418c65;
+}
+
+.trends-button,
+.login-button {
+  margin-left: 20px;
+  background: transparent;
+  border: 2px solid #4DA778;
+  color: #4DA778;
+}
+
+.login-button {
+  border: 2px solid white;
+  width: 134px;
+  position: fixed;
+  right: 30px;
+  color: white;
+}
+
+.action-button:hover {
+  transition: .8s ease all;
+}
+
+.login-button:hover {
+  border: 2px solid #4DA778;
+}
+
+.signup-button:hover {
+  background: black;
+}
+
+#submit-signup {
+  background: #4DA778;
+}
+
+.trends-button:hover {
+  background: #4DA778;
+  color: white;
+}
+
+#form-container {
+  display: none;
+  padding-top: 125px;
+}
+
+.copyright {
+  margin-top: 20px;
+}
+
+@media (max-width: 485px) {
+  .welcome-header {
+    font-size: 36px;
+  }
+
+  .copyright {
+    font-size: 12px;
+  }
+}
