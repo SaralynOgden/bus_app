@@ -12,6 +12,7 @@ ul.dropdown-content.select-dropdown li span {
   margin-left: 6px;
 }
 
-.add-routes-title {
+.add-routes-title,
+#add-route {
   margin-left: 12px;
 }
