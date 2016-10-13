@@ -7,6 +7,7 @@ nav {
   position: fixed;
   background: #191919;
   z-index: 100;
+  top: 0;
 }
 
 .site-logo {
@@ -24,8 +25,11 @@ span {
   color: #666;
 }
 
+.main-info {
+  margin-top: 175px;
+}
+
 .welcome-header {
-  margin-top: 125px;
   font-size: 42px;
   color: #272727;
 }
@@ -55,26 +59,28 @@ span {
 }
 
 .trends-button,
-.login-button {
+.log-button {
   margin-left: 20px;
   background: transparent;
   border: 2px solid #4DA778;
   color: #4DA778;
 }
 
-.login-button {
+.log-button {
   border: 2px solid white;
   width: 134px;
   position: fixed;
   right: 30px;
   color: white;
+  padding-top: 8px;
+  text-align: center;
 }
 
 .action-button:hover {
   transition: .8s ease all;
 }
 
-.login-button:hover {
+.log-button:hover {
   border: 2px solid #4DA778;
 }
 
@@ -93,7 +99,6 @@ span {
 
 #form-container {
   display: none;
-  padding-top: 125px;
 }
 
 .copyright {
