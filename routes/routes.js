@@ -31,7 +31,6 @@ router.get('/routes/:routeId', authorize, (req, res, next) => {
 
 router.get('/routes', authorize, (req, res, next) => {
   knex('routes')
-    .innerJoin('routes', 'routes.id', 'routes.route_id')
     .then((rows) => {
       const routes = camelizeKeys(rows);
 
@@ -57,13 +56,13 @@ router.post('/routes', ev(validations.post), authorize, (req, res, next) => {
     });
 });
 
-router.delete('/routes', authorize, (req, res, next) => {
+router.delete('/routes/:id', authorize, (req, res, next) => {
   let route;
-  const id = req.token.userId;
+  const busesUserId = req.params.id;
 
   if (isNaN(id)) { return next(boom.create(404, 'Not Found')); }
   knex('routes')
-    .where('id', id)
+    .where('id', busesUserId)
     .first()
     .then((row) => {
       if (!row) { throw boom.create(404, 'Not Found'); }
