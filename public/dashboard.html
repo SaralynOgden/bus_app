@@ -42,19 +42,18 @@
               <h1 class="add-routes-title">Add New Route</h1>
               <div class="row">
                 <div class="input-field col s12 remove-margin">
-                  <input  id="first_name" type="text" class="validate">
-                  <label for="first_name">Bus Stop</label>
+                  <input  id="bus-stop" type="text" class="validate">
+                  <label for="bus-stop">Bus Stop</label>
                 </div>
                 <div class="input-field col s12">
-                  <input id="last_name" type="text" class="validate">
-                  <label for="last_name">Bus Number</label>
+                  <input id="bus-number" type="text" class="validate">
+                  <label for="bus-number">Bus Number</label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field col s6">
-                   <select>
+                   <select id="start-time-drop-down">
                      <option value="" disabled selected>Select Time</option>
-                     <option>5:30 am</option>
                      <option>6:00 am</option>
                      <option>6:30 am</option>
                      <option>7:00 am</option>
@@ -95,9 +94,8 @@
                    <label>Earliest Departure Time</label>
                  </div>
                  <div class="input-field col s6">
-                    <select>
+                    <select id="end-time-drop-down">
                       <option value="" disabled selected>Select Time</option>
-                      <option>6:00 am</option>
                       <option>6:30 am</option>
                       <option>7:00 am</option>
                       <option>7:30 am</option>
