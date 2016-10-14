@@ -1,6 +1,6 @@
 'use strict';
 
-$('signup-form').submit((event) => {
+$('#signup-form').submit((event) => {
   event.preventDefault();
 
   const firstName = $('#first-name').val().trim();

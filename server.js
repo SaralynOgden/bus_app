@@ -34,11 +34,10 @@ const path = require('path');
 app.use(express.static(path.join('public')));
 
 //const buses = require('./routes/buses');
-//const users = require('./routes/users');
+const users = require('./routes/users');
 const user_buses = require('./routes/user_buses');
-
 //app.use(buses);
-//app.use(users);
+app.use(users);
 app.use(user_buses);
 
 app.use((_req, res) => {
