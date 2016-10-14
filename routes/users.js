@@ -2,16 +2,16 @@
 
 const express = require('express');
 const boom = require('boom');
-const bcrypt = require('bcrypt-as-promised'); // !
+const bcrypt = require('bcrypt-as-promised');
 const knex = require('../knex');
 const { camelizeKeys, decamelizeKeys } = require('humps');
-const ev = require('express-validation'); // !
-const validations = require('../validations/users.js'); 
+const ev = require('express-validation');
+const validations = require('../validations/users.js');
 
-// eslint-disable-next-line new-cap
 const router = express.Router();
 
 router.post('/users', ev(validations.post), (req, res, next) => {
+  console.log('here');
   const { firstName, lastName, email, password } = req.body;
 
   knex('users')
@@ -29,18 +29,17 @@ router.post('/users', ev(validations.post), (req, res, next) => {
       const insertUser = { firstName, lastName, email, hashedPassword };
 
       return knex('users')
-             .insert(decamelizeKeys(insertUser), '*');
+        .insert(decamelizeKeys(insertUser), '*');
     })
     .then((rows) => {
-      const user = camelizeKeys(rows[0]);
+
+      const user = decamelizeKeys(rows[0]);
 
       delete user.hashedPassword;
 
       res.send(user);
     })
-    .catch((err) => {
-      next(err);
-    });
+    .catch((err) => next(err));
 });
 
 module.exports = router;

@@ -3,6 +3,11 @@
   color: #191919;
 }
 
+/******************************************************************************
+
+MAIN NAVIGATION
+
+*******************************************************************************/
 nav {
   position: fixed;
   background: #191919;
@@ -21,26 +26,11 @@ span {
   color: #4DA778;
 }
 
-.app-description {
-  color: #666;
-}
+/******************************************************************************
 
-.main-info {
-  margin-top: 175px;
-}
+BUTTONS
 
-.welcome-header {
-  font-size: 42px;
-  color: #272727;
-}
-
-.slogan {
-  font-size: 18px;
-}
-
-.key-explanation {
-  font-size: 18px;
-}
+*******************************************************************************/
 
 .action-button {
   color: white;
@@ -54,8 +44,9 @@ span {
   font-family: 'Didact Gothic', sans-serif;
 }
 
+.action-button:hover,
 .action-button:focus {
-  background: #418c65;
+  background: #4da762;
 }
 
 .trends-button,
@@ -84,12 +75,32 @@ span {
   border: 2px solid #4DA778;
 }
 
-.signup-button:hover {
-  background: black;
+/******************************************************************************
+
+INDEX.HTML
+
+*******************************************************************************/
+
+
+.app-description {
+  color: #666;
 }
 
-#submit-signup {
-  background: #4DA778;
+.main-info {
+  margin-top: 175px;
+}
+
+.welcome-header {
+  font-size: 42px;
+  color: #272727;
+}
+
+.slogan {
+  font-size: 18px;
+}
+
+.key-explanation {
+  font-size: 18px;
 }
 
 .trends-button:hover {
@@ -97,13 +108,15 @@ span {
   color: white;
 }
 
-#form-container {
-  display: none;
-}
-
 .copyright {
   margin-top: 20px;
 }
+
+/******************************************************************************
+
+MEDIA QUERIES
+
+*******************************************************************************/
 
 @media (max-width: 485px) {
   .welcome-header {
