@@ -5,7 +5,6 @@
   "main": "server.js",
   "scripts": {
     "knex": "knex",
-    "heroku-postbuild": "knex migrate:latest",
     "nf": "nf start",
     "nodemon": "nodemon server.js"
   },

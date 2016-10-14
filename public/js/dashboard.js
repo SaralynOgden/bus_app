@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  console.log("here");
+  // console.log("here");
   $('select').material_select();
 
   // $('.parallax').parallax(); Why is this here?
@@ -25,6 +25,25 @@
     }
   };
 
+  const convertTimeToJSONString = function(time) {
+    let parts = time.match(/(\d+)\:(\d+) (\w+)/),
+    hours = /am/i.test(parts[3]) ?
+              parseInt(parts[1], 10) : parseInt(parts[1], 10) + 12,
+    minutes = parseInt(parts[2], 10);
+    let dateString = '1970-01-01T'
+    if (hours < 10) {
+      dateString += '0';
+    }
+    dateString += `${hours}:`;
+    if (minutes < 10) {
+      dateString += '0';
+    }
+    dateString += `${minutes}:00.000Z`
+
+    return dateString;
+  };
+  // 2016-10-13T13:30:00.000Z
+
   const createRow = function(id, busNumber, stopNumber, startTime, endTime) {
     const urlBase = `/post.html?
                       bus_number=${busNumber}&
@@ -44,6 +63,7 @@
                               </span>
                             </td>
                           </tr>`);
+          $('tbody').append($row);
           $(`#${busNumber + stopNumber + startTime + endTime}`).click(
             (event) => {
             event.preventDefault();
@@ -53,23 +73,23 @@
               .click(deleteUserBus(`/delete/:id`));
   };
 
-  // $.getJSON('/user_buses')
-  //   .done((userBuses) => {
-  //
-  //     for (const userBus of userBuses) {
-  //       createRow(userBus.id, userBus.busNumber, userBus.stopNumber,
-  //                 userBus.startTime, userBus.endTime);
-  //     }
-  //   })
-  //   .fail(() => {
-  //     window.location.href = '/signup.html';
-  //   });
+  $.getJSON('/user_buses')
+    .done((userBuses) => {
+      for (const userBus of userBuses) {
+        createRow(userBus.id, userBus.busNumber, userBus.stopNumber,
+                  userBus.startTime, userBus.endTime);
+      }
+    })
+    .fail(() => {
+      console.log(':(');
+    });
 
-  const addRoute = function(_event) {
-    const busNumber = $('bus-stop').val();
-    const stopNumber = $('bus-number').val();
-    const startTime = $('start-time-drop-down')[0].value;
-    const endTime = $('end-time-drop-down')[0].value;
+  const addRoute = function(event) {
+    event.preventDefault();
+    const busNumber = $('#bus-stop').val();
+    const stopNumber = $('#bus-number').val();
+    let startTime = $('#start-time-drop-down')[0].value;
+    let endTime = $('#end-time-drop-down')[0].value;
 
     if (!busNumber || !busNumber.trim()) {
       return Materialize.toast('Bus number name must not be blank', 3000);
@@ -77,13 +97,17 @@
     if (!stopNumber || !stopNumber.trim()) {
       return Materialize.toast('Stop number must not be blank', 3000);
     }
-    if (!startTime || !startTime.trim()) {
+    if (!startTime) {
       return Materialize.toast('Start time must not be blank', 3000);
     }
-    if (!endTime || !endTime.trim()) {
+    if (!endTime) {
       return Materialize.toast('End time must not be blank', 3000);
     }
 
+    startTime = convertTimeToJSONString(startTime);
+    endTime = convertTimeToJSONString(endTime);
+
+    console.log(JSON.stringify({ busNumber, stopNumber, startTime, endTime }))
     const options = {
       contentType: 'application/json',
       data: JSON.stringify({ busNumber, stopNumber, startTime, endTime }),
@@ -94,9 +118,10 @@
 
     $.ajax(options)
       .done((postedUserBus) => {
-        createRow(postedUserBus.id, postedUserBus.busNumber,
-          postedUserBus.stopNumber, postedUserBus.startTime,
-          postedUserBus.endTime);
+        console.log(postedUserBus);
+        createRow(postedUserBus[0].id, postedUserBus[0].busNumber,
+          postedUserBus[0].stopNumber, postedUserBus[0].startTime,
+          postedUserBus[0].endTime);
       })
       .fail(() => {
         Materialize.toast(
