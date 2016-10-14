@@ -26,7 +26,7 @@
   };
 
   const convertTimeToJSONString = function(time) {
-    let parts = time.match(/(\d+)\:(\d+) (\w+)/),
+    const parts = time.match(/(\d+)\:(\d+) (\w+)/),
     hours = /am/i.test(parts[3]) ?
               parseInt(parts[1], 10) : parseInt(parts[1], 10) + 12,
     minutes = parseInt(parts[2], 10);
@@ -45,7 +45,7 @@
   // 2016-10-13T13:30:00.000Z
 
   const createRow = function(id, busNumber, stopNumber, startTime, endTime) {
-    const urlBase = `/post.html?
+    const url = `/post.html?
                       bus_number=${busNumber}&
                       stop_number=${stopNumber}&
                       start_time=${startTime}&
