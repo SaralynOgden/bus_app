@@ -11,7 +11,6 @@ const validations = require('../validations/users.js');
 const router = express.Router();
 
 router.post('/users', ev(validations.post), (req, res, next) => {
-  console.log('here');
   const { firstName, lastName, email, password } = req.body;
 
   knex('users')

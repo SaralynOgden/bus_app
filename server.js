@@ -1,8 +1,8 @@
 'use strict';
 
-// if (process.env.NODE_ENV !== 'production') {
-//   require('dotenv').config();
-// }
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 
 const express = require('express');
 const app = express();
@@ -12,7 +12,7 @@ app.disable('x-powered-by');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser')
 const morgan = require('morgan');
-const clock = require('./clock');
+// const clock = require('./clock');
 
 switch (app.get('env')) {
   case 'development':
@@ -36,9 +36,11 @@ app.use(express.static(path.join('public')));
 //const buses = require('./routes/buses');
 const users = require('./routes/users');
 const user_buses = require('./routes/user_buses');
+const token = require('./routes/token.js');
 //app.use(buses);
 app.use(users);
 app.use(user_buses);
+app.use(token);
 
 app.use((_req, res) => {
   res.sendStatus(404);
