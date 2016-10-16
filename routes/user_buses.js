@@ -10,10 +10,10 @@ const boom = require('boom');
 const ev = require('express-validation');
 const validations = require('../validations/user_buses');
 
-const createTables = function(busNumber) {
-  knex.schema.createTableIfNotExists(`bus_${busNumber}`, (table) => {
+const createTables = function(stopNumber) {
+  knex.schema.createTableIfNotExists(`stop_${stopNumber}`, (table) => {
     table.increments();
-    table.string('stop_number').notNullable().defaultTo('');
+    table.string('bus_number').notNullable().defaultTo('');
     table.datetime('scheduled_time').notNullable().index();
     table.datetime('actual_time').notNullable();
     table.datetime('last_update_time').notNullable();
@@ -23,9 +23,9 @@ const createTables = function(busNumber) {
   })
   .then((table) => console.log('fucking work 1'))
   .catch((err) => console.log(err));
-  knex.schema.createTableIfNotExists(`bus_${busNumber}_raw`, (table) => {
+  knex.schema.createTableIfNotExists(`bus_${stopNumber}_raw`, (table) => {
     table.increments();
-    table.string('stop_number').notNullable().defaultTo('');
+    table.string('bus_number').notNullable().defaultTo('');
     table.datetime('scheduled_time').notNullable().index();
     table.datetime('actual_time').notNullable();
     table.datetime('last_update_time').notNullable();
@@ -80,7 +80,7 @@ router.post('/user_buses', authorize, (req, res, next) => {
     .insert(decamelizeKeys(newUserBus), '*')
     .then((userBuses) => {
       const postedUserBus = camelizeKeys(userBuses[0]);
-createTables(busNumber);
+      createTables(stopNumber);
       res.send(postedUserBus);
     })
     .catch((err) => {

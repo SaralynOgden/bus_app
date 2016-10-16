@@ -6,7 +6,13 @@ const { camelizeKeys } = require('humps');
 const getDateMinsAgo = function(minsAgo) {
 	const time = new Date(Date.now() - 1000 * 60 * minsAgo);
 	return `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ${time.getHours()}:${time.getMinutes()}:00-07`;
+};
+
+const getStopDictionary = function() {
+	
 }
+
+
 
 const getBusesDictionary = function(busesInLastHour) {
   let busesDictionary = {};
