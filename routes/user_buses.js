@@ -10,6 +10,32 @@ const boom = require('boom');
 const ev = require('express-validation');
 const validations = require('../validations/user_buses');
 
+const createTables = function(busNumber) {
+  knex.schema.createTableIfNotExists(`bus_${busNumber}`, (table) => {
+    table.increments();
+    table.string('stop_number').notNullable().defaultTo('');
+    table.datetime('scheduled_time').notNullable().index();
+    table.datetime('actual_time').notNullable();
+    table.datetime('last_update_time').notNullable();
+    table.integer('distance').notNullable().defaultTo('52800');
+    table.timestamp('created_at').defaultTo(knex.fn.now()).index();
+    table.timestamp('updated_at').defaultTo(knex.fn.now());
+  })
+  .then((table) => console.log('fucking work 1'))
+  .catch((err) => console.log(err));
+  knex.schema.createTableIfNotExists(`bus_${busNumber}_raw`, (table) => {
+    table.increments();
+    table.string('stop_number').notNullable().defaultTo('');
+    table.datetime('scheduled_time').notNullable().index();
+    table.datetime('actual_time').notNullable();
+    table.datetime('last_update_time').notNullable();
+    table.integer('distance').notNullable().defaultTo('52800');
+    table.timestamps(true, true);
+  })
+  .then((table) => console.log('fucking work 2'))
+  .catch((err) => console.log(err));
+};
+
 const authorize = function(req, res, next) {
   jwt.verify(req.cookies.token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
@@ -45,14 +71,17 @@ router.get('/user_buses', (req, res, next) => {
 router.post('/user_buses', authorize, (req, res, next) => {
   const { busNumber, stopNumber, startTime, endTime } = req.body;
   const { userId } = req.token;
+  console.log(busNumber);
 
-  const newRoute = { userId, busNumber, stopNumber,
+  const newUserBus = { userId, busNumber, stopNumber,
                   startTime, endTime };
 
   knex('user_buses')
-    .insert(decamelizeKeys(newRoute), '*')
-    .then((routes) => {
-      res.send(camelizeKeys(routes[0]));
+    .insert(decamelizeKeys(newUserBus), '*')
+    .then((userBuses) => {
+      const postedUserBus = camelizeKeys(userBuses[0]);
+createTables(busNumber);
+      res.send(postedUserBus);
     })
     .catch((err) => {
       next(err);

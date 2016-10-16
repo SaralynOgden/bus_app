@@ -64,8 +64,8 @@ $.getJSON('/user_buses')
 
 const addRoute = function(event) {
   event.preventDefault();
-  const stopNumber = $('#bus-number').val();
-  const busNumber = $('#bus-stop').val();
+  const stopNumber = $('#stop-number').val();
+  const busNumber = $('#bus-number').val();
   let startTime = $('#start-time-drop-down')[0].value;
   let endTime = $('#end-time-drop-down')[0].value;
 
