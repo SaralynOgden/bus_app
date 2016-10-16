@@ -22,7 +22,7 @@ nav {
   color: white;
 }
 
-span {
+.logo-span {
   color: #4DA778;
 }
 
@@ -116,7 +116,9 @@ INDEX.HTML
 DASHBOARD.HTML
 
 *******************************************************************************/
-
+.x {
+  color: red;
+}
 
 .remove-margin {
   margin: 0;
