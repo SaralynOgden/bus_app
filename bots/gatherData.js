@@ -1,7 +1,7 @@
 'use strict';
 
 const request = require('request');
-const knex = require('./knex');
+const knex = require('../knex');
 const { decamelizeKeys } = require('humps');
 
 const getBusIndices = function(arrivalsAndDepartures, busNumber) {

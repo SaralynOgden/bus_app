@@ -1,15 +1,15 @@
 'use strict';
 
 exports.seed = function(knex) {
-  return knex('buses').del()
+  return knex('buses_raw').del()
     .then(() => {
-      return knex('buses').insert([{
-        bus_number: '4',
+      return knex('buses_raw').insert([{
+        bus_number: '372E',
         stop_number: '4874',
-        scheduled_time: new Date(0),
+        scheduled_time: new Date(),
         actual_time: new Date(),
         last_update_time: new Date(),
-        distance: '24'
+        distance: '24',
       }, {
         bus_number: '372E',
         stop_number: '3728',
@@ -56,7 +56,7 @@ exports.seed = function(knex) {
     })
     .then(() => {
       return knex.raw(
-        "SELECT setval('buses_id_seq', (SELECT MAX(id) FROM buses));"
+        "SELECT setval('buses_raw_id_seq', (SELECT MAX(id) FROM buses_raw));"
       );
     })
     .catch((err) => {
