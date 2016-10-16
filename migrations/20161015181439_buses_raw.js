@@ -1,7 +1,7 @@
 'use strict';
 
 exports.up = function(knex) {
-  return knex.schema.createTable('buses', (table) => {
+  return knex.schema.createTable('buses_raw', (table) => {
     table.increments();
     table.string('bus_number').notNullable().defaultTo('');
     table.string('stop_number').notNullable().defaultTo('');
@@ -10,9 +10,10 @@ exports.up = function(knex) {
     table.datetime('actual_time').notNullable();
     table.datetime('last_update_time').notNullable();
     table.integer('distance').notNullable().defaultTo('52800');
-    table.timestamps(true, true);
+    table.timestamp('created_at').defaultTo(knex.fn.now()).index();
+    table.timestamp('updated_at').defaultTo(knex.fn.now());
   });
 };
 exports.down = function(knex) {
-  return knex.schema.dropTable('buses');
+  return knex.schema.dropTable('buses_raw');
 };
