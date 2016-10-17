@@ -3,22 +3,22 @@
 
   $('select').material_select();
 
-const deleteUserBus = function(url) {
+  const deleteTrip = function(id) {
     return function(_event) {
       const options = {
         dataType: 'json',
         type: 'DELETE',
-        url
+        url: `/trip/${id}`
       };
 
       $.ajax(options)
-        .done((deletedUserBus) => {
-          $(`${deletedUserBus.busNumber + deletedUserBus.stopNumber +
-               deletedUserBus.startTime + deletedUserBus.endTime}`).remove();
+        .done((deletedTrip) => {
+          $(`${deletedTrip.busNumber + deletedTrip.stopNumber +
+                 deletedTrip.startTime + deletedTrip.endTime}`).remove();
         })
         .fail(() => {
-          Materialize.toast(
-            'Unable to delete route. Please try again.', 3000);
+            Materialize.toast(
+              'Unable to delete route. Please try again.', 3000);
         });
     }
   };
@@ -45,43 +45,38 @@ const deleteUserBus = function(url) {
   };
 
   const createRow = function(busNumber, stopNumber, startTime, endTime) {
-    console.log('creating row');
     startTime = convertTime(startTime);
     endTime = convertTime(endTime);
 
-    const url = `/post.html?
-                      bus_number=${busNumber}&
-                      stop_number=${stopNumber}&
-                      start_time=${startTime}&
-                      end_time=${endTime}`;
-          const $row = $(`<tr id="${busNumber + stopNumber +
-                                    startTime + endTime}">
-                            <td>${busNumber}</td>
-                            <td>${stopNumber}</td>
-                            <td>${startTime}</td>
-                            <td>${endTime}</td>
-                            <td>
-                              <span id="${"delete_" + busNumber +
-                                          stopNumber + startTime + endTime}">
-                                X
-                              </span>
-                            </td>
-                          </tr>`);
-          $('tbody').append($row);
-          $(`#${busNumber + stopNumber + startTime + endTime}`).click(
-            (event) => {
-            event.preventDefault();
-            window.location.href = url;
-          });
-          $(`#${"delete_" + busNumber + stopNumber + startTime + endTime}`)
-              .click(deleteUserBus(`/delete/:id`));
+    const url = `/post.html/:id`;
+    const $row = $(`<tr id="${busNumber + stopNumber +
+                            startTime + endTime}">
+                    <td>${busNumber}</td>
+                    <td>${stopNumber}</td>
+                    <td>${startTime}</td>
+                    <td>${endTime}</td>
+                    <td>
+                      <span id="${"delete_" + busNumber +
+                                  stopNumber + startTime + endTime}">
+                        X
+                      </span>
+                    </td>
+                  </tr>`);
+        $('tbody').append($row);
+        $(`#${busNumber + stopNumber + startTime + endTime}`).click(
+          (event) => {
+          event.preventDefault();
+          window.location.href = url;
+        });
+        $(`#${"delete_" + busNumber + stopNumber + startTime + endTime}`)
+            .click(deleteTrip(id));
   };
 
-  $.getJSON('/user_buses')
-    .done((userBuses) => {
-      for (const userBus of userBuses) {
-        createRow(userBus.id, userBus.busNumber, userBus.stopNumber,
-                  userBus.startTime, userBus.endTime);
+  $.getJSON('/trips_users')
+    .done((userTrips) => {
+      for (const userTrip of userTrips) {
+        createRow(userTrip.busNumber, userTrip.stopNumber,
+                  userTrip.startTime, userTrip.endTime);
       }
     })
     .fail((err) => {
@@ -107,8 +102,6 @@ const deleteUserBus = function(url) {
   }
 
   const checkIfBusGoesToStop = function(obaObj, data) {
-    console.log(obaObj.data.references.routes);
-    console.log(data.busNumber);
     for (let route of obaObj.data.references.routes) {
       if (route.shortName === data.busNumber) { return true };
     }
@@ -116,20 +109,31 @@ const deleteUserBus = function(url) {
     return false
   };
 
-  const postBus = function(data) {
-    const options = {
+  const postTrip = function(data) {
+    const tripsOptions = {
       contentType: 'application/json',
       data: JSON.stringify(data),
       dataType: 'json',
       type: 'POST',
-      url: '/user_buses'
+      url: '/trips'
     };
 
-    $.ajax(options)
-      .done((postedUserBus) => {
-        createRow(postedUserBus.busNumber,
-          postedUserBus.stopNumber, postedUserBus.startTime,
-          postedUserBus.endTime);
+    $.ajax(tripsOptions)
+      .done((postedTrip) => {
+        createRow(postedTrip.busNumber,
+          postedTrip.stopNumber, postedTrip.startTime,
+          postedTrip.endTime);
+
+        const tripsUsersOptions = {
+          contentType: 'application/json',
+          data: JSON.stringify({postedTrip.id}),
+          dataType: 'json',
+          type: 'POST',
+          url: '/trips_users'
+        };
+        $.ajax(tripsUsersOptions)
+          .done((postedTripsUsers) => console.log(postedTripsUsers))
+          .fail((err) => console.err(err));
       })
       .fail(() => {
         return Materialize.toast(
@@ -146,7 +150,7 @@ const deleteUserBus = function(url) {
       }
 
       if (checkIfBusGoesToStop(obaObj, data)) {
-        postBus(data);
+        postTrip(data);
       } else {
         return Materialize.toast('No such bus number at stop', 3000);
       }
