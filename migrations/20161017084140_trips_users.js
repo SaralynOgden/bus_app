@@ -1,7 +1,7 @@
 'use strict';
 
 exports.up = function(knex) {
-  return knex.schema.createTable('user_buses', (table) => {
+  return knex.schema.createTable('trips_users', (table) => {
     table.increments();
     table.integer('user_id').references('id').inTable('users')
           .onDelete('CASCADE').index();
@@ -11,5 +11,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTable('user_buses');
+  return knex.schema.dropTable('trips_users');
 };
