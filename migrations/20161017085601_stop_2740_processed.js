@@ -3,12 +3,13 @@
 exports.up = function(knex) {
   return knex.schema.createTable(`stop_2740`, (table) => {
     table.increments();
-    table.string('bus_number').notNullable().defaultTo('');
-    table.datetime('scheduled_time').notNullable().index();
+    table.integer('trip_id').references('id').inTable('trips')
+          .onDelete('CASCADE').index();
+    table.datetime('scheduled_time').notNullable();
     table.datetime('actual_time').notNullable();
     table.datetime('last_update_time').notNullable();
     table.integer('distance').notNullable().defaultTo('52800');
-    table.timestamps(true, true);
+    table.timestamp(true, true);
   });
 };
 

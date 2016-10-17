@@ -3,6 +3,73 @@
 const knex = require('../knex');
 const { camelizeKeys } = require('humps');
 
+const getEndTimeClosestToNow = function(currentDate) {
+	const minutes = currentDate.getMinutes();
+	currentDate.setHours(9);
+	let hour = currentDate.getHours();
+
+	if (minutes < 45) {
+		if (minutes > 15) {
+			return `${hour}:30`;
+		}
+		return `${hour}:00`;
+	} else {
+		hour = (hour + 1) >= 10 ? (hour + 1):'0' + (hour + 1);
+		return `${hour}:00`;
+	}
+};
+
+const convertTimeToDateToday = function(time, currentDate) {
+	const year = currentDate.getFullYear();
+		month = currentDate.getMonth() + 1,
+		date = currentDate.getDate(),
+		hour = time.substring(0, 2),
+	 	minute = time.substring(3, 5);
+
+	return `${year}-${month}-${date} ${hour}:${minute}:00:00-07`;
+};
+
+const getUniqueUserBuses = function(userBuses, currentDate) {
+	for (let i = userBuses.length - 1; i > 0; i--) {
+		for (let j = i - 1; j > 0; j--) {
+			if (JSON.stringify(userBuses[i]) ==== JSON.stringify(userBuses[j])) {
+				userBuses[i].splice(i, 1);
+			}
+		}
+	}
+}
+
+const getDataForBus = function(userBus) {
+	const startDate = convertTimeToDateToday(userBus.startTime);
+	const endDate = convertTimeToDateToday(userBus.endTime);
+
+	knex(`stop_${stopNumber}_raw`)
+		.where('created_at', '>', startDate)
+		.andWhere('created_at', '<', endDate)
+		.then((rows) => {
+			const rawBusData = camelizeKeys(rows);
+
+		})
+}
+
+module.exports = {
+	start: function() {
+		const currentDate = new Date();
+
+		knex('user_buses')
+			.select('bus_number', 'stop_number', 'start_time', 'end_time')
+			.where('end_time', getEndTimeClosestToNow(currentDate))
+			.then((rows) => {
+				const userBuses = camelizeKeys(rows);
+
+				getUniqueUserBuses(userBuses);
+		  	for (let userBus in userBuses) {
+					getDataForBus(userBus, currentDate);
+				}
+			})
+			.catch((err) => console.err(err));
+};
+
 const getDateMinsAgo = function(minsAgo) {
 	const time = new Date(Date.now() - 1000 * 60 * minsAgo);
 	return `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ${time.getHours()}:${time.getMinutes()}:00-07`;

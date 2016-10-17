@@ -47,9 +47,6 @@ const getBusIndices = function(arrivalsAndDepartures, busNumber) {
 };
 
 const insertBusData = function(ajaxResult, busIndices, stopNumber) {
-  console.log('here');
-  console.log(busIndices);
-  console.log(stopNumber);
   for (let i = 0; i < busIndices.length; i++) {
     const busInfo = ajaxResult.data.entry.arrivalsAndDepartures[busIndices[i]];
     const row = {
