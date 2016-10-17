@@ -10,8 +10,12 @@ exports.seed = (knex) => {
         last_name: 'Rowling',
         email: 'jkrowling@gmail.com',
         hashed_password: '$2a$12$C9AYYmcLVGYlGoO4vSZTPud9ArJwbGRsJ6TUsNULzR48z8fOnTXbS',  // youreawizard
-        created_at: new Date('2016-06-29 14:26:16 UTC'),
-        updated_at: new Date('2016-06-29 14:26:16 UTC')
+      }, {
+        id: 2,
+        first_name: 'Timmy',
+        last_name: 'Turner',
+        email: 'fairlyodd@gmail.com',
+        hashed_password: '$2a$12$C9AYYmcLVGYlGoO4vSZTPud9ArJwbGRsJ6TUsNULzR48z8fOnTXbS'
       }]);
     })
     .then(() => {

@@ -11,7 +11,7 @@ const ev = require('express-validation');
 const validations = require('../validations/user_buses');
 
 const createTables = function(stopNumber) {
-  knex.schema.createTableIfNotExists(`stop_${stopNumber}`, (table) => {
+  knex.schema.createTableIfNotExists(`stop_${stopNumber}_raw`, (table) => {
     table.increments();
     table.string('bus_number').notNullable().defaultTo('');
     table.datetime('scheduled_time').notNullable().index();
@@ -23,7 +23,7 @@ const createTables = function(stopNumber) {
   })
   .then((table) => console.log('fucking work 1'))
   .catch((err) => console.log(err));
-  knex.schema.createTableIfNotExists(`bus_${stopNumber}_raw`, (table) => {
+  knex.schema.createTableIfNotExists(`stop_${stopNumber}`, (table) => {
     table.increments();
     table.string('bus_number').notNullable().defaultTo('');
     table.datetime('scheduled_time').notNullable().index();

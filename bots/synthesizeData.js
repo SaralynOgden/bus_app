@@ -8,12 +8,6 @@ const getDateMinsAgo = function(minsAgo) {
 	return `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()} ${time.getHours()}:${time.getMinutes()}:00-07`;
 };
 
-const getStopDictionary = function() {
-	
-}
-
-
-
 const getBusesDictionary = function(busesInLastHour) {
   let busesDictionary = {};
 
