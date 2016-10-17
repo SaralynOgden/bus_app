@@ -23,7 +23,7 @@ const deleteUserBus = function(url) {
     }
   };
 
-  // added to convert times from military to normal 
+  // added to convert times from military to normal
   const convertTime = function(time) {
     let hour;
     let minute = time.substr(2, 3);
@@ -44,8 +44,8 @@ const deleteUserBus = function(url) {
     return time;
   };
 
-  const createRow = function(id, busNumber, stopNumber, startTime, endTime) {
-
+  const createRow = function(busNumber, stopNumber, startTime, endTime) {
+    console.log('creating row');
     startTime = convertTime(startTime);
     endTime = convertTime(endTime);
 
@@ -109,7 +109,7 @@ const deleteUserBus = function(url) {
   const checkIfBusGoesToStop = function(obaObj, data) {
     console.log(obaObj.data.references.routes);
     console.log(data.busNumber);
-    for (let route in obaObj.data.references.routes) {
+    for (let route of obaObj.data.references.routes) {
       if (route.shortName === data.busNumber) { return true };
     }
 
@@ -127,9 +127,9 @@ const deleteUserBus = function(url) {
 
     $.ajax(options)
       .done((postedUserBus) => {
-        createRow(postedUserBus[0].id, postedUserBus[0].busNumber,
-          postedUserBus[0].stopNumber, postedUserBus[0].startTime,
-          postedUserBus[0].endTime);
+        createRow(postedUserBus.busNumber,
+          postedUserBus.stopNumber, postedUserBus.startTime,
+          postedUserBus.endTime);
       })
       .fail(() => {
         return Materialize.toast(
@@ -141,6 +141,7 @@ const deleteUserBus = function(url) {
     $.getJSON(`https://cors-anywhere.herokuapp.com/http://api.pugetsound.onebusaway.org/api/where/arrivals-and-departures-for-stop/1_${data.stopNumber}.json?key=bf764a2e-308a-43f5-9fdc-24a6e6447ae0`)
     .done((obaObj) => {
       if (obaObj.code === 404) {
+        console.log(obaObj);
         return Materialize.toast('No such stop number', 3000);
       }
 
@@ -162,6 +163,7 @@ const deleteUserBus = function(url) {
     const data = { busNumber, stopNumber, startTime, endTime };
 
     checkIfAllFieldsHaveValues(stopNumber, busNumber, startTime, endTime);
+    // checkIfHourInterval()
     createIfBusStopExists(data);
   };
 
@@ -183,5 +185,5 @@ const deleteUserBus = function(url) {
     }
   }
 
-  $('#add-route').click(checkTimes);
+  $('#add-route').click(addStopIfInfoIsCorrect);
 })();
