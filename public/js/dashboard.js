@@ -3,7 +3,7 @@
 
   $('select').material_select();
 
-  const deleteUserBus = function(url) {
+const deleteUserBus = function(url) {
     return function(_event) {
       const options = {
         dataType: 'json',
@@ -23,7 +23,32 @@
     }
   };
 
+  // added to convert times from military to normal 
+  const convertTime = function(time) {
+    let hour;
+    let minute = time.substr(2, 3);
+    let timeOfDay;
+     if (parseInt(time.substr(0, 2)) > 12) {
+       timeOfDay = 'pm';
+       hour = parseInt(time.substr(0, 2)) - 12;
+    } else if (parseInt(time.substr(0, 2)) === 10 || parseInt(time.substr(0, 2)) === 11) {
+       timeOfDay = 'am';
+       hour = time.substr(0, 2);
+    } else {
+       timeOfDay = 'am';
+       hour = time.substr(1, 1);
+    }
+
+    time = `${hour}${minute} ${timeOfDay}`;
+
+    return time;
+  };
+
   const createRow = function(id, busNumber, stopNumber, startTime, endTime) {
+
+    startTime = convertTime(startTime);
+    endTime = convertTime(endTime);
+
     const url = `/post.html?
                       bus_number=${busNumber}&
                       stop_number=${stopNumber}&
@@ -110,7 +135,7 @@
         return Materialize.toast(
           'Unable to create route. Please try again.', 3000);
       });
-  }
+  };
 
   const createIfBusStopExists = function (data) {
     $.getJSON(`https://cors-anywhere.herokuapp.com/http://api.pugetsound.onebusaway.org/api/where/arrivals-and-departures-for-stop/1_${data.stopNumber}.json?key=bf764a2e-308a-43f5-9fdc-24a6e6447ae0`)
@@ -118,8 +143,9 @@
       if (obaObj.code === 404) {
         return Materialize.toast('No such stop number', 3000);
       }
+
       if (checkIfBusGoesToStop(obaObj, data)) {
-        postBus(data)
+        postBus(data);
       } else {
         return Materialize.toast('No such bus number at stop', 3000);
       }
@@ -136,10 +162,26 @@
     const data = { busNumber, stopNumber, startTime, endTime };
 
     checkIfAllFieldsHaveValues(stopNumber, busNumber, startTime, endTime);
-    console.log('here');
     createIfBusStopExists(data);
   };
 
-  $('#add-route').click(addStopIfInfoIsCorrect);
+  const checkTimes = function(event) {
+    event.preventDefault();
+    const startTime = $('#start-time-drop-down')[0].value;
+    const endTime = $('#end-time-drop-down')[0].value;
 
+    if (startTime === endTime) {
+      return Materialize.toast('start and end cant be same.');
+    } else if (startTime === '12:00 pm' && endTime !== '1:00 pm') {
+      return Materialize.toast('12 error.');
+    } else if (startTime.length === 7 && endTime.length === 7 && Math.abs(parseInt(startTime.substr(0, 1)) - parseInt(endTime.substr(0, 1))) > 1) {
+      return Materialize.toast('make error.');
+    } else if (startTime.length === 7 && endTime.length === 8 && Math.abs(parseInt(startTime.substr(0, 1)) - parseInt(endTime.substr(0, 2))) > 1) {
+      return Materialize.toast('another error.');
+    } else if (startTime.length === 8 && endTime.length === 8 && startTime.substr(2, 3) === '30' && endTime.substr(2, 3) === '00' && Math.abs(parseInt(startTime.substr(0, 2)) - parseInt(endTime.substr(0, 2))) > 1) {
+      return Materialize.toast('two digit error.');
+    }
+  }
+
+  $('#add-route').click(checkTimes);
 })();
