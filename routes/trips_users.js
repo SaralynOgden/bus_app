@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 const boom = require('boom');
 const ev = require('express-validation');
-const validations = require('../validations/trips_users');
+// const validations = require('../validations/trips_users');
 
 const authorize = function(req, res, next) {
   jwt.verify(req.cookies.token, process.env.JWT_SECRET, (err, decoded) => {
@@ -39,10 +39,10 @@ router.get('/trips_users', authorize, (req, res, next) => {
 
 
 router.post('/trips_users', authorize, (req, res, next) => {
-  const { postedTrip } req.body;
+  const { tripId } = req.body;
   const { userId } = req.token;
 
-  const InsertedTripsUser = { userId, postedTrip };
+  const insertedTripsUser = { userId, tripId };
 
   knex('trips_users')
     .insert(decamelizeKeys(insertedTripsUser), '*')

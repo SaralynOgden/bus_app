@@ -44,11 +44,13 @@
     return time;
   };
 
-  const createRow = function(busNumber, stopNumber, startTime, endTime) {
+  const createRow = function(id, busNumber, stopNumber, startTime, endTime) {
+    console.log(startTime);
+    console.log(endTime);
     startTime = convertTime(startTime);
     endTime = convertTime(endTime);
 
-    const url = `/post.html/:id`;
+    const url = `/post.html/:${id}`;
     const $row = $(`<tr id="${busNumber + stopNumber +
                             startTime + endTime}">
                     <td>${busNumber}</td>
@@ -75,7 +77,7 @@
   $.getJSON('/trips_users')
     .done((userTrips) => {
       for (const userTrip of userTrips) {
-        createRow(userTrip.busNumber, userTrip.stopNumber,
+        createRow(userTrip.id, userTrip.busNumber, userTrip.stopNumber,
                   userTrip.startTime, userTrip.endTime);
       }
     })
@@ -120,13 +122,15 @@
 
     $.ajax(tripsOptions)
       .done((postedTrip) => {
-        createRow(postedTrip.busNumber,
+        console.log(postedTrip);
+        createRow(postedTrip.id, postedTrip.busNumber,
           postedTrip.stopNumber, postedTrip.startTime,
           postedTrip.endTime);
 
+        const tripId = postedTrip.id;
         const tripsUsersOptions = {
           contentType: 'application/json',
-          data: JSON.stringify({postedTrip.id}),
+          data: JSON.stringify({tripId}),
           dataType: 'json',
           type: 'POST',
           url: '/trips_users'
@@ -135,7 +139,8 @@
           .done((postedTripsUsers) => console.log(postedTripsUsers))
           .fail((err) => console.err(err));
       })
-      .fail(() => {
+      .fail((err) => {
+        console.log(err);
         return Materialize.toast(
           'Unable to create route. Please try again.', 3000);
       });

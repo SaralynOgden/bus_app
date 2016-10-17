@@ -33,14 +33,15 @@ const path = require('path');
 
 app.use(express.static(path.join('public')));
 
-//const buses = require('./routes/buses');
 const users = require('./routes/users');
-const user_buses = require('./routes/user_buses');
 const token = require('./routes/token.js');
-//app.use(buses);
+const trips = require('./routes/trips.js')
+const tripsUsers = require('./routes/trips_users.js')
+
 app.use(users);
-app.use(user_buses);
 app.use(token);
+app.use(trips);
+app.use(tripsUsers);
 
 app.use((_req, res) => {
   res.sendStatus(404);

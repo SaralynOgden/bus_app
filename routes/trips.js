@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 const boom = require('boom');
 const ev = require('express-validation');
-const validations = require('../validations/user_buses');
+// const validations = require('../validations/user_buses');
 
 const createTables = function(stopNumber) {
   knex.schema.createTableIfNotExists(`stop_${stopNumber}_raw`, (table) => {
@@ -62,18 +62,17 @@ router.post('/trips', (req, res, next) => {
   knex('trips')
     .where('bus_number', busNumber)
     .andWhere('stop_number', stopNumber)
-    .andWhere('start_time', startNumber)
+    .andWhere('start_time', startTime)
     .andWhere('end_time', endTime)
     .first()
     .then((existingTrip) => {
-      if (id in existingTrip) {
-        res.send(existingTrip)
+      if (existingTrip) {
+        res.send(camelizeKeys(existingTrip))
       } else {
         knex('trips')
           .insert(decamelizeKeys(newTrip), '*')
-          .first()
-          .then((row) => {
-            const postedTrip = camelizeKeys(row);
+          .then((rows) => {
+            const postedTrip = camelizeKeys(rows[0]);
             createTables(stopNumber);
             res.send(postedTrip);
           })
