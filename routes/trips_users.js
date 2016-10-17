@@ -21,6 +21,23 @@ const authorize = function(req, res, next) {
   });
 };
 
+router.get('/trips_users', authorize, (req, res, next) => {
+  const { userId } = req.token;
+
+  knex('trips_users')
+    .select('bus_number', 'stop_number', 'start_time', 'end_time')
+    .innerJoin('trips', 'trips_users.trip_id', '=', 'trips.id')
+    .where('user_id', userId)
+    .then((rows) => {
+      const userTrips = camelizeKeys(rows);
+
+      res.send(userTrips);
+    })
+    .catch((err) => console.err(err));
+});
+
+
+
 router.post('/trips_users', authorize, (req, res, next) => {
   const { postedTrip } req.body;
   const { userId } = req.token;
