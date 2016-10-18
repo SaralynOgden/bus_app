@@ -13,7 +13,8 @@ const ev = require('express-validation');
 const createTables = function(stopNumber) {
   knex.schema.createTableIfNotExists(`stop_${stopNumber}_raw`, (table) => {
     table.increments();
-    table.string('bus_number').notNullable().defaultTo('');
+    table.integer('trip_id').references('id').inTable('trips')
+        .onDelete('CASCADE').index();
     table.datetime('scheduled_time').notNullable().index();
     table.datetime('actual_time').notNullable();
     table.datetime('last_update_time').notNullable();
@@ -25,8 +26,9 @@ const createTables = function(stopNumber) {
   .catch((err) => console.log('already exists'));
   knex.schema.createTableIfNotExists(`stop_${stopNumber}`, (table) => {
     table.increments();
-    table.string('bus_number').notNullable().defaultTo('');
-    table.datetime('scheduled_time').notNullable().index();
+    table.integer('trip_id').references('id').inTable('trips')
+          .onDelete('CASCADE').index();
+    table.datetime('scheduled_time').notNullable();
     table.datetime('actual_time').notNullable();
     table.datetime('last_update_time').notNullable();
     table.integer('distance').notNullable().defaultTo('52800');
