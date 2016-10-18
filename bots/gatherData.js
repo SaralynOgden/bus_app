@@ -4,6 +4,8 @@ const request = require('request');
 const knex = require('../knex');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 
+console.log('gathering...');
+
 const getCurrentStopDictionary = function(currentTrips) {
   const stopDictionary = {};
 
