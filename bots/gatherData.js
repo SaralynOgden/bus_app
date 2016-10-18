@@ -4,8 +4,6 @@ const request = require('request');
 const knex = require('../knex');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 
-console.log('gathering...');
-
 const getCurrentStopDictionary = function(currentTrips) {
   const stopDictionary = {};
 
@@ -88,6 +86,7 @@ module.exports = {
       .where('start_time', '<', currentTimeSQL)
       .andWhere('end_time', '>', currentTimeSQL)
       .then((rows) => {
+        console.log(rows);
         const currentTrips = camelizeKeys(rows),
         currentStopDictionary = getCurrentStopDictionary(currentTrips);
 
