@@ -41,7 +41,7 @@ $('#signup-form').submit((event) => {
 
   $.ajax(options)
     .done(() => {
-      window.location.href = '/dashboard.html';
+      window.location.href = '/login.html';
     })
     .fail(($xhr) => {
       Materialize.toast($xhr.responseText, 3000);
