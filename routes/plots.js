@@ -1,4 +1,3 @@
-/* eslint-disable brace-style */
 'use strict';
 
 const express = require('express');
@@ -20,6 +19,8 @@ const authorize = function(req, res, next) {
     next();
   });
 };
+
+router.get('/post')
 
 router.get('/trips_users', authorize, (req, res, next) => {
   const { userId } = req.token;

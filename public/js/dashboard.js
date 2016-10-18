@@ -50,11 +50,11 @@
   };
 
   // added to convert times from military to normal
-  const convertTime = function(time) {
+  const getHumanReadableTime = function(time) {
     let hour;
     let minute = time.substr(2, 3);
     let timeOfDay;
-     if (parseInt(time.substr(0, 2)) > 12) {
+    if (parseInt(time.substr(0, 2)) > 12) {
        timeOfDay = 'pm';
        hour = parseInt(time.substr(0, 2)) - 12;
     } else if (parseInt(time.substr(0, 2)) === 10 || parseInt(time.substr(0, 2)) === 11) {
@@ -70,40 +70,33 @@
     return time;
   };
 
-  const createRow = function(id, busNumber, stopNumber, startTime, endTime) {
-    console.log(startTime);
-    console.log(endTime);
-    startTime = convertTime(startTime);
-    endTime = convertTime(endTime);
-
-    const url = `/post.html/:${id}`;
-    const $row = $(`<tr id="${busNumber + stopNumber +
-                            startTime + endTime}">
+  const createRow = function(tripId, busNumber, stopNumber, startTime, endTime) {
+    const url = `/plot/trip=${tripId}`;
+    const $row = $(`<tr id="trip_${tripId}">
                     <td>${busNumber}</td>
                     <td>${stopNumber}</td>
-                    <td>${startTime}</td>
-                    <td>${endTime}</td>
+                    <td>${getHumanReadableTime(startTime)}</td>
+                    <td>${getHumanReadableTime(endTime)}</td>
                     <td>
-                      <span id="${"delete_" + busNumber +
-                                  stopNumber + startTime + endTime}">
+                      <span id="delete_trip_${tripId}">
                         X
                       </span>
                     </td>
                   </tr>`);
-        $('tbody').append($row);
-        $(`#${busNumber + stopNumber + startTime + endTime}`).click(
-          (event) => {
-          event.preventDefault();
+
+    $('tbody').append($row);
+    $(`#trip_${tripId}`).click((event) => {
+        event.preventDefault();
           window.location.href = url;
-        });
-        $(`#${"delete_" + busNumber + stopNumber + startTime + endTime}`)
-            .click(deleteTrip(id));
+    });
+    $(`#delete_trip_${tripId}`)
+      .click(deleteTrip(tripId));
   };
 
   $.getJSON('/trips_users')
     .done((userTrips) => {
       for (const userTrip of userTrips) {
-        createRow(userTrip.id, userTrip.busNumber, userTrip.stopNumber,
+        createRow(userTrip.tripId, userTrip.busNumber, userTrip.stopNumber,
                   userTrip.startTime, userTrip.endTime);
       }
     })
