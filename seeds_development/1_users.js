@@ -6,15 +6,15 @@ exports.seed = (knex) => {
     .then(() => {
       return knex('users').insert([{
         id: 1,
-        first_name: 'Carolyn',
-        last_name: 'Kunz',
-        email: 'carolynkunz@gmail.com',
+        first_name: 'Joanne',
+        last_name: 'Rowling',
+        email: 'jkrowling@gmail.com',
         hashed_password: '$2a$12$C9AYYmcLVGYlGoO4vSZTPud9ArJwbGRsJ6TUsNULzR48z8fOnTXbS',  // youreawizard
       }, {
         id: 2,
-        first_name: 'Chase',
-        last_name: 'Klingel',
-        email: 'klingelchase@gmail.com',
+        first_name: 'Timmy',
+        last_name: 'Turner',
+        email: 'fairlyodd@gmail.com',
         hashed_password: '$2a$12$C9AYYmcLVGYlGoO4vSZTPud9ArJwbGRsJ6TUsNULzR48z8fOnTXbS'
       }]);
     })

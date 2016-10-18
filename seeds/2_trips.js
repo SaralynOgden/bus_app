@@ -6,28 +6,16 @@ exports.seed = function(knex) {
     .then(() => {
       return knex('trips').insert([{
         id: 1,
-        bus_number: '3',
-        stop_number: '4040',
-        start_time: '14:00',
-        end_time: '18:30'
-      }, {
-        id: 2,
         bus_number: '4',
         stop_number: '4040',
-        start_time: '14:30',
-        end_time: '18:30'
+        start_time: '8:00',
+        end_time: '9:00'
       }, {
-        id: 3,
-        bus_number: '132',
-        stop_number: '30635',
-        start_time: '14:00',
-        end_time: '18:30'
-      }, {
-        id: 4,
-        bus_number: '1',
-        stop_number: '2740',
-        start_time: '14:00',
-        end_time: '18:30'
+        id: 2,
+        bus_number: '29',
+        stop_number: '2580',
+        start_time: '8:00',
+        end_time: '9:00'
       }]);
     })
     .then(() => {
