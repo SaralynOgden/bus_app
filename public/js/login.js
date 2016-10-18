@@ -1,32 +1,34 @@
-'use strict';
+(function() {
+  'use strict';
 
-$('#login-form').submit((event) => {
-  event.preventDefault();
+  $('#login-form').submit((event) => {
+    event.preventDefault();
 
-  const email = $('#email').val().trim();
-  const password = $('#password').val();
+    const email = $('#email').val().trim();
+    const password = $('#password').val();
 
-  if (!email) {
-    return Materialize.toast('Email must not be blank', 3000);
-  }
+    if (!email) {
+      return Materialize.toast('Email must not be blank', 3000);
+    }
 
-  if (!password) {
-    return Materialize.toast('Password must not be blank', 3000);
-  }
+    if (!password) {
+      return Materialize.toast('Password must not be blank', 3000);
+    }
 
-  const options = {
-    contentType: 'application/json',
-    data: JSON.stringify({ email, password }),
-    dataType: 'json',
-    type: 'POST',
-    url: '/token'
-  };
+    const options = {
+      contentType: 'application/json',
+      data: JSON.stringify({ email, password }),
+      dataType: 'json',
+      type: 'POST',
+      url: '/token'
+    };
 
-  $.ajax(options)
-    .done(() => {
-      window.location.href = '/dashboard.html';
-    })
-    .fail(($xhr) => {
-      Materialize.toast($xhr.responseText, 3000);
-    });
-});
+    $.ajax(options)
+      .done(() => {
+        window.location.href = '/dashboard.html';
+      })
+      .fail(($xhr) => {
+        Materialize.toast($xhr.responseText, 3000);
+      });
+  });
+})();

@@ -35,13 +35,13 @@ const users = require('./routes/users'),
       tokens = require('./routes/tokens.js'),
       trips = require('./routes/trips.js'),
       tripsUsers = require('./routes/trips_users.js'),
-      plots = require('./routes/plots.js');
+      data = require('./routes/data.js');
 
 app.use(users);
 app.use(tokens);
 app.use(trips);
 app.use(tripsUsers);
-app.use(plots);
+app.use(data);
 
 app.use((_req, res) => {
   res.sendStatus(404);
