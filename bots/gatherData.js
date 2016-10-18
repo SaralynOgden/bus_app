@@ -83,11 +83,12 @@ module.exports = {
       currentTimeSQL = `${currentTimeJS.getHours()}:${currentTimeJS.getMinutes()}:00`;
 
     knex('trips')
+      .then((rows) => console.log(rows));
+
+    knex('trips')
       .where('start_time', '<', currentTimeSQL)
       .andWhere('end_time', '>', currentTimeSQL)
       .then((rows) => {
-        console.log(rows.start_time);
-        console.log(rows.end_time);
         console.log(currentTimeSQL);
         const currentTrips = camelizeKeys(rows),
         currentStopDictionary = getCurrentStopDictionary(currentTrips);
