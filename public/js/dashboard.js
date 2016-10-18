@@ -163,7 +163,7 @@
         };
         $.ajax(tripsUsersOptions)
           .done((postedTripsUsers) => console.log(postedTripsUsers))
-          .fail((err) => console.err(err));
+          .fail((err) => console.log(err));
       })
       .fail((err) => {
         console.log(err);

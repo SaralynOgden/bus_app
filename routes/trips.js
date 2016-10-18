@@ -22,7 +22,7 @@ const createTables = function(stopNumber) {
     table.timestamp('updated_at').defaultTo(knex.fn.now());
   })
   .then((table) => console.log('fucking work 1'))
-  .catch((err) => console.log(err));
+  .catch((err) => console.log('already exists'));
   knex.schema.createTableIfNotExists(`stop_${stopNumber}`, (table) => {
     table.increments();
     table.string('bus_number').notNullable().defaultTo('');
@@ -33,7 +33,7 @@ const createTables = function(stopNumber) {
     table.timestamps(true, true);
   })
   .then((table) => console.log('fucking work 2'))
-  .catch((err) => console.log(err));
+  .catch((err) => console.log('already exists'));
 };
 
 router.get('/trips/:id', (req, res, next) => {

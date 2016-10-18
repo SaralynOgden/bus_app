@@ -41,12 +41,12 @@ router.get('/trips_users', authorize, (req, res, next) => {
 router.post('/trips_users', authorize, (req, res, next) => {
   const { tripId } = req.body;
   const { userId } = req.token;
-
   const insertedTripsUser = { userId, tripId };
 
   knex('trips_users')
     .insert(decamelizeKeys(insertedTripsUser), '*')
     .then((rows) => {
+      console.log(rows);
       const newTripsUser = camelizeKeys(rows[0]);
       res.send(newTripsUser);
     })
