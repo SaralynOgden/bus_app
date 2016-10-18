@@ -79,11 +79,8 @@ const addTripsInArrayToStopTable = function(ajaxResult, tripsInfo, stopNumber) {
 module.exports = {
   start: function() {
     // Move time be on GMT like Heroku
-    const currentTimeJS = new Date(),
+    const currentTimeJS = new Date(Date.now() - 7 * 60 * 60 * 1000),
       currentTimeSQL = `${currentTimeJS.getHours()}:${currentTimeJS.getMinutes()}:00`;
-
-    knex('trips')
-      .then((rows) => console.log(rows));
 
     knex('trips')
       .where('start_time', '<', currentTimeSQL)
