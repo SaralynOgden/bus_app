@@ -10,7 +10,7 @@ const express = require('express'),
       cookieParser = require('cookie-parser'),
       morgan = require('morgan');
 
-require('clock');
+require('./clock');
 
 app.disable('x-powered-by');
 
