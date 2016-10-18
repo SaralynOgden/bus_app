@@ -86,7 +86,9 @@ module.exports = {
       .where('start_time', '<', currentTimeSQL)
       .andWhere('end_time', '>', currentTimeSQL)
       .then((rows) => {
-        console.log(rows);
+        console.log(rows.start_time);
+        console.log(rows.end_time);
+        console.log(currentTimeSQL);
         const currentTrips = camelizeKeys(rows),
         currentStopDictionary = getCurrentStopDictionary(currentTrips);
 
