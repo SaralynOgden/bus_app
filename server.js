@@ -4,14 +4,13 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
-const express = require('express');
-const app = express();
+const express = require('express'),
+      app = express(),
+      bodyParser = require('body-parser'),
+      cookieParser = require('cookie-parser'),
+      morgan = require('morgan');
 
 app.disable('x-powered-by');
-
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser')
-const morgan = require('morgan');
 
 switch (app.get('env')) {
   case 'development':
@@ -32,15 +31,17 @@ const path = require('path');
 
 app.use(express.static(path.join('public')));
 
-const users = require('./routes/users');
-const token = require('./routes/token.js');
-const trips = require('./routes/trips.js')
-const tripsUsers = require('./routes/trips_users.js')
+const users = require('./routes/users'),
+      tokens = require('./routes/tokens.js'),
+      trips = require('./routes/trips.js'),
+      tripsUsers = require('./routes/trips_users.js'),
+      plots = require('./routes/plots.js');
 
 app.use(users);
-app.use(token);
+app.use(tokens);
 app.use(trips);
 app.use(tripsUsers);
+app.use(plots);
 
 app.use((_req, res) => {
   res.sendStatus(404);
