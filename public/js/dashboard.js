@@ -1,7 +1,33 @@
 (function() {
-  'use strict'
+  'use strict';
 
   $('select').material_select();
+
+  $('#start-time-drop-down, #end-time-drop-down').material_select();
+
+  $("#start-time-drop-down").on('change', function() {
+    const startTime = $(this).val();
+    let endOption1;
+    let endOption2;
+    let hour = parseInt(startTime.split(':')[0]);
+    let minutes = startTime.split(':')[1].split(' ')[0];
+    let timeOfDay = startTime.split(':')[1].split(' ')[1];
+
+    $('#end-time-drop-down').children(':not(#first-end-time)').remove();
+
+    if ((minutes) === '30') {
+      endOption1= $(`<option id="endOption1">${hour + 1}:00 ${timeOfDay}</option>`);
+      endOption2 = $(`<option id="endOption2">${hour + 1}:30 ${timeOfDay}</option>`);
+    } else if ((minutes) === '00') {
+      endOption1 = $(`<option id="endOption1">${hour}:30 ${timeOfDay}</option>`);
+      endOption2 = $(`<option id="endOption2">${hour + 1}:00 ${timeOfDay}</option>`);
+    }
+
+    $('#end-time-drop-down').append(endOption1);
+    $('#end-time-drop-down').append(endOption2);
+
+    $('#end-time-drop-down').material_select();
+  });
 
   const deleteTrip = function(id) {
     return function(_event) {
@@ -172,27 +198,8 @@
     const data = { busNumber, stopNumber, startTime, endTime };
 
     checkIfAllFieldsHaveValues(stopNumber, busNumber, startTime, endTime);
-    // checkIfHourInterval()
     createIfBusStopExists(data);
   };
-
-  const checkTimes = function(event) {
-    event.preventDefault();
-    const startTime = $('#start-time-drop-down')[0].value;
-    const endTime = $('#end-time-drop-down')[0].value;
-
-    if (startTime === endTime) {
-      return Materialize.toast('start and end cant be same.');
-    } else if (startTime === '12:00 pm' && endTime !== '1:00 pm') {
-      return Materialize.toast('12 error.');
-    } else if (startTime.length === 7 && endTime.length === 7 && Math.abs(parseInt(startTime.substr(0, 1)) - parseInt(endTime.substr(0, 1))) > 1) {
-      return Materialize.toast('make error.');
-    } else if (startTime.length === 7 && endTime.length === 8 && Math.abs(parseInt(startTime.substr(0, 1)) - parseInt(endTime.substr(0, 2))) > 1) {
-      return Materialize.toast('another error.');
-    } else if (startTime.length === 8 && endTime.length === 8 && startTime.substr(2, 3) === '30' && endTime.substr(2, 3) === '00' && Math.abs(parseInt(startTime.substr(0, 2)) - parseInt(endTime.substr(0, 2))) > 1) {
-      return Materialize.toast('two digit error.');
-    }
-  }
 
   $('#add-route').click(addStopIfInfoIsCorrect);
 })();
