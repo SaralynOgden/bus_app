@@ -19,7 +19,7 @@ const getEndTimeClosestToNow = function(currentDateInPDT) {
 
 const getBestArrivalPrediction = function(scheduledTimeData) {
 	for (let i = scheduledTimeData.length - 1; i >= 0; i--) {
-		if (scheduledTimeData[i].actualTime !== '1969-12-31 16:00:00-08') {
+		if (scheduledTimeData[i].actualTime !== '1970-01-01 00:00:00+00') {
 			return scheduledTimeData[i];
 		}
 	}
