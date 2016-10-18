@@ -5,25 +5,29 @@ exports.seed = function(knex) {
   return knex('trips').del()
     .then(() => {
       return knex('trips').insert([{
-        bus_number: '45',
-        stop_number: '36960',
-        start_time: '15:00',
-        end_time: '17:00'
+        id: 1,
+        bus_number: '3',
+        stop_number: '4040',
+        start_time: '14:00',
+        end_time: '18:30'
       }, {
-        bus_number: '62',
-        stop_number: '36960',
-        start_time: '15:00',
-        end_time: '17:00'
+        id: 2,
+        bus_number: '4',
+        stop_number: '4040',
+        start_time: '14:30',
+        end_time: '18:30'
       }, {
+        id: 3,
         bus_number: '132',
         stop_number: '30635',
-        start_time: '15:30',
-        end_time: '18:00'
+        start_time: '14:00',
+        end_time: '18:30'
       }, {
+        id: 4,
         bus_number: '1',
-        stop_number: '2470',
-        start_time: '8:00',
-        end_time: '10:00'
+        stop_number: '2740',
+        start_time: '14:00',
+        end_time: '18:30'
       }]);
     })
     .then(() => {
@@ -31,7 +35,4 @@ exports.seed = function(knex) {
         "SELECT setval('trips_id_seq', (SELECT MAX(id) FROM trips));"
       );
     })
-    .catch((err) => {
-      return err;
-    });
 };

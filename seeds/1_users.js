@@ -23,7 +23,4 @@ exports.seed = (knex) => {
         "SELECT setval('users_id_seq', (SELECT MAX(id) FROM users));"
       );
     })
-    .catch((err) => {
-      return err;
-    });
 };

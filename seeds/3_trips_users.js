@@ -1,6 +1,6 @@
 'use strict';
 
-exports.seed = function(knex) {
+exports.seed = (knex) => {
   // Deletes ALL existing entries
   return knex('trips_users').del()
     .then(() => {
@@ -27,7 +27,4 @@ exports.seed = function(knex) {
         "SELECT setval('trips_users_id_seq', (SELECT MAX(id) FROM trips_users));"
       );
     })
-    .catch((err) => {
-      return err;
-    });
 };
