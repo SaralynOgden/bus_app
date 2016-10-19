@@ -9,6 +9,7 @@ const { camelizeKeys, decamelizeKeys } = require('humps');
 router.get('/data/where', (req, res, next) => {
   knex(`stop_${req.query.stopNumber}`)
     .where('trip_id', req.query.tripId)
+    .orderBy('scheduledTime', ASC)
     .then((rows) => res.send(rows))
     .catch((err) => console.log(err));
 });

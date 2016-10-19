@@ -3,7 +3,7 @@
 const knex = require('../knex');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 
-const getEndTimeClosestToNow = function(currentDateInPDT) {
+const getEndTimeClosestToNow = function(currentDateInPST) {
 	const minutes = currentDateInPDT.getMinutes();
 	let hour = currentDateInPDT.getHours();
 	if (minutes < 45) {
@@ -14,14 +14,6 @@ const getEndTimeClosestToNow = function(currentDateInPDT) {
 	} else {
 		hour = (hour + 1) >= 10 ? (hour + 1):'0' + (hour + 1);
 		return `${hour}:00:00`;
-	}
-};
-
-const getBestArrivalPrediction = function(scheduledTimeData) {
-	for (let i = scheduledTimeData.length - 1; i >= 0; i--) {
-		if (scheduledTimeData[i].actualTime !== '1970-01-01 00:00:00+00') {
-			return scheduledTimeData[i];
-		}
 	}
 };
 
@@ -65,7 +57,7 @@ const synthesizeTripData = function(trip) {
 				scheduledTimeDictionary = getScheduledTimeDictionary(tripData);
 
 			for (let scheduledTime in scheduledTimeDictionary) {
-				const bestPrediction = getBestArrivalPrediction(scheduledTimeDictionary[scheduledTime]);
+				const bestPrediction = scheduledTimeDictionary[scheduledTime].pop();
 
 				knex(`stop_${trip.stopNumber}`)
 					.insert(decamelizeKeys(bestPrediction), '*')
@@ -79,11 +71,11 @@ const synthesizeTripData = function(trip) {
 module.exports = {
 	start: function() {
 		// Adjust time to be in PDT so that the time in the end_time will match
-		const currentDateInPDT = new Date(Date.now() - 7 * 60 * 60 * 1000);
+		const currentDateInPST = new Date(Date.now() - 7 * 60 * 60 * 1000);
 
 		knex('trips')
 			.select('id', 'stop_number')
-			.where('end_time', getEndTimeClosestToNow(currentDateInPDT))
+			.where('end_time', getEndTimeClosestToNow(currentDateInPST))
 			.then((rows) => {
 				const trips = camelizeKeys(rows);
 

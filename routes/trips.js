@@ -15,9 +15,9 @@ const createTables = function(stopNumber) {
     table.increments();
     table.integer('trip_id').references('id').inTable('trips')
         .onDelete('CASCADE').index();
-    table.datetime('scheduled_time').notNullable().index();
-    table.datetime('actual_time').notNullable();
-    table.datetime('last_update_time').notNullable();
+    table.time('scheduled_time').notNullable().index();
+    table.time('actual_time').notNullable();
+    table.time('last_update_time').notNullable();
     table.integer('distance').notNullable().defaultTo('52800');
     table.timestamp('created_at').defaultTo(knex.fn.now()).index();
     table.timestamp('updated_at').defaultTo(knex.fn.now());
@@ -28,9 +28,9 @@ const createTables = function(stopNumber) {
     table.increments();
     table.integer('trip_id').references('id').inTable('trips')
           .onDelete('CASCADE').index();
-    table.datetime('scheduled_time').notNullable();
-    table.datetime('actual_time').notNullable();
-    table.datetime('last_update_time').notNullable();
+    table.time('scheduled_time').notNullable().index();
+    table.time('actual_time').notNullable();
+    table.time('last_update_time').notNullable();
     table.integer('distance').notNullable().defaultTo('52800');
     table.timestamps(true, true);
   })

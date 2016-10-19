@@ -3,6 +3,7 @@
 const request = require('request');
 const knex = require('../knex');
 const { camelizeKeys, decamelizeKeys } = require('humps');
+const moment = requirPST to match start and end times
 
 const getCurrentStopDictionary = function(currentTrips) {
   const stopDictionary = {};
@@ -55,9 +56,8 @@ const insertBusData = function(ajaxResult, busIndices, stopNumber, tripId) {
     const busInfo = ajaxResult.data.entry.arrivalsAndDepartures[busIndices[i]];
     const row = {
       tripId,
-      scheduledTime: new Date(busInfo.scheduledArrivalTime),
-      actualTime: new Date(busInfo.predictedArrivalTime),
-      lastUpdateTime: new Date(busInfo.lastUpdateTime),
+      scheduledTime: moment.utc(busInfo.scheduledArrivalTime).format('HH:mm:ss'),
+      actualTime: moment.utc(busInfo.predictedArrivalTime).format('HH:mm:ss'),
       distance: parseInt(busInfo.distanceFromStop)
     };
 
@@ -80,7 +80,7 @@ const addTripsInArrayToStopTable = function(ajaxResult, tripsInfo, stopNumber) {
 
 module.exports = {
   start: function() {
-    // Move time be on GMT like Heroku
+    // Move time be on PST to match start and end times
     const currentTimeJS = new Date(Date.now() - 7 * 60 * 60 * 1000),
       currentTimeSQL = `${currentTimeJS.getHours()}:${currentTimeJS.getMinutes()}:00`;
 
@@ -88,9 +88,8 @@ module.exports = {
       .where('start_time', '<', currentTimeSQL)
       .andWhere('end_time', '>', currentTimeSQL)
       .then((rows) => {
-        console.log(currentTimeSQL);
         const currentTrips = camelizeKeys(rows),
-        currentStopDictionary = getCurrentStopDictionary(currentTrips);
+              currentStopDictionary = getCurrentStopDictionary(currentTrips);
 
         for (let stopNumber in currentStopDictionary) {
           getJSON(`http://api.pugetsound.onebusaway.org/api/where/arrivals-and-departures-for-stop/1_${stopNumber}.json?key=bf764a2e-308a-43f5-9fdc-24a6e6447ae0`)
