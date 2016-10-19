@@ -145,29 +145,20 @@ PLOT.HTML
 
 *******************************************************************************/
 
-#plot1 {
-  text-align: center;
-}
-
-#plot-headers {
-  text-align: center;
-}
-
-#plot-headers li {
-  display: inline-block;
-  margin-left: 50px;
-}
-
 .axis path,
 .axis line {
   fill: none;
   stroke: black;
-  shape-rendering: crispEdges;
+  stroke-width: .5;
 }
 
 .axis text {
   font-family: sans-serif;
-  font-size: 11px;
+  font-size: 10px;
+}
+
+.svg-content-responsive {
+  margin: 100px;
 }
 
 /******************************************************************************
