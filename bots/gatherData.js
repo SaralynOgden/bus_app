@@ -3,7 +3,7 @@
 const request = require('request');
 const knex = require('../knex');
 const { camelizeKeys, decamelizeKeys } = require('humps');
-const moment = requirPST to match start and end times
+const moment = require('moment');
 
 const getCurrentStopDictionary = function(currentTrips) {
   const stopDictionary = {};
