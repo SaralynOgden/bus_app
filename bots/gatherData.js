@@ -61,10 +61,12 @@ const insertBusData = function(ajaxResult, busIndices, stopNumber, tripId) {
       distance: parseInt(busInfo.distanceFromStop)
     };
 
-    knex(`stop_${stopNumber}_raw`)
-      .insert(decamelizeKeys(row), '*')
-      .then((row) => console.log(row))
-      .catch((err) => console.error(err));
+    if (busInfo.predictedArrivalTime !== 0) {
+      knex(`stop_${stopNumber}_raw`)
+        .insert(decamelizeKeys(row), '*')
+        .then((row) => console.log(row))
+        .catch((err) => console.error(err));
+    }
   }
 }
 
