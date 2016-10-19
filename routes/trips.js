@@ -17,7 +17,6 @@ const createTables = function(stopNumber) {
         .onDelete('CASCADE').index();
     table.time('scheduled_time').notNullable().index();
     table.time('actual_time').notNullable();
-    table.time('last_update_time').notNullable();
     table.integer('distance').notNullable().defaultTo('52800');
     table.timestamp('created_at').defaultTo(knex.fn.now()).index();
     table.timestamp('updated_at').defaultTo(knex.fn.now());
@@ -30,7 +29,6 @@ const createTables = function(stopNumber) {
           .onDelete('CASCADE').index();
     table.time('scheduled_time').notNullable().index();
     table.time('actual_time').notNullable();
-    table.time('last_update_time').notNullable();
     table.integer('distance').notNullable().defaultTo('52800');
     table.timestamps(true, true);
   })
