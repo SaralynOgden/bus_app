@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="css/materialize.css">
+    <link href="https://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link type="text/css" rel="stylesheet" href="css/master.css"/>
+  </head>
+  <body id="index">
+    <nav id="navbar">
+      <a href="index.html" class="site-logo">Bus<span class="logo-span">Trends</span></a>
+      <a href="login.html" class="action-button log-button" id="log-in">log in</a>
+    </nav>
+
+    <main class="main-info animated fadeIn">
+      <div class="col 12" id="plots-container">
+        <ul id="plot-headers">
+          <li>Bus Number:</li>
+          <li>Stop Number:</li>
+          <li>Earliest Departure Time:</li>
+          <li>Latest Departure Time:</li>
+        </ul>
+      </div>
+    </main>
+
+    <footer class="page-footer">
+       <div class="row">
+         <div class="col s12">
+           <p class="grey-text text-lighten-6 center copyright">@BusTrends2016. Built by Chase Klingel and Saralyn Ogden.</p>
+         </div>
+       </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+    <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js">
+    </script>
+    <script src="https://d3js.org/d3.v3.js"></script>
+    <script src="js/chasePlot.js"></script>
+  <body>
+</html>
