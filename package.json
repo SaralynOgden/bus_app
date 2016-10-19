@@ -6,8 +6,8 @@
   "scripts": {
     "knex": "knex",
     "nf": "nf start",
-    "nodemon": "nodemon server.js",
-    "heroku-postbuild": "knex migrate:latest"
+    "heroku-postbuild": "knex migrate:latest",
+    "start": "nodemon server.js"
   },
   "author": "saralyn ogden <saralyn.ogden@gmail.com>",
   "license": "ISC",

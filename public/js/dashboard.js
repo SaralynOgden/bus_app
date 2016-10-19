@@ -71,7 +71,7 @@
   };
 
   const createRow = function(tripId, busNumber, stopNumber, startTime, endTime) {
-    const url = `/plot/trip=${tripId}`;
+    const url = `/plot.html?tripId=${tripId}&stopNumber=${stopNumber}&busNumber=${busNumber}&startTime=${startTime}&endTime=${endTime}`;
     const $row = $(`<tr id="trip_${tripId}">
                     <td>${busNumber}</td>
                     <td>${stopNumber}</td>

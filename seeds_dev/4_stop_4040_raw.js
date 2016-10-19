@@ -14,7 +14,6 @@ exports.seed = function(knex) {
           trip_id: 1,
           scheduled_time: getMinutesAgoInGMT(40), // 5 min to arrival
           actual_time: getMinutesAgoInGMT(39), // 1 min late
-          last_update_time: getMinutesAgoInGMT(45),
           distance: 95,
           created_at: getMinutesAgoInGMT(45),
           updated_at: getMinutesAgoInGMT(45)
@@ -23,7 +22,6 @@ exports.seed = function(knex) {
           trip_id: 2,
           scheduled_time: getMinutesAgoInGMT(30), // 15 min to arrival
           actual_time: getMinutesAgoInGMT(30), // on time
-          last_update_time: getMinutesAgoInGMT(45),
           distance: 500,
           created_at: getMinutesAgoInGMT(45),
           updated_at: getMinutesAgoInGMT(45)
@@ -32,7 +30,6 @@ exports.seed = function(knex) {
           trip_id: 1,
           scheduled_time: getMinutesAgoInGMT(20), // 25 min to arrival
           actual_time: getMinutesAgoInGMT(22), // 2 min early
-          last_update_time: getMinutesAgoInGMT(45),
           distance: 750,
           created_at: getMinutesAgoInGMT(45),
           updated_at: getMinutesAgoInGMT(45)
@@ -41,7 +38,6 @@ exports.seed = function(knex) {
           trip_id: 2,
           scheduled_time: getMinutesAgoInGMT(10), // 35 min to arrival
           actual_time: getMinutesAgoInGMT(10), // on time
-          last_update_time: getMinutesAgoInGMT(45),
           distance: 1000,
           created_at: getMinutesAgoInGMT(45),
           updated_at: getMinutesAgoInGMT(45)
@@ -50,7 +46,6 @@ exports.seed = function(knex) {
           trip_id: 1,
           scheduled_time: getMinutesAgoInGMT(40), // 5 min to arrival
           actual_time: getMinutesAgoInGMT(38), // 2 min late
-          last_update_time: getMinutesAgoInGMT(40),
           distance: 1,
           created_at: getMinutesAgoInGMT(40),
           updated_at: getMinutesAgoInGMT(40)
@@ -59,7 +54,6 @@ exports.seed = function(knex) {
           trip_id: 2,
           scheduled_time: getMinutesAgoInGMT(30), // 10 min to arrival
           actual_time: getMinutesAgoInGMT(31), // 1 min early
-          last_update_time: getMinutesAgoInGMT(40),
           distance: 400,
           created_at: getMinutesAgoInGMT(40),
           updated_at: getMinutesAgoInGMT(40)
@@ -68,7 +62,6 @@ exports.seed = function(knex) {
           trip_id: 1,
           scheduled_time: getMinutesAgoInGMT(20), // 20 min to arrival
           actual_time: getMinutesAgoInGMT(22), // 2 min early
-          last_update_time: getMinutesAgoInGMT(40),
           distance: 600,
           created_at: getMinutesAgoInGMT(40),
           updated_at: getMinutesAgoInGMT(40)
@@ -77,7 +70,6 @@ exports.seed = function(knex) {
           trip_id: 2,
           scheduled_time: getMinutesAgoInGMT(10), // 30 min to arrival
           actual_time: getMinutesAgoInGMT(10), // on time
-          last_update_time: getMinutesAgoInGMT(40),
           distance: 900,
           created_at: getMinutesAgoInGMT(40),
           updated_at: getMinutesAgoInGMT(40)
@@ -86,7 +78,6 @@ exports.seed = function(knex) {
           trip_id: 2,
           scheduled_time: getMinutesAgoInGMT(30), // 5 min to arrival
           actual_time: getMinutesAgoInGMT(32), // 2 min late
-          last_update_time: getMinutesAgoInGMT(35),
           distance: 500,
           created_at: getMinutesAgoInGMT(35),
           updated_at: getMinutesAgoInGMT(35)
@@ -95,7 +86,6 @@ exports.seed = function(knex) {
           trip_id: 1,
           scheduled_time: getMinutesAgoInGMT(20), // 15 min to arrival
           actual_time: getMinutesAgoInGMT(22), // 2 min early
-          last_update_time: getMinutesAgoInGMT(35),
           distance: 750,
           created_at: getMinutesAgoInGMT(35),
           updated_at: getMinutesAgoInGMT(35)
@@ -104,7 +94,6 @@ exports.seed = function(knex) {
           trip_id: 2,
           scheduled_time: getMinutesAgoInGMT(10), // 25 min to arrival
           actual_time: getMinutesAgoInGMT(10), // on time
-          last_update_time: getMinutesAgoInGMT(35),
           distance: 1000,
           created_at: getMinutesAgoInGMT(35),
           updated_at: getMinutesAgoInGMT(35)}
