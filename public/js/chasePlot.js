@@ -42,13 +42,25 @@ var data = {
 
 const scheduledTime = data.scheduledTime1.scheduledTime;
 
+console.log(scheduledTime);
+
 let yMinTime = new Date();
 yMinTime.setHours(scheduledTime.getHours());
 yMinTime.setMinutes(scheduledTime.getMinutes() - 20);
-
+console.log(yMinTime);
 let yMaxTime = new Date();
 yMaxTime.setHours(scheduledTime.getHours());
 yMaxTime.setMinutes(scheduledTime.getMinutes() + 20);
+
+var d = new Date();
+
+d.setHours(d.getHours())
+var d1 = new Date();
+
+var d2 = new Date(2016, 9, 17, 10, 24);
+console.log(d);
+console.log(d1);
+console.log(d2);
 
 const w = 600;
 const h = 350;
