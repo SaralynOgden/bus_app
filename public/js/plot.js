@@ -53,17 +53,14 @@
   $('#latest-departure').append(` ${latestDeparture}`);
 
   const getJSDateFromThisWeek = function(actualTime, dateCreated) {
-    const today = new Date(),
-      createdDate = new Date(Date.parse(dateCreated));
+    const today = new Date();
+    const adjustedDate = moment().set({hour: parseInt(actualTime.substring(0,2)) - 7, minute: parseInt(actualTime.substring(3,5))}).toDate();
 
-    moment().add(createdDate.getDay() - today.getDay(), 'days');
-
-    return moment().set({hour: parseInt(actualTime.substring(0,2)) - 7, minute: parseInt(actualTime.substring(3,5))}).toDate();
+    return adjustedDate.set({year: today.getFullYer(), month: today.getMonth(), date: today.getDate()}).toDate();
   };
 
   const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
-    const actualTimeJS = moment().set({hour: parseInt(actualTime.substring(0,2)) - 7, minute: parseInt(actualTime.substring(3,5))}).toDate();
-    console.log(actualTimeJS);
+    const actualTimeJS =
     const days = [107, 224, 340, 455, 572];
 
     actualTimeArray.push([days[moment(dateCreated).toDate().getDay() - 1], actualTimeJS]);
