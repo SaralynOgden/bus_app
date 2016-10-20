@@ -23,7 +23,7 @@
     const today = new Date(),
       createdDate = new Date(Date.parse(dateCreated));
       console.log(`date created ${dateCreated}`);
-      console.log(`created date ${createDate}`);
+      console.log(`created date ${createdDate}`);
 
     moment().add(createdDate.getDay() - today.getDay(), 'days');
 
