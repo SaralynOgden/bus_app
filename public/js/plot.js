@@ -87,40 +87,44 @@
   //     .attr("transform", "translate(50, 0)")
   //     .call(yAxis);
 
+  const actualTime = insertPointsIntoArray();
+
+  let yMinTime = new Date();
+  yMinTime.setHours(actualTime.getHours());
+  yMinTime.setMinutes(actualTime.getMinutes() - 20);
+
+  let yMaxTime = new Date();
+  yMaxTime.setHours(actualTime.getHours());
+  yMaxTime.setMinutes(actualTime.getMinutes() + 20);
+
+  const yScale = d3.time.scale()
+      .domain([yMinTime, yMaxTime])
+      .range([h - 20, 0 + padding]);
+
+  const yAxis = d3.svg.axis()
+      .outerTickSize(0)
+      .scale(yScale)
+      .orient('left')
+      .ticks(5)
+      .tickFormat(d3.time.format("%-I:%M %p"));
+
+  svg.append("g")
+       .attr("class", "axis")
+       .attr("transform", "translate(50," + (h - padding) + ")")
+       .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "axis")
+      .attr("transform", "translate(50, 0)")
+      .call(yAxis);
+
   const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
     const actualTimeJS = getJSDateFromThisWeek(actualTime, dateCreated),
           days = [107, 224, 340, 455, 572];
 
-    let yMinTime = new Date();
-    yMinTime.setHours(actualTimeJS.getHours());
-    yMinTime.setMinutes(actualTimeJS.getMinutes() - 20);
-
-    let yMaxTime = new Date();
-    yMaxTime.setHours(actualTimeJS.getHours());
-    yMaxTime.setMinutes(actualTimeJS.getMinutes() + 20);
-
-    const yScale = d3.time.scale()
-        .domain([yMinTime, yMaxTime])
-        .range([h - 20, 0 + padding]);
-
-    const yAxis = d3.svg.axis()
-        .outerTickSize(0)
-        .scale(yScale)
-        .orient('left')
-        .ticks(5)
-        .tickFormat(d3.time.format("%-I:%M %p"));
-
-    svg.append("g")
-         .attr("class", "axis")
-         .attr("transform", "translate(50," + (h - padding) + ")")
-         .call(xAxis);
-
-    svg.append("g")
-        .attr("class", "axis")
-        .attr("transform", "translate(50, 0)")
-        .call(yAxis);
-
     actualTimeArray.push([days[actualTimeJS.getDay()], yScale(actualTimeJS)]);
+
+    return actualTimeJS;
   };
 
   const getPlotDictionary = function(processedTripData) {
