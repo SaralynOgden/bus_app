@@ -77,15 +77,15 @@
   // renderCircles(actualTimeArray[0]);
 
   // appending x and y axis to svg
-  svg.append("g")
-       .attr("class", "axis")
-       .attr("transform", "translate(50," + (h - padding) + ")")
-       .call(xAxis);
-
-  svg.append("g")
-      .attr("class", "axis")
-      .attr("transform", "translate(50, 0)")
-      .call(yAxis);
+  // svg.append("g")
+  //      .attr("class", "axis")
+  //      .attr("transform", "translate(50," + (h - padding) + ")")
+  //      .call(xAxis);
+  //
+  // svg.append("g")
+  //     .attr("class", "axis")
+  //     .attr("transform", "translate(50, 0)")
+  //     .call(yAxis);
 
   const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
     const actualTimeJS = getJSDateFromThisWeek(actualTime, dateCreated),
@@ -109,6 +109,16 @@
         .orient('left')
         .ticks(5)
         .tickFormat(d3.time.format("%-I:%M %p"));
+
+    svg.append("g")
+         .attr("class", "axis")
+         .attr("transform", "translate(50," + (h - padding) + ")")
+         .call(xAxis);
+
+    svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(50, 0)")
+        .call(yAxis);
 
     actualTimeArray.push([days[actualTimeJS.getDay()], yScale(actualTimeJS)]);
   };
