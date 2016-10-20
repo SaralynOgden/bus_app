@@ -49,7 +49,7 @@
       }
 
       insertPointsIntoArray(tripDatum.actualTime, actualTimeArray, tripDatum.createdAt);
-      plotDictionary[scheduledTime] = dateArray;
+      plotDictionary[scheduledTime] = actualTimeArray;
     }
 
     return plotDictionary;
