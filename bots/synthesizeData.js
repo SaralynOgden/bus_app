@@ -6,6 +6,7 @@ const { camelizeKeys, decamelizeKeys } = require('humps');
 const getEndTimeClosestToNow = function(currentDateInPST) {
 	const minutes = currentDateInPST.getMinutes();
 	let hour = currentDateInPST.getHours();
+
 	if (minutes < 45) {
 		if (minutes > 15) {
 			return `${hour}:30:00`;
