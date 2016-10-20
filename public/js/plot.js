@@ -65,7 +65,7 @@
     const actualTimeJS = getJSDateFromThisWeek(actualTime, dateCreated),
           days = [107, 224, 340, 455, 572];
 
-    actualTimeArray.push([days[actualTimeJS.getDay() - 1], actualTimeJS);
+    actualTimeArray.push([days[actualTimeJS.getDay() - 1], actualTimeJS]);
   };
 
   const getPlotDictionary = function(processedTripData) {
