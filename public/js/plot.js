@@ -32,12 +32,12 @@
     return moment().set({hour: parseInt(actualTime.substring(0,2)), minute: parseInt(actualTime.substring(3,5))}).toDate();
   };
 
-  // const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
-  //   const actualTimeJS = getJSDateFromThisWeek(actualTime, dateCreated),
-  //         days = [107, 224, 340, 455, 572];
-  //
-  //   actualTimeArray.push([days[actualTimeJS.getDay()], yScale(actualTimeJS)]);
-  // };
+  const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
+    const actualTimeJS = getJSDateFromThisWeek(actualTime, dateCreated),
+          days = [107, 224, 340, 455, 572];
+    console.log(actualTimeJS);
+    actualTimeArray.push([days[actualTimeJS.getDay()], actualTimeJS]);
+  };
 
   const getPlotDictionary = function(processedTripData) {
     const plotDictionary = {};
@@ -98,15 +98,8 @@
       .ticks(5)
       .tickFormat(d3.time.format("%-I:%M %p"));
 
-    const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
-      const actualTimeJS = getJSDateFromThisWeek(actualTime, dateCreated),
-            days = [107, 224, 340, 455, 572];
-
-      actualTimeArray.push([days[actualTimeJS.getDay()], yScale(actualTimeJS)]);
-    };
-
-    const schedTime = Object.keys(plotDictionary)[i];
-    const points = plotDictionary[schedTime];
+    const scheduledTime = Object.keys(plotDictionary)[i];
+    const points = plotDictionary[scheduledTime];
 
     const renderCircles = function(points) {
       const circles = svg.selectAll('circle').data(points);
