@@ -1,6 +1,7 @@
-(function() {
-  'use strict';
+/* eslint-disable no-undef */
+'use strict';
 
+(function() {
   $('#signup-form').submit((event) => {
     event.preventDefault();
 
@@ -9,15 +10,15 @@
     const email = $('#email').val().trim();
     const password = $('#password').val();
 
-    if (!firstName) {
+    if (!firstName || !firstName.trim()) {
       return Materialize.toast('First name must not be blank', 3000);
     }
 
-    if (!lastName) {
+    if (!lastName || !firstName.trim()) {
       return Materialize.toast('Last name must not be blank', 3000);
     }
 
-    if (!email) {
+    if (!email || !firstName.trim()) {
       return Materialize.toast('Email must not be blank', 3000);
     }
 
@@ -25,9 +26,9 @@
       return Materialize.toast('Email must be valid', 3000);
     }
 
-    if (!password) {
+    if (!password || !firstName.trim()) {
       return Materialize.toast(
-        'Password must be at least 8 characters long',
+        'Invalid password',
         3000
       );
     }
@@ -47,5 +48,5 @@
       .fail(($xhr) => {
         Materialize.toast($xhr.responseText, 3000);
       });
-  })
+  });
 })();

@@ -8,14 +8,14 @@ const moment = require('moment');
 const getCurrentStopDictionary = function(currentTrips) {
   const stopDictionary = {};
 
-  for (let currentTrip of currentTrips) {
+  for (const currentTrip of currentTrips) {
     const { id, busNumber, stopNumber } = currentTrip;
     const tripInfo = { tripId: id, busNumber };
 
     if (stopNumber in stopDictionary) {
       const tripsInfoArray = stopDictionary[stopNumber];
 
-      tripsInfoArray.push(tripInfo)
+      tripsInfoArray.push(tripInfo);
       stopDictionary[stopNumber] = tripsInfoArray;
     } else {
       stopDictionary[stopNumber] = [tripInfo];
@@ -27,7 +27,7 @@ const getCurrentStopDictionary = function(currentTrips) {
 
 const getJSON = function(url) {
   const promise = new Promise((resolve, reject) => {
-    request.get(url, (err, res, body, next) => {
+    request.get(url, (err, res, body) => {
       if (err) {
         return reject(err);
       }
@@ -54,7 +54,7 @@ const getBusIndices = function(arrivalsAndDepartures, busNumber) {
 const insertBusData = function(ajaxResult, busIndices, stopNumber, tripId) {
   for (let i = 0; i < busIndices.length; i++) {
     const busInfo = ajaxResult.data.entry.arrivalsAndDepartures[busIndices[i]];
-    const row = {
+    const insertRow = {
       tripId,
       scheduledTime: moment.utc(busInfo.scheduledArrivalTime).format('HH:mm:ss'),
       actualTime: moment.utc(busInfo.predictedArrivalTime).format('HH:mm:ss'),
@@ -63,35 +63,36 @@ const insertBusData = function(ajaxResult, busIndices, stopNumber, tripId) {
 
     if (busInfo.predictedArrivalTime !== 0) {
       knex(`stop_${stopNumber}_raw`)
-        .insert(decamelizeKeys(row), '*')
-        .then((row) => console.log(row))
+        .insert(decamelizeKeys(insertRow), '*')
         .catch((err) => console.error(err));
     }
   }
-}
+};
 
 const addTripsInArrayToStopTable = function(ajaxResult, tripsInfo, stopNumber) {
   const arrivalsAndDepartures = ajaxResult.data.entry.arrivalsAndDepartures;
-  for (let tripInfo of tripsInfo) {
+
+  for (const tripInfo of tripsInfo) {
     const busIndices = getBusIndices(arrivalsAndDepartures, tripInfo.busNumber);
+
     insertBusData(ajaxResult, busIndices, stopNumber, tripInfo.tripId);
   }
 };
 
 module.exports = {
-  start: function() {
+  start() {
     // Move time be on PST to match start and end times
-    const currentTimeJS = new Date(Date.now() - 7 * 60 * 60 * 1000),
-      currentTimeSQL = `${currentTimeJS.getHours()}:${currentTimeJS.getMinutes()}:00`;
+    const currentTimeJS = new Date(Date.now() - 7 * 60 * 60 * 1000);
+    const currentTimeSQL = `${currentTimeJS.getHours()}:${currentTimeJS.getMinutes()}:00`;
 
     knex('trips')
       .where('start_time', '<', currentTimeSQL)
       .andWhere('end_time', '>', currentTimeSQL)
       .then((rows) => {
-        const currentTrips = camelizeKeys(rows),
-              currentStopDictionary = getCurrentStopDictionary(currentTrips);
+        const currentTrips = camelizeKeys(rows);
+        const currentStopDictionary = getCurrentStopDictionary(currentTrips);
 
-        for (let stopNumber in currentStopDictionary) {
+        for (const stopNumber in currentStopDictionary) {
           getJSON(`http://api.pugetsound.onebusaway.org/api/where/arrivals-and-departures-for-stop/1_${stopNumber}.json?key=bf764a2e-308a-43f5-9fdc-24a6e6447ae0`)
             .then((ajaxResult) => {
               addTripsInArrayToStopTable(ajaxResult, currentStopDictionary[stopNumber], stopNumber);

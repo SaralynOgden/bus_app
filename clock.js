@@ -1,3 +1,6 @@
+/* eslint-disable no-new */
+'use strict';
+
 const CronJob = require('cron').CronJob;
 const gatherData = require('./bots/gatherData.js');
 const synthesizeData = require('./bots/synthesizeData.js');

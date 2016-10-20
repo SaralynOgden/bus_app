@@ -89,8 +89,8 @@
 
     $('tbody').append($row);
     $(`#trip_${tripId}`).click((event) => {
-        event.preventDefault();
-          window.location.href = url;
+      event.preventDefault();
+      window.location.href = url;
     });
     $(`#delete_trip_${tripId}`)
       .click(deleteTrip(tripId));
@@ -123,14 +123,14 @@
     if (!endTime) {
       return Materialize.toast('End time must not be blank', 3000);
     }
-  }
+  };
 
   const checkIfBusGoesToStop = function(obaObj, data) {
-    for (let route of obaObj.data.references.routes) {
-      if (route.shortName === data.busNumber) { return true };
+    for (const route of obaObj.data.references.routes) {
+      if (route.shortName === data.busNumber) { return true; }
     }
 
-    return false
+    return false;
   };
 
   const postTrip = function(data) {
@@ -144,7 +144,6 @@
 
     $.ajax(tripsOptions)
       .done((postedTrip) => {
-        console.log(postedTrip);
         createRow(postedTrip.id, postedTrip.busNumber,
           postedTrip.stopNumber, postedTrip.startTime,
           postedTrip.endTime);
@@ -152,27 +151,24 @@
         const tripId = postedTrip.id;
         const tripsUsersOptions = {
           contentType: 'application/json',
-          data: JSON.stringify({tripId}),
+          data: JSON.stringify({ tripId }),
           dataType: 'json',
           type: 'POST',
           url: '/trips_users'
         };
         $.ajax(tripsUsersOptions)
-          .done((postedTripsUsers) => console.log(postedTripsUsers))
           .fail((err) => console.log(err));
       })
-      .fail((err) => {
-        console.log(err);
+      .fail((_err) => {
         return Materialize.toast(
           'Unable to create route. Please try again.', 3000);
       });
   };
 
-  const createIfBusStopExists = function (data) {
+  const createIfBusStopExists = function(data) {
     $.getJSON(`https://cors-anywhere.herokuapp.com/http://api.pugetsound.onebusaway.org/api/where/arrivals-and-departures-for-stop/1_${data.stopNumber}.json?key=bf764a2e-308a-43f5-9fdc-24a6e6447ae0`)
     .done((obaObj) => {
       if (obaObj.code === 404) {
-        console.log(obaObj);
         return Materialize.toast('No such stop number', 3000);
       }
 
