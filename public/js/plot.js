@@ -49,8 +49,8 @@
 
   $('#bus-number').append(` ${busNumber}`);
   $('#stop-number').append(` ${stopNumber}`);
-  $('#earliest-departure').append(` ${startTime}`);
-  $('#latest-departure').append(` ${endTime}`);
+  $('#earliest-departure').append(` ${earliestDeparture}`);
+  $('#latest-departure').append(` ${latestDeparture}`);
 
   const getJSDateFromThisWeek = function(actualTime, dateCreated) {
     const today = new Date(),
