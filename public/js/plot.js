@@ -110,11 +110,8 @@
         .ticks(5)
         .tickFormat(d3.time.format("%-I:%M %p"));
 
-    console.log(`yMinTime: ${yMinTime}`);
-    console.log(`yMaxTime: ${yMaxTime}`);
-
     actualTimeArray.push([days[actualTimeJS.getDay()], yScale(actualTimeJS)]);
-    console.log(ActualTimeArray);
+    console.log(actualTimeArray);
   };
 
   const getPlotDictionary = function(processedTripData) {
