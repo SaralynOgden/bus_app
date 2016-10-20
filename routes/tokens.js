@@ -17,7 +17,7 @@ const authorize = function(req, res, next) {
     res.verify = err === null;
     next();
   });
-}
+};
 
 router.get('/token', authorize, (req, res) => {
   res.send(res.verify);
@@ -37,6 +37,7 @@ router.post('/token', ev(validations.post), (req, res, next) => {
       }
 
       user = camelizeKeys(row);
+
       return bcrypt.compare(password, user.hashedPassword);
     })
     .then(() => {

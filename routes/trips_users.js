@@ -7,7 +7,7 @@ const knex = require('../knex');
 const jwt = require('jsonwebtoken');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 const boom = require('boom');
-const ev = require('express-validation');
+// const ev = require('express-validation');
 // const validations = require('../validations/trips_users');
 
 const authorize = function(req, res, next) {
@@ -33,10 +33,8 @@ router.get('/trips_users', authorize, (req, res, next) => {
 
       res.send(userTrips);
     })
-    .catch((err) => console.err(err));
+    .catch((err) => next(err));
 });
-
-
 
 router.post('/trips_users', authorize, (req, res, next) => {
   const { tripId } = req.body;
@@ -46,8 +44,8 @@ router.post('/trips_users', authorize, (req, res, next) => {
   knex('trips_users')
     .insert(decamelizeKeys(insertedTripsUser), '*')
     .then((rows) => {
-      console.log(rows);
       const newTripsUser = camelizeKeys(rows[0]);
+
       res.send(newTripsUser);
     })
     .catch((err) => {
