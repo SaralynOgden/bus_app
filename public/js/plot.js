@@ -85,7 +85,7 @@
 
     let yMinTime = new Date();
     yMinTime.setHours(actualTimeJS.getHours());
-    yMinTime.setMinutes(scheduledTime.getMinutes() - 20);
+    yMinTime.setMinutes(actualTimeJS.getMinutes() - 20);
 
     let yMaxTime = new Date();
     yMaxTime.setHours(actualTimeJS.getHours());
