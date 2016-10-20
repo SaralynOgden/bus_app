@@ -111,7 +111,6 @@
         .tickFormat(d3.time.format("%-I:%M %p"));
 
     actualTimeArray.push([days[actualTimeJS.getDay()], yScale(actualTimeJS)]);
-    console.log(actualTimeArray);
   };
 
   const getPlotDictionary = function(processedTripData) {
@@ -130,19 +129,19 @@
       insertPointsIntoArray(tripDatum.actualTime, actualTimeArray, tripDatum.createdAt);
       plotDictionary[scheduledTime] = actualTimeArray;
     }
-
+    console.log(actualTimeArray);
     return plotDictionary;
   };
 
-  const plot = function(plotDictionary) {
-
-  };
+  // const plot = function(plotDictionary) {
+  //
+  // };
 
   $.getJSON(`/data/where?tripId=${tripId}&stopNumber=${stopNumber}`)
     .done((processedTripData) => {
       const plotDictionary = getPlotDictionary(processedTripData);
-      console.log(plotDictionary);
-      plot(plotDictionary);
+      // console.log(plotDictionary);
+      // plot(plotDictionary);
 
     })
     .fail(() => {
