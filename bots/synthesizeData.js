@@ -74,6 +74,7 @@ module.exports = {
 	start: function() {
 		// Adjust time to be in PDT so that the time in the end_time will match
 		const currentDateInPST = new Date(Date.now() - 7 * 60 * 60 * 1000);
+		console.log(currentDateInPST);
 
 		knex('trips')
 			.select('id', 'stop_number')
