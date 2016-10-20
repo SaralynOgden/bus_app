@@ -103,14 +103,13 @@
   };
 
   const buildYAxis = function(i, svg, plotDictionary, points) {
-    console.log(typeof Object.keys(plotDictionary)[i]);
     let yMinTime = new Date();
-    yMinTime.setHours(Object.keys(plotDictionary)[i].getHours());
-    yMinTime.setMinutes(parseInt(Object.keys(plotDictionary)[i].getMinutes()) - 20);
+    yMinTime.setHours(moment(Object.keys(plotDictionary)[i]).toDate().getHours());
+    yMinTime.setMinutes(parseInt(moment(Object.keys(plotDictionary)[i]).toDate().getMinutes()) - 20);
 
     let yMaxTime = new Date();
     yMaxTime.setHours(Object.keys(plotDictionary)[i].getHours());
-    yMaxTime.setMinutes(parseInt(Object.keys(plotDictionary)[i].getMinutes()) + 20);
+    yMaxTime.setMinutes(parseInt(moment(Object.keys(plotDictionary)[i]).toDate().getMinutes()) + 20);
 
     const yScale = d3.time.scale()
       .domain([yMinTime, yMaxTime])
