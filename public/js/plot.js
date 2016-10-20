@@ -59,22 +59,22 @@
   // };
 
   // render circles based on dataSet points
-  const renderCircles = function(data) {
-    const circles = svg.selectAll('circle').data(data);
-
-    circles.enter().append('circle').attr('r', 2);
-
-    circles
-      .attr('cx', (d) => {
-      return d[0];
-      })
-      .attr('cy', (d) => {
-        return d[1];
-      })
-      .style('fill', black);
-  };
-
-  renderCircles(actualTimeArray[0]);
+  // const renderCircles = function(data) {
+  //   const circles = svg.selectAll('circle').data(data);
+  //
+  //   circles.enter().append('circle').attr('r', 2);
+  //
+  //   circles
+  //     .attr('cx', (d) => {
+  //     return d[0];
+  //     })
+  //     .attr('cy', (d) => {
+  //       return d[1];
+  //     })
+  //     .style('fill', black);
+  // };
+  //
+  // renderCircles(actualTimeArray[0]);
 
   // appending x and y axis to svg
   svg.append("g")
