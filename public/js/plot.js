@@ -138,7 +138,7 @@
         .style('stroke', '#006699');
   };
 
-  const buildPlot = function(plotDictionary) {
+  const buildPlots = function(plotDictionary) {
     let numberOfPlots = Object.keys(plotDictionary).length;
     for (let i = 0; i < numberOfPlots; i++) {
       const svg = d3.select('#plots-container')
