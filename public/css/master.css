@@ -161,6 +161,10 @@ PLOT.HTML
   margin: 100px;
 }
 
+#plot-headers {
+  margin-left: 100px;
+}
+
 /******************************************************************************
 
 MEDIA QUERIES
