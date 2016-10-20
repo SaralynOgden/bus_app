@@ -49,15 +49,6 @@
   xAxis.scale(xScale);
   xAxis.orient("bottom");
 
-  // const getRandomColor = function() {
-  //     var letters = '0123456789ABCDEF';
-  //     var color = '#';
-  //     for (var i = 0; i < 6; i++ ) {
-  //         color += letters[Math.floor(Math.random() * 16)];
-  //     }
-  //     return color;
-  // };
-
   // render circles based on dataSet points
   // const renderCircles = function(data) {
   //   const circles = svg.selectAll('circle').data(data);
@@ -76,7 +67,25 @@
   //
   // renderCircles(actualTimeArray[0]);
 
-  // appending x and y axis to svg
+  // let yMinTime = new Date();
+  // yMinTime.setHours(actualTime.getHours());
+  // yMinTime.setMinutes(actualTime.getMinutes() - 20);
+  //
+  // let yMaxTime = new Date();
+  // yMaxTime.setHours(actualTime.getHours());
+  // yMaxTime.setMinutes(actualTime.getMinutes() + 20);
+  //
+  // const yScale = d3.time.scale()
+  //     .domain([yMinTime, yMaxTime])
+  //     .range([h - 20, 0 + padding]);
+  //
+  // const yAxis = d3.svg.axis()
+  //     .outerTickSize(0)
+  //     .scale(yScale)
+  //     .orient('left')
+  //     .ticks(5)
+  //     .tickFormat(d3.time.format("%-I:%M %p"));
+  //
   // svg.append("g")
   //      .attr("class", "axis")
   //      .attr("transform", "translate(50," + (h - padding) + ")")
@@ -86,45 +95,13 @@
   //     .attr("class", "axis")
   //     .attr("transform", "translate(50, 0)")
   //     .call(yAxis);
+
   const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
     const actualTimeJS = getJSDateFromThisWeek(actualTime, dateCreated),
           days = [107, 224, 340, 455, 572];
 
     actualTimeArray.push([days[actualTimeJS.getDay()], yScale(actualTimeJS)]);
-
-    return actualTimeJS;
   };
-
-  const actTime = insertPointsIntoArray();
-
-  let yMinTime = new Date();
-  yMinTime.setHours(actualTime.getHours());
-  yMinTime.setMinutes(actualTime.getMinutes() - 20);
-
-  let yMaxTime = new Date();
-  yMaxTime.setHours(actualTime.getHours());
-  yMaxTime.setMinutes(actualTime.getMinutes() + 20);
-
-  const yScale = d3.time.scale()
-      .domain([yMinTime, yMaxTime])
-      .range([h - 20, 0 + padding]);
-
-  const yAxis = d3.svg.axis()
-      .outerTickSize(0)
-      .scale(yScale)
-      .orient('left')
-      .ticks(5)
-      .tickFormat(d3.time.format("%-I:%M %p"));
-
-  svg.append("g")
-       .attr("class", "axis")
-       .attr("transform", "translate(50," + (h - padding) + ")")
-       .call(xAxis);
-
-  svg.append("g")
-      .attr("class", "axis")
-      .attr("transform", "translate(50, 0)")
-      .call(yAxis);
 
   const getPlotDictionary = function(processedTripData) {
     const plotDictionary = {};
