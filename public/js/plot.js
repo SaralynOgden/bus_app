@@ -61,6 +61,8 @@
       console.log(processedTripData);
       const plotDictionary = getPlotDictionary(processedTripData);
 
+      console.log(plotDictionary);
+
       plot(plotDictionary);
     })
     .fail(() => {
