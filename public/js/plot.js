@@ -74,12 +74,6 @@
       .call(xAxis);
   };
 
-  const yScaleTime = function(points) {
-    for (let i = 0; i < points.length; i++) {
-      yScale(points[i][1]);
-    }
-  };
-
   const buildYAxis = function(i, svg, plotDictionary, points) {
     let yMinTime = new Date();
     yMinTime.setHours(Object.keys(plotDictionary)[i].substring(0, 2));
@@ -105,7 +99,13 @@
       .attr("transform", "translate(50, 0)")
       .call(yAxis);
 
-    yScaleTime(points);
+    yScaleTime(points, yScale);
+  };
+
+  const yScaleTime = function(points, yScale) {
+    for (let i = 0; i < points.length; i++) {
+      yScale(points[i][1]);
+    }
   };
 
   const renderCircles = function(points, svg) {
