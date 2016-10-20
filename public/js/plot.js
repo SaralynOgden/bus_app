@@ -40,8 +40,8 @@
     return time;
   };
 
-  startTime = getHumanReadableTime(startTime);
-  endTime = getHumanReadableTime(endTime);
+  const startTime = getHumanReadableTime({startTime});
+  const endTime = getHumanReadableTime({endTime});
 
   const w = 600;
   const h = 350;
