@@ -5,7 +5,7 @@ const getTime = function(minutes) {
   let d = new Date();
   d.setHours(8);
   d.setMinutes(minutes);
-  return d.toLocaleTimeString();
+  return `${d.getHours()}:${d.getMinutes()}:00`;//d.toLocaleTimeString();
 };
 
 const getDay = function(day) {
