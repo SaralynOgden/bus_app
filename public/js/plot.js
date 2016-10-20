@@ -70,7 +70,7 @@
     const plotDictionary = {};
 
     for (let tripDatum of processedTripData) {
-      const scheduledTime = getJSDateFromThisWeek(tripDatum.scheduledTime));
+      const scheduledTime = getJSDateFromThisWeek(tripDatum.scheduledTime);
       let actualTimeArray;
 
       if (scheduledTime in plotDictionary) {
