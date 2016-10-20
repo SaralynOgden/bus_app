@@ -50,10 +50,15 @@
     return plotDictionary;
   };
 
+  const plot = function(plotDictionary) {
+    
+  };
+
   $.getJSON(`/data/where?tripId=${tripId}&stopNumber=${stopNumber}`)
     .done((processedTripData) => {
       const plotDictionary = getPlotDictionary(processedTripData);
 
+      plot(plotDictionary);
     })
     .fail(() => {
       Materialize.toast('Unable to retrieve data', 3000);
