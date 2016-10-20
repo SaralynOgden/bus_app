@@ -28,13 +28,64 @@
     return moment().set({hour: parseInt(actualTime.substring(0,2)), minute: parseInt(actualTime.substring(3,5))}).toDate();
   };
 
+
+  // let yMinTime = new Date();
+  // yMinTime.setHours(scheduledTime.getHours());
+  // yMinTime.setMinutes(scheduledTime.getMinutes() - 20);
+  //
+  // let yMaxTime = new Date();
+  // yMaxTime.setHours(scheduledTime.getHours());
+  // yMaxTime.setMinutes(scheduledTime.getMinutes() + 20);
+
+  const w = 600;
+  const h = 350;
+  const padding = 20;
+
+  const svg = d3.select('#plots-container')
+    .append('div')
+    .classed('svg-container', true)
+    .attr('id', '#plot1')
+    .append('svg')
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .attr("viewBox", "0 0 600 350")
+    .classed("svg-content-responsive", true);
+
+  const xScale = d3.scale.ordinal()
+    .domain(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'])
+    .rangeBands([0, w - padding]);
+
+  const xAxis = d3.svg.axis();
+  xAxis.scale(xScale);
+  xAxis.orient("bottom");
+
+  const getRandomColor = function() {
+      var letters = '0123456789ABCDEF';
+      var color = '#';
+      for (var i = 0; i < 6; i++ ) {
+          color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+  };
+
+  // min domain: scheduled_time - 20 minutes in new Date() format
+  // max domain: scheduled_time + 20 minutes in new Date() format
+  const yScale = d3.time.scale()
+      .domain([yMinTime, yMaxTime])
+      .range([h - 20, 0 + padding]);
+
+  const yAxis = d3.svg.axis()
+      .outerTickSize(0)
+      .scale(yScale)
+      .orient('left')
+      .ticks(5)
+      .tickFormat(d3.time.format("%-I:%M %p"));
+
   const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
     const actualTimeJS = getJSDateFromThisWeek(actualTime, dateCreated),
           days = [107, 224, 340, 455, 572];
-          
-    console.log(actualTimeJS);
 
-    actualTimeArray.push([days[actualTimeJS.getDay()], 5]); // yScale(actualTime)
+
+    actualTimeArray.push([days[actualTimeJS.getDay()], yScale(actualTimeJS)]);
   };
 
   const getPlotDictionary = function(processedTripData) {
@@ -58,59 +109,6 @@
   };
 
   const plot = function(plotDictionary) {
-
-    const scheduledTime = Object.keys(plotDictionary)[0];
-    let yMinTime = new Date();
-    yMinTime.setHours(scheduledTime.getHours());
-    yMinTime.setMinutes(scheduledTime.getMinutes() - 20);
-
-    let yMaxTime = new Date();
-    yMaxTime.setHours(scheduledTime.getHours());
-    yMaxTime.setMinutes(scheduledTime.getMinutes() + 20);
-
-    const w = 600;
-    const h = 350;
-    const padding = 20;
-
-    const svg = d3.select('#plots-container')
-      .append('div')
-      .classed('svg-container', true)
-      .attr('id', '#plot1')
-      .append('svg')
-      .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 600 350")
-      .classed("svg-content-responsive", true);
-
-    const xScale = d3.scale.ordinal()
-      .domain(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'])
-      .rangeBands([0, w - padding]);
-
-    const xAxis = d3.svg.axis();
-    xAxis.scale(xScale);
-    xAxis.orient("bottom");
-
-    const getRandomColor = function() {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
-        for (var i = 0; i < 6; i++ ) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    };
-
-    // min domain: scheduled_time - 20 minutes in new Date() format
-    // max domain: scheduled_time + 20 minutes in new Date() format
-    var yScale = d3.time.scale()
-        .domain([yMinTime, yMaxTime])
-        .range([h - 20, 0 + padding]);
-
-    var yAxis = d3.svg.axis()
-        .outerTickSize(0)
-        .scale(yScale)
-        .orient('left')
-        .ticks(5)
-        .tickFormat(d3.time.format("%-I:%M %p"));
-
     // render circles based on dataSet points
     const renderCircles = function(dataPoints, color) {
       const circles = svg.selectAll('circle').data(dataPoints);
@@ -144,7 +142,7 @@
   $.getJSON(`/data/where?tripId=${tripId}&stopNumber=${stopNumber}`)
     .done((processedTripData) => {
       const plotDictionary = getPlotDictionary(processedTripData);
-
+      console.log(plotDictionary);
       plot(plotDictionary);
     })
     .fail(() => {
