@@ -108,7 +108,7 @@
     yMinTime.setMinutes(parseInt(moment(Object.keys(plotDictionary)[i]).toDate().getMinutes()) - 20);
 
     let yMaxTime = new Date();
-    yMaxTime.setHours(Object.keys(plotDictionary)[i].getHours());
+    yMaxTime.setHours(moment(Object.keys(plotDictionary)[i]).toDate().getHours());
     yMaxTime.setMinutes(parseInt(moment(Object.keys(plotDictionary)[i]).toDate().getMinutes()) + 20);
 
     const yScale = d3.time.scale()
