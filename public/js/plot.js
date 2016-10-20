@@ -56,7 +56,7 @@
     const today = new Date();
     const adjustedDate = moment().set({hour: parseInt(actualTime.substring(0,2)) - 7, minute: parseInt(actualTime.substring(3,5))}).toDate();
 
-    return adjustedDate.set({year: today.getFullYear(), month: today.getMonth(), date: today.getDate()}).toDate();
+    return moment(adjustedDate).set({year: today.getFullYear(), month: today.getMonth(), date: today.getDate()}).toDate();
   };
 
   const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
