@@ -66,7 +66,7 @@
 
     circles
       .attr('cx', (d) => d[0])
-      .attr('cy', (d) => return d[1])
+      .attr('cy', (d) => d[1])
       .style('fill', 'black');
   };
 
