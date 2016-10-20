@@ -59,18 +59,18 @@
     return plotDictionary;
   };
 
-  const buildPlots = function(plotDictionary) {
-  let numberOfPlots = Object.keys(plotDictionary).length;
-  for (let i = 0; i < numberOfPlots; i++) {
-    const svg = d3.select('#plots-container')
-      .append('div')
-      .classed('svg-container', true)
-      .attr('id', `#plot${i}`)
-      .append('svg')
-      .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 600 350")
-      .classed("svg-content-responsive", true);
+  const renderCircles = function(points, svg) {
+    const circles = svg.selectAll('circle').data(points);
 
+    circles.enter().append('circle').attr('r', 2);
+
+    circles
+      .attr('cx', (d) => d[0])
+      .attr('cy', (d) => return d[1])
+      .style('fill', 'black');
+  };
+
+  const buildAxes = function (i, svg) {
     const xScale = d3.scale.ordinal()
         .domain(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'])
         .rangeBands([0, w - padding]);
@@ -98,30 +98,6 @@
       .ticks(5)
       .tickFormat(d3.time.format("%-I:%M %p"));
 
-    const scheduledTime = Object.keys(plotDictionary)[i];
-    const points = plotDictionary[scheduledTime];
-
-    for (let j = 0; j < points.length; j++) {
-      yScale(points[j][1]);
-    }
-
-    const renderCircles = function(points) {
-      const circles = svg.selectAll('circle').data(points);
-
-      circles.enter().append('circle').attr('r', 2);
-
-      circles
-        .attr('cx', (d) => {
-          return d[0];
-        })
-        .attr('cy', (d) => {
-          return d[1];
-        })
-        .style('fill', 'black');
-    };
-
-    renderCircles(points);
-
     svg.append("g")
       .attr("class", "axis")
       .attr("transform", "translate(50," + (h - padding) + ")")
@@ -132,7 +108,101 @@
       .attr("transform", "translate(50, 0)")
       .call(yAxis);
   }
-};
+
+  const buildPlots = function(plotDictionary) {
+    let numberOfPlots = Object.keys(plotDictionary).length;
+    for (let i = 0; i < numberOfPlots; i++) {
+      const svg = d3.select('#plots-container')
+        .append('div')
+        .classed('svg-container', true)
+        .attr('id', `#plot${i}`)
+        .append('svg')
+        .attr("preserveAspectRatio", "xMinYMin meet")
+        .attr("viewBox", "0 0 600 350")
+        .classed("svg-content-responsive", true);
+
+      const scheduledTime = Object.keys(plotDictionary)[i];
+      const points = plotDictionary[scheduledTime];
+
+      buildAxes(i, svg);
+      renderCircles(points, svg);
+    }
+  };
+
+//   const buildPlots = function(plotDictionary) {
+//   let numberOfPlots = Object.keys(plotDictionary).length;
+//   for (let i = 0; i < numberOfPlots; i++) {
+//     const svg = d3.select('#plots-container')
+//       .append('div')
+//       .classed('svg-container', true)
+//       .attr('id', `#plot${i}`)
+//       .append('svg')
+//       .attr("preserveAspectRatio", "xMinYMin meet")
+//       .attr("viewBox", "0 0 600 350")
+//       .classed("svg-content-responsive", true);
+//
+//     const xScale = d3.scale.ordinal()
+//         .domain(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'])
+//         .rangeBands([0, w - padding]);
+//
+//     const xAxis = d3.svg.axis();
+//       xAxis.scale(xScale);
+//       xAxis.orient("bottom");
+//
+//     let yMinTime = new Date();
+//     yMinTime.setHours(Object.keys(plotDictionary)[i].substring(0, 2));
+//     yMinTime.setMinutes(parseInt(Object.keys(plotDictionary)[i].substring(3, 5)) - 20);
+//
+//     let yMaxTime = new Date();
+//     yMaxTime.setHours(Object.keys(plotDictionary)[i].substring(0, 2));
+//     yMaxTime.setMinutes(parseInt(Object.keys(plotDictionary)[i].substring(3, 5)) + 20);
+//
+//     const yScale = d3.time.scale()
+//       .domain([yMinTime, yMaxTime])
+//       .range([h - 20, 0 + padding]);
+//
+//     const yAxis = d3.svg.axis()
+//       .outerTickSize(0)
+//       .scale(yScale)
+//       .orient('left')
+//       .ticks(5)
+//       .tickFormat(d3.time.format("%-I:%M %p"));
+//
+//     const scheduledTime = Object.keys(plotDictionary)[i];
+//     const points = plotDictionary[scheduledTime];
+//
+//     for (let j = 0; j < points.length; j++) {
+//       yScale(points[j][1]);
+//     }
+//
+//     const renderCircles = function(points) {
+//       const circles = svg.selectAll('circle').data(points);
+//
+//       circles.enter().append('circle').attr('r', 2);
+//
+//       circles
+//         .attr('cx', (d) => {
+//           return d[0];
+//         })
+//         .attr('cy', (d) => {
+//           return d[1];
+//         })
+//         .style('fill', 'black');
+//     };
+//
+//     renderCircles(points);
+//
+//     svg.append("g")
+//       .attr("class", "axis")
+//       .attr("transform", "translate(50," + (h - padding) + ")")
+//       .call(xAxis);
+//
+//     svg.append("g")
+//       .attr("class", "axis")
+//       .attr("transform", "translate(50, 0)")
+//       .call(yAxis);
+//   }
+// };
 
   $.getJSON(`/data/where?tripId=${tripId}&stopNumber=${stopNumber}`)
     .done((processedTripData) => {
