@@ -86,6 +86,22 @@
     return plotDictionary;
   };
 
+  const renderCircles = function(points, svg) {
+    const circles = svg.selectAll('circle').data(points);
+
+    circles.enter().append('circle').attr('r', 2);
+
+    circles
+      .attr('cx', (d) => {
+        return d[0];
+      })
+      .attr('cy', (d) => {
+        return d[1];
+      })
+      .style('fill', 'black');
+  };
+
+
   const buildXAxis = function (i, svg, plotDictionary) {
     const xScale = d3.scale.ordinal()
       .domain(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'])
@@ -136,21 +152,6 @@
         .attr('y1', yScale(scheduledTime))
         .attr('y2', yScale(scheduledTime))
         .style('stroke', '#006699');
-  };
-
-  const renderCircles = function(points, svg) {
-    const circles = svg.selectAll('circle').data(points);
-
-    circles.enter().append('circle').attr('r', 2);
-
-    circles
-      .attr('cx', (d) => {
-        return d[0];
-      })
-      .attr('cy', (d) => {
-        return d[1];
-      })
-      .style('fill', 'black');
   };
 
   const buildPlots = function(plotDictionary) {
