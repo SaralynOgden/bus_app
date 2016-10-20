@@ -161,8 +161,7 @@
         .classed("svg-content-responsive", true);
 
       const scheduledTime = Object.keys(plotDictionary)[i];
-      const schTimeAsJustTime = moment(scheduledTime).format('HH:mm:ss');
-      const points = plotDictionary[schTimeAsJustTime];
+      const points = moment(plotDictionary[scheduledTime]).format('HH:mm:ss');
       buildXAxis(i, svg, plotDictionary);
       buildYAxis(i, svg, plotDictionary, points)
       renderCircles(points, svg);
