@@ -19,6 +19,30 @@
    window.location.href = '/';
   }
 
+  const getHumanReadableTime = function(time) {
+    let hour;
+    const minute = time.substr(2, 3);
+    let timeOfDay;
+
+    if (parseInt(time.substr(0, 2)) > 12) {
+      timeOfDay = 'pm';
+      hour = parseInt(time.substr(0, 2)) - 12;
+    } else if (parseInt(time.substr(0, 2)) === 10 || parseInt(time.substr(0, 2)) === 11) {
+      timeOfDay = 'am';
+      hour = time.substr(0, 2);
+    } else {
+      timeOfDay = 'am';
+      hour = time.substr(1, 1);
+    }
+
+    time = `${hour}${minute} ${timeOfDay}`;
+
+    return time;
+  };
+
+  startTime = getHumanReadableTime(startTime);
+  endTime = getHumanReadableTime(endTime);
+
   const w = 600;
   const h = 350;
   const padding = 20;
