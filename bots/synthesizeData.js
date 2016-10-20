@@ -52,7 +52,6 @@ const synthesizeTripData = function(trip) {
 		.whereRaw('(date_trunc(\'day\', created_at)= ?)', [todaysSQLDate])
 		.andWhere('trip_id', trip.id)
 		.then((rows) => {
-			console.log(rows);
 			const tripData = camelizeKeys(rows),
 				scheduledTimeDictionary = getScheduledTimeDictionary(tripData);
 
@@ -61,7 +60,10 @@ const synthesizeTripData = function(trip) {
 
 				knex(`stop_${trip.stopNumber}`)
 					.insert(decamelizeKeys(bestPrediction), '*')
-					.then((inserted) => console.log(inserted))
+					.then((inserted) => {
+						console.log("inserted=");
+						console.log(inserted);
+					})
 					.catch((err) => console.log(err));
 			}
 		})
@@ -79,6 +81,7 @@ module.exports = {
 			.then((rows) => {
 				const trips = camelizeKeys(rows);
 
+				console.log('trips = ');
 				console.log(trips);
 				for (let trip of trips) {
 					synthesizeTripData(trip);
