@@ -58,7 +58,7 @@
 
     moment().add(createdDate.getDay() - today.getDay(), 'days');
 
-    return moment().set({hour: parseInt(actualTime.substring(0,2)) - 7, minute: parseInt(actualTime.substring(3,5))}).toDate();
+    return moment().set({hour: parseInt(actualTime.substring(0,2)), minute: parseInt(actualTime.substring(3,5))}).toDate();
   };
 
   const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
@@ -129,6 +129,7 @@
       .call(yAxis);
 
     yScaleTime(points, yScale);
+    console.log(points);
   };
 
   const yScaleTime = function(points, yScale) {
@@ -172,6 +173,7 @@
     .done((processedTripData) => {
       const plotDictionary = getPlotDictionary(processedTripData);
 
+      console.log("plotDictionary = ")
       console.log(plotDictionary);
       buildPlots(plotDictionary);
     })
