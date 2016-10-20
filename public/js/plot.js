@@ -84,12 +84,12 @@
           days = [107, 224, 340, 455, 572];
 
     let yMinTime = new Date();
-    yMinTime.setHours(scheduledTime.getHours());
+    yMinTime.setHours(actualTimeJS.getHours());
     yMinTime.setMinutes(scheduledTime.getMinutes() - 20);
 
     let yMaxTime = new Date();
-    yMaxTime.setHours(scheduledTime.getHours());
-    yMaxTime.setMinutes(scheduledTime.getMinutes() + 20);
+    yMaxTime.setHours(actualTimeJS.getHours());
+    yMaxTime.setMinutes(actualTimeJS.getMinutes() + 20);
 
     console.log(`yMinTime: ${yMinTime}`);
     console.log(`yMaxTime: ${yMaxTime}`);
