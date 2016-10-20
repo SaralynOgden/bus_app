@@ -135,7 +135,7 @@
         .attr('x2', w - padding)
         .attr('y1', yScale(scheduledTime))
         .attr('y2', yScale(scheduledTime))
-        .style('stroke', '#006699');
+        .style('stroke', '#4DA778');
 
     yScaleTime(points, yScale);
   };
@@ -161,7 +161,7 @@
         console.log(d[1]);
         return d[1];
       })
-      .style('fill', 'black');
+      .style('stroke', black);
   };
 
 
