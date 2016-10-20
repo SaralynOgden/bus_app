@@ -93,9 +93,11 @@
 
     circles
       .attr('cx', (d) => {
+        console.log(d[0]);
         return d[0];
       })
       .attr('cy', (d) => {
+        console.log(d[1]);
         return d[1];
       })
       .style('fill', 'black');
