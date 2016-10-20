@@ -32,80 +32,12 @@
     return moment().set({hour: parseInt(actualTime.substring(0,2)), minute: parseInt(actualTime.substring(3,5))}).toDate();
   };
 
-  // const w = 600;
-  // const h = 350;
-  // const padding = 20;
+  // const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
+  //   const actualTimeJS = getJSDateFromThisWeek(actualTime, dateCreated),
+  //         days = [107, 224, 340, 455, 572];
   //
-  // const svg = d3.select('#plots-container')
-  //   .append('div')
-  //   .classed('svg-container', true)
-  //   .attr('id', '#plot1')
-  //   .append('svg')
-  //   .attr("preserveAspectRatio", "xMinYMin meet")
-  //   .attr("viewBox", "0 0 600 350")
-  //   .classed("svg-content-responsive", true);
-  //
-  // const xScale = d3.scale.ordinal()
-  //   .domain(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'])
-  //   .rangeBands([0, w - padding]);
-  //
-  // const xAxis = d3.svg.axis();
-  // xAxis.scale(xScale);
-  // xAxis.orient("bottom");
-
-  // render circles based on dataSet points
-  // const renderCircles = function(data) {
-  //   const circles = svg.selectAll('circle').data(data);
-  //
-  //   circles.enter().append('circle').attr('r', 2);
-  //
-  //   circles
-  //     .attr('cx', (d) => {
-  //     return d[0];
-  //     })
-  //     .attr('cy', (d) => {
-  //       return d[1];
-  //     })
-  //     .style('fill', black);
+  //   actualTimeArray.push([days[actualTimeJS.getDay()], yScale(actualTimeJS)]);
   // };
-  //
-  // renderCircles(actualTimeArray[0]);
-
-  // let yMinTime = new Date();
-  // yMinTime.setHours(actualTime.getHours());
-  // yMinTime.setMinutes(actualTime.getMinutes() - 20);
-  //
-  // let yMaxTime = new Date();
-  // yMaxTime.setHours(actualTime.getHours());
-  // yMaxTime.setMinutes(actualTime.getMinutes() + 20);
-  //
-  // const yScale = d3.time.scale()
-  //     .domain([yMinTime, yMaxTime])
-  //     .range([h - 20, 0 + padding]);
-  //
-  // const yAxis = d3.svg.axis()
-  //     .outerTickSize(0)
-  //     .scale(yScale)
-  //     .orient('left')
-  //     .ticks(5)
-  //     .tickFormat(d3.time.format("%-I:%M %p"));
-  //
-  // svg.append("g")
-  //      .attr("class", "axis")
-  //      .attr("transform", "translate(50," + (h - padding) + ")")
-  //      .call(xAxis);
-  //
-  // svg.append("g")
-  //     .attr("class", "axis")
-  //     .attr("transform", "translate(50, 0)")
-  //     .call(yAxis);
-
-  const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
-    const actualTimeJS = getJSDateFromThisWeek(actualTime, dateCreated),
-          days = [107, 224, 340, 455, 572];
-
-    actualTimeArray.push([days[actualTimeJS.getDay()], yScale(actualTimeJS)]);
-  };
 
   const getPlotDictionary = function(processedTripData) {
     const plotDictionary = {};
@@ -166,6 +98,13 @@
       .ticks(5)
       .tickFormat(d3.time.format("%-I:%M %p"));
 
+    const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
+      const actualTimeJS = getJSDateFromThisWeek(actualTime, dateCreated),
+            days = [107, 224, 340, 455, 572];
+
+      actualTimeArray.push([days[actualTimeJS.getDay()], yScale(actualTimeJS)]);
+    };
+
     const schedTime = Object.keys(plotDictionary)[i];
     const points = plotDictionary[schedTime];
 
@@ -200,7 +139,6 @@
 
   $.getJSON(`/data/where?tripId=${tripId}&stopNumber=${stopNumber}`)
     .done((processedTripData) => {
-      console.log(processedTripData);
       const plotDictionary = getPlotDictionary(processedTripData);
       buildPlot(plotDictionary);
     })
