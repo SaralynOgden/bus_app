@@ -70,15 +70,22 @@
       .style('fill', 'black');
   };
 
-  const buildAxes = function (i, svg, plotDictionary) {
+  const buildXAxis = function (i, svg, plotDictionary) {
     const xScale = d3.scale.ordinal()
-        .domain(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'])
-        .rangeBands([0, w - padding]);
+      .domain(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'])
+      .rangeBands([0, w - padding]);
 
     const xAxis = d3.svg.axis();
       xAxis.scale(xScale);
       xAxis.orient("bottom");
 
+    svg.append("g")
+      .attr("class", "axis")
+      .attr("transform", "translate(50," + (h - padding) + ")")
+      .call(xAxis);
+  };
+
+  const buildYAxis = function(i, svg, plotDictionary) {
     let yMinTime = new Date();
     yMinTime.setHours(Object.keys(plotDictionary)[i].substring(0, 2));
     yMinTime.setMinutes(parseInt(Object.keys(plotDictionary)[i].substring(3, 5)) - 20);
@@ -100,14 +107,9 @@
 
     svg.append("g")
       .attr("class", "axis")
-      .attr("transform", "translate(50," + (h - padding) + ")")
-      .call(xAxis);
-
-    svg.append("g")
-      .attr("class", "axis")
       .attr("transform", "translate(50, 0)")
       .call(yAxis);
-  }
+  };
 
   const buildPlots = function(plotDictionary) {
     let numberOfPlots = Object.keys(plotDictionary).length;
@@ -124,7 +126,8 @@
       const scheduledTime = Object.keys(plotDictionary)[i];
       const points = plotDictionary[scheduledTime];
 
-      buildAxes(i, svg, plotDictionary);
+      buildXAxis(i, svg, plotDictionary);
+      buildYAxis(i, svg, plotDictionary)
       renderCircles(points, svg);
     }
   };
