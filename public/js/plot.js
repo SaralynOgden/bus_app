@@ -70,7 +70,7 @@
     const plotDictionary = {};
 
     for (let tripDatum of processedTripData) {
-      const scheduledTime = getJSDateFromThisWeek(tripDatum.scheduledTime);
+      const scheduledTime = moment(getJSDateFromThisWeek(tripDatum.scheduledTime)).format('HH:mm:ss');
       let actualTimeArray;
 
       if (scheduledTime in plotDictionary) {
@@ -80,7 +80,6 @@
       }
 
       insertPointsIntoArray(tripDatum.actualTime, actualTimeArray, tripDatum.createdAt);
-      console.log(actualTimeArray);
       plotDictionary[scheduledTime] = actualTimeArray;
     }
 
@@ -102,14 +101,18 @@
       .call(xAxis);
   };
 
-  const buildYAxis = function(i, svg, plotDictionary, points) {
+  const buildYAxis = function(i, svg) {
+    let scheduledTime = new Date();
+    scheduledTime.setHours(Object.keys(plotDictionary)[i].substring(0, 2));
+    scheduledTime.setMinutes(Object.keys(plotDictionary)[i].substring(3, 5));
+
     let yMinTime = new Date();
-    yMinTime.setHours(moment(Object.keys(plotDictionary)[i]).toDate().getHours());
-    yMinTime.setMinutes(parseInt(moment(Object.keys(plotDictionary)[i]).toDate().getMinutes()) - 20);
+    yMinTime.setHours(Object.keys(plotDictionary)[i].substring(0, 2));
+    yMinTime.setMinutes(parseInt(Object.keys(plotDictionary)[i].substring(3, 5)) - 20);
 
     let yMaxTime = new Date();
-    yMaxTime.setHours(moment(Object.keys(plotDictionary)[i]).toDate().getHours());
-    yMaxTime.setMinutes(parseInt(moment(Object.keys(plotDictionary)[i]).toDate().getMinutes()) + 20);
+    yMaxTime.setHours(Object.keys(plotDictionary)[i].substring(0, 2));
+    yMaxTime.setMinutes(parseInt(Object.keys(plotDictionary)[i].substring(3, 5)) + 20);
 
     const yScale = d3.time.scale()
       .domain([yMinTime, yMaxTime])
@@ -127,28 +130,15 @@
       .attr("transform", "translate(50, 0)")
       .call(yAxis);
 
-    yScaleTime(points, yScale);
-    console.log(points);
+    svg.append('svg:line')
+        .attr('x1', 50)
+        .attr('x2', w - padding)
+        .attr('y1', yScale(scheduledTime))
+        .attr('y2', yScale(scheduledTime))
+        .style('stroke', '#006699');
   };
 
-  const yScaleTime = function(points, yScale) {
-    for (let i = 0; i < points.length; i++) {
-      points[i][1] = yScale(points[i][1]);
-    }
-  };
-
-  const renderCircles = function(points, svg) {
-    const circles = svg.selectAll('circle').data(points);
-
-    circles.enter().append('circle').attr('r', 2);
-
-    circles
-      .attr('cx', (d) => d[0])
-      .attr('cy', (d) => d[1])
-      .style('fill', 'black');
-  };
-
-  const buildPlots = function(plotDictionary) {
+  const buildPlot = function(plotDictionary) {
     let numberOfPlots = Object.keys(plotDictionary).length;
     for (let i = 0; i < numberOfPlots; i++) {
       const svg = d3.select('#plots-container')
@@ -161,9 +151,9 @@
         .classed("svg-content-responsive", true);
 
       const scheduledTime = Object.keys(plotDictionary)[i];
-      const points = plotDictionary[scheduledTime]
-      buildXAxis(i, svg, plotDictionary);
-      buildYAxis(i, svg, plotDictionary, points)
+      const points = plotDictionary[scheduledTime];
+      buildXAxis(i, svg);
+      buildYAxis(i, svg);
       renderCircles(points, svg);
     }
   };
