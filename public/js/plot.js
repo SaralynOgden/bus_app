@@ -97,8 +97,8 @@
         return d[0];
       })
       .attr('cy', (d) => {
-        console.log(d[1]);
-        return d[1];
+        console.log(yScale(d[1]));
+        return yScale(d[1]);
       })
       .style('fill', 'black');
   };
