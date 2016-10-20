@@ -22,6 +22,8 @@
   const getJSDateFromThisWeek = function(actualTime, dateCreated) {
     const today = new Date(),
       createdDate = new Date(Date.parse(dateCreated));
+      console.log(`date created ${dateCreated}`);
+      console.log(`created date ${createDate}`);
 
     moment().add(createdDate.getDay() - today.getDay(), 'days');
 
