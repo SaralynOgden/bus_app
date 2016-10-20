@@ -94,8 +94,8 @@
 
     return actualTimeJS;
   };
-  
-  const actualTime = insertPointsIntoArray();
+
+  const actTime = insertPointsIntoArray();
 
   let yMinTime = new Date();
   yMinTime.setHours(actualTime.getHours());
