@@ -32,7 +32,7 @@
           days = [107, 224, 340, 455, 572];
     console.log(actualTimeJS);
 
-    actualTimeArray.push([days[actualTimeJS.getDay()], yScale(actualTime)]);
+    actualTimeArray.push([days[actualTimeJS.getDay()], 5]); // yScale(actualTime)
   };
 
   const getPlotDictionary = function(processedTripData) {
