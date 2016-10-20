@@ -128,8 +128,9 @@
 
       insertPointsIntoArray(tripDatum.actualTime, actualTimeArray, tripDatum.createdAt);
       plotDictionary[scheduledTime] = actualTimeArray;
+      console.log(actualTimeArray);
     }
-    console.log(actualTimeArray);
+
     return plotDictionary;
   };
 
