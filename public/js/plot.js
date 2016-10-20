@@ -87,6 +87,7 @@
   };
 
   const renderCircles = function(points, svg) {
+    console.log(points);
     const circles = svg.selectAll('circle').data(points);
 
     circles.enter().append('circle').attr('r', 2);
@@ -97,8 +98,8 @@
         return d[0];
       })
       .attr('cy', (d) => {
-        console.log(yScale(d[1]));
-        return yScale(d[1]);
+        console.log(d[1]);
+        return d[1];
       })
       .style('fill', 'black');
   };
