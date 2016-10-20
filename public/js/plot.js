@@ -40,8 +40,8 @@
     return time;
   };
 
-  const earliestDeparture = getHumanReadableTime({startTime});
-  const latestDeparture = getHumanReadableTime({endTime});
+  const earliestDeparture = getHumanReadableTime(startTime);
+  const latestDeparture = getHumanReadableTime(endTime);
 
   const w = 600;
   const h = 350;
