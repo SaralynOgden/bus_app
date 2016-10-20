@@ -118,7 +118,6 @@
 
       insertPointsIntoArray(tripDatum.actualTime, actualTimeArray, tripDatum.createdAt);
       plotDictionary[scheduledTime] = actualTimeArray;
-      console.log(actualTimeArray[0]);
     }
 
     return plotDictionary;
@@ -130,6 +129,7 @@
 
   $.getJSON(`/data/where?tripId=${tripId}&stopNumber=${stopNumber}`)
     .done((processedTripData) => {
+      console.log(processedTripData);
       const plotDictionary = getPlotDictionary(processedTripData);
       // console.log(plotDictionary);
       // plot(plotDictionary);
