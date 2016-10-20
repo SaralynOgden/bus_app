@@ -161,7 +161,7 @@
         console.log(d[1]);
         return d[1];
       })
-      .style('stroke', black);
+      .style('stroke', 'black');
   };
 
 
