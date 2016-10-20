@@ -31,7 +31,7 @@
   const w = 600;
   const h = 350;
   const padding = 20;
-  //
+
   // const svg = d3.select('#plots-container')
   //   .append('div')
   //   .classed('svg-container', true)
@@ -44,11 +44,11 @@
   // const xScale = d3.scale.ordinal()
   //   .domain(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'])
   //   .rangeBands([0, w - padding]);
-
+  //
   // const xAxis = d3.svg.axis();
   // xAxis.scale(xScale);
   // xAxis.orient("bottom");
-  //
+
   // const getRandomColor = function() {
   //     var letters = '0123456789ABCDEF';
   //     var color = '#';
@@ -58,26 +58,34 @@
   //     return color;
   // };
 
-  // min domain: scheduled_time - 20 minutes in new Date() format
-  // max domain: scheduled_time + 20 minutes in new Date() format
-  // const yScale = d3.time.scale()
-  //     .domain([yMinTime, yMaxTime])
-  //     .range([h - 20, 0 + padding]);
+  // render circles based on dataSet points
+  // const renderCircles = function(data) {
+  //   const circles = svg.selectAll('circle').data(data);
   //
-  // const yAxis = d3.svg.axis()
-  //     .outerTickSize(0)
-  //     .scale(yScale)
-  //     .orient('left')
-  //     .ticks(5)
-  //     .tickFormat(d3.time.format("%-I:%M %p"));
+  //   circles.enter().append('circle').attr('r', 2);
+  //
+  //   circles
+  //     .attr('cx', (d) => {
+  //     return d[0];
+  //     })
+  //     .attr('cy', (d) => {
+  //       return d[1];
+  //     })
+  //     .style('fill', black);
+  // };
+  //
+  // renderCircles();
 
-  // let yMinTime = new Date();
-  // yMinTime.setHours(scheduledTime.getHours());
-  // yMinTime.setMinutes(scheduledTime.getMinutes() - 20);
+  // appending x and y axis to svg
+  // svg.append("g")
+  //      .attr("class", "axis")
+  //      .attr("transform", "translate(50," + (h - padding) + ")")
+  //      .call(xAxis);
   //
-  // let yMaxTime = new Date();
-  // yMaxTime.setHours(scheduledTime.getHours());
-  // yMaxTime.setMinutes(scheduledTime.getMinutes() + 20);
+  // svg.append("g")
+  //     .attr("class", "axis")
+  //     .attr("transform", "translate(50, 0)")
+  //     .call(yAxis);
 
   const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
     const actualTimeJS = getJSDateFromThisWeek(actualTime, dateCreated),
@@ -106,6 +114,7 @@
     console.log(`yMaxTime: ${yMaxTime}`);
 
     actualTimeArray.push([days[actualTimeJS.getDay()], yScale(actualTimeJS)]);
+    console.log(ActualTimeArray);
   };
 
   const getPlotDictionary = function(processedTripData) {
@@ -129,34 +138,7 @@
   };
 
   const plot = function(plotDictionary) {
-    // // render circles based on dataSet points
-    // const renderCircles = function(dataPoints, color) {
-    //   const circles = svg.selectAll('circle').data(dataPoints);
-    //
-    //   circles.enter().append('circle').attr('r', 2);
-    //
-    //   circles
-    //     .attr('cx', (d) => {
-    //     return d[0];
-    //     })
-    //     .attr('cy', (d) => {
-    //       return d[1];
-    //     })
-    //     .style('fill', color);
-    // };
-    //
-    // renderCircles(dataSet, getRandomColor);
-    //
-    // // appending x and y axis to svg
-    // svg.append("g")
-    //      .attr("class", "axis")
-    //      .attr("transform", "translate(50," + (h - padding) + ")")
-    //      .call(xAxis);
-    //
-    // svg.append("g")
-    //     .attr("class", "axis")
-    //     .attr("transform", "translate(50, 0)")
-    //     .call(yAxis);
+
   };
 
   $.getJSON(`/data/where?tripId=${tripId}&stopNumber=${stopNumber}`)
