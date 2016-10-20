@@ -58,6 +58,7 @@
 
   $.getJSON(`/data/where?tripId=${tripId}&stopNumber=${stopNumber}`)
     .done((processedTripData) => {
+      console.log(processedTripData);
       const plotDictionary = getPlotDictionary(processedTripData);
 
       plot(plotDictionary);
