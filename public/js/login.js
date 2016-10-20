@@ -1,6 +1,8 @@
-(function() {
-  'use strict';
+/* eslint-disable no-undef */
 
+'use strict';
+
+(function() {
   $('#login-form').submit((event) => {
     event.preventDefault();
 

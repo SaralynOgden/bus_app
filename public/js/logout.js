@@ -1,6 +1,8 @@
-(function() {
-  'use strict';
+/* eslint-disable no-undef */
 
+'use strict';
+
+(function() {
   $.getJSON('/token')
     .done((loggedIn) => {
       if (loggedIn) {
@@ -28,5 +30,4 @@
     .fail(($xhr) => {
       Materialize.toast($xhr.responseText, 3000);
     });
-
 })();

@@ -1,20 +1,22 @@
-(function() {
-  'use strict';
+/* eslint-disable no-undef */
 
+'use strict';
+
+(function() {
   window.QUERY_PARAMETERS = {};
 
- if (window.location.search) {
-   window.location.search.substr(1).split('&').forEach((paramStr) => {
-     const param = paramStr.split('=');
+  if (window.location.search) {
+    window.location.search.substr(1).split('&').forEach((paramStr) => {
+      const param = paramStr.split('=');
 
-     window.QUERY_PARAMETERS[param[0]] = param[1];
-   });
- }
+      window.QUERY_PARAMETERS[param[0]] = param[1];
+    });
+  }
 
   const { tripId, busNumber, stopNumber, startTime, endTime } = window.QUERY_PARAMETERS;
 
   if (!stopNumber) {
-    window.location.href = '/';
+   window.location.href = '/';
   }
 
   const getJSDateFromThisWeek = function(actualTime, dateCreated) {
@@ -51,7 +53,7 @@
   };
 
   const plot = function(plotDictionary) {
-    
+
   };
 
   $.getJSON(`/data/where?tripId=${tripId}&stopNumber=${stopNumber}`)
