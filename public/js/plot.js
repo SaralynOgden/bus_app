@@ -65,7 +65,7 @@
     const actualTimeJS = moment().set({hour: parseInt(actualTime.substring(0,2)) - 7, minute: parseInt(actualTime.substring(3,5))}).toDate();
     const days = [107, 224, 340, 455, 572];
 
-    actualTimeArray.push([days[dateCreated.getDay() - 1], actualTimeJS]);
+    actualTimeArray.push([days[moment(dateCreated).toDate().getDay() - 1], actualTimeJS]);
   };
 
   const getPlotDictionary = function(processedTripData) {
