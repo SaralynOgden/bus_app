@@ -153,7 +153,7 @@
       const scheduledTime = Object.keys(plotDictionary)[i];
       const points = plotDictionary[scheduledTime];
       buildXAxis(i, svg);
-      buildYAxis(i, svg);
+      buildYAxis(plotDictionary, i, svg);
       renderCircles(points, svg);
     }
   };
