@@ -104,6 +104,7 @@
 
   const yScaleTime = function(points, yScale) {
     for (let i = 0; i < points.length; i++) {
+      console.log(points[i][1]);
       yScale(points[i][1]);
     }
   };
