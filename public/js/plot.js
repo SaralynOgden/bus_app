@@ -104,7 +104,7 @@
     for (let j = 0; j < points.length; j++) {
       yScale(points[j][1]);
     }
-    
+
     const renderCircles = function(points) {
       const circles = svg.selectAll('circle').data(points);
 
@@ -137,7 +137,7 @@
   $.getJSON(`/data/where?tripId=${tripId}&stopNumber=${stopNumber}`)
     .done((processedTripData) => {
       const plotDictionary = getPlotDictionary(processedTripData);
-      buildPlot(plotDictionary);
+      buildPlots(plotDictionary);
     })
     .fail(() => {
       Materialize.toast('Unable to retrieve data', 3000);
