@@ -70,8 +70,7 @@
     const plotDictionary = {};
 
     for (let tripDatum of processedTripData) {
-      const scheduledTime = moment(getJSDateFromThisWeek(tripDatum.scheduledTime)).format('HH:mm:ss');
-      console.log(`scheduled time = ${scheduledTime}`);
+      const scheduledTime = getJSDateFromThisWeek(tripDatum.scheduledTime));
       let actualTimeArray;
 
       if (scheduledTime in plotDictionary) {
@@ -162,7 +161,8 @@
         .classed("svg-content-responsive", true);
 
       const scheduledTime = Object.keys(plotDictionary)[i];
-      const points = plotDictionary[scheduledTime];
+      const schTimeAsJustTime = moment(scheduledTime).format('HH:mm:ss');
+      const points = plotDictionary[schTimeAsJustTime];
       buildXAxis(i, svg, plotDictionary);
       buildYAxis(i, svg, plotDictionary, points)
       renderCircles(points, svg);
