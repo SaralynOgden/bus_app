@@ -24,7 +24,7 @@
       createdDate = new Date(Date.parse(dateCreated));
 
     moment().add(createdDate.getDay() - today.getDay(), 'days');
-    return moment().set({hour: parseInt(actualTime.substring(0,2)), minute: parseInt(actualTime.substring(3,5))}).format();
+    return moment().set({hour: parseInt(actualTime.substring(0,2)), minute: parseInt(actualTime.substring(3,5))}).toDate();
   };
 
   const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
