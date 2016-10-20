@@ -63,6 +63,7 @@
 
   const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
     const actualTimeJS = moment().set({hour: parseInt(actualTime.substring(0,2)) - 7, minute: parseInt(actualTime.substring(3,5))}).toDate();
+    console.log(actualTimeJS);
     const days = [107, 224, 340, 455, 572];
 
     actualTimeArray.push([days[moment(dateCreated).toDate().getDay() - 1], actualTimeJS]);
