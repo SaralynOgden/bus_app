@@ -161,7 +161,7 @@
         .classed("svg-content-responsive", true);
 
       const scheduledTime = Object.keys(plotDictionary)[i];
-      const points = moment(plotDictionary[scheduledTime]).format('HH:mm:ss');
+      const points = plotDictionary[scheduledTime]
       buildXAxis(i, svg, plotDictionary);
       buildYAxis(i, svg, plotDictionary, points)
       renderCircles(points, svg);
@@ -172,8 +172,6 @@
     .done((processedTripData) => {
       const plotDictionary = getPlotDictionary(processedTripData);
 
-      console.log("plotDictionary = ")
-      console.log(plotDictionary);
       buildPlots(plotDictionary);
     })
     .fail(() => {
