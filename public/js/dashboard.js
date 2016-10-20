@@ -1,22 +1,24 @@
-(function() {
-  'use strict';
+/* eslint-disable no-undef */
+'use strict';
 
+(function() {
   $('select').material_select();
 
   $('#start-time-drop-down, #end-time-drop-down').material_select();
 
-  $("#start-time-drop-down").on('change', function() {
+  $('#start-time-drop-down').on('change', function() {
+    // eslint-disable-next-line no-invalid-this
     const startTime = $(this).val();
     let endOption1;
     let endOption2;
-    let hour = parseInt(startTime.split(':')[0]);
-    let minutes = startTime.split(':')[1].split(' ')[0];
-    let timeOfDay = startTime.split(':')[1].split(' ')[1];
+    const hour = parseInt(startTime.split(':')[0]);
+    const minutes = startTime.split(':')[1].split(' ')[0];
+    const timeOfDay = startTime.split(':')[1].split(' ')[1];
 
     $('#end-time-drop-down').children(':not(#first-end-time)').remove();
 
     if ((minutes) === '30') {
-      endOption1= $(`<option id="endOption1">${hour + 1}:00 ${timeOfDay}</option>`);
+      endOption1 = $(`<option id="endOption1">${hour + 1}:00 ${timeOfDay}</option>`);
       endOption2 = $(`<option id="endOption2">${hour + 1}:30 ${timeOfDay}</option>`);
     } else if ((minutes) === '00') {
       endOption1 = $(`<option id="endOption1">${hour}:30 ${timeOfDay}</option>`);
@@ -43,26 +45,27 @@
                  deletedTrip.startTime + deletedTrip.endTime}`).remove();
         })
         .fail(() => {
-            Materialize.toast(
-              'Unable to delete route. Please try again.', 3000);
+          Materialize.toast(
+            'Unable to delete route. Please try again.', 3000);
         });
-    }
+    };
   };
 
   // added to convert times from military to normal
   const getHumanReadableTime = function(time) {
     let hour;
-    let minute = time.substr(2, 3);
+    const minute = time.substr(2, 3);
     let timeOfDay;
+
     if (parseInt(time.substr(0, 2)) > 12) {
-       timeOfDay = 'pm';
-       hour = parseInt(time.substr(0, 2)) - 12;
+      timeOfDay = 'pm';
+      hour = parseInt(time.substr(0, 2)) - 12;
     } else if (parseInt(time.substr(0, 2)) === 10 || parseInt(time.substr(0, 2)) === 11) {
-       timeOfDay = 'am';
-       hour = time.substr(0, 2);
+      timeOfDay = 'am';
+      hour = time.substr(0, 2);
     } else {
-       timeOfDay = 'am';
-       hour = time.substr(1, 1);
+      timeOfDay = 'am';
+      hour = time.substr(1, 1);
     }
 
     time = `${hour}${minute} ${timeOfDay}`;
