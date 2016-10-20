@@ -155,6 +155,14 @@
         .attr('y1', yScale(scheduledTime))
         .attr('y2', yScale(scheduledTime))
         .style('stroke', '#006699');
+
+    yScaleTime(points, yScale);
+  };
+
+  const yScaleTime = function(points, yScale) {
+    for (let i = 0; i < points.length; i++) {
+      points[i][1] = yScale(points[i][1]);
+    }
   };
 
   const buildPlots = function(plotDictionary) {
