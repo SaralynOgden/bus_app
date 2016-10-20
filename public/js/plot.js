@@ -171,7 +171,7 @@
   $.getJSON(`/data/where?tripId=${tripId}&stopNumber=${stopNumber}`)
     .done((processedTripData) => {
       const plotDictionary = getPlotDictionary(processedTripData);
-
+      console.log(plotDictionary);
       buildPlots(plotDictionary);
     })
     .fail(() => {
