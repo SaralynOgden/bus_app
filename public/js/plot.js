@@ -28,9 +28,9 @@
     return moment().set({hour: parseInt(actualTime.substring(0,2)), minute: parseInt(actualTime.substring(3,5))}).toDate();
   };
 
-  // const w = 600;
-  // const h = 350;
-  // const padding = 20;
+  const w = 600;
+  const h = 350;
+  const padding = 20;
   //
   // const svg = d3.select('#plots-container')
   //   .append('div')
@@ -90,6 +90,17 @@
     let yMaxTime = new Date();
     yMaxTime.setHours(actualTimeJS.getHours());
     yMaxTime.setMinutes(actualTimeJS.getMinutes() + 20);
+
+    const yScale = d3.time.scale()
+        .domain([yMinTime, yMaxTime])
+        .range([h - 20, 0 + padding]);
+
+    const yAxis = d3.svg.axis()
+        .outerTickSize(0)
+        .scale(yScale)
+        .orient('left')
+        .ticks(5)
+        .tickFormat(d3.time.format("%-I:%M %p"));
 
     console.log(`yMinTime: ${yMinTime}`);
     console.log(`yMaxTime: ${yMaxTime}`);
