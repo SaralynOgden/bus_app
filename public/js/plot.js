@@ -65,7 +65,6 @@
     const actualTimeJS = getJSDateFromThisWeek(actualTime, dateCreated),
           days = [107, 224, 340, 455, 572];
 
-    console.log(actualTimeJS);
     actualTimeArray.push([days[actualTimeJS.getDay()], actualTimeJS]);
   };
 
@@ -83,6 +82,7 @@
       }
 
       insertPointsIntoArray(tripDatum.actualTime, actualTimeArray, tripDatum.createdAt);
+      console.log(actualTimeArray);
       plotDictionary[scheduledTime] = actualTimeArray;
     }
 
