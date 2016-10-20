@@ -114,7 +114,7 @@
     yMaxTime.setHours(Object.keys(plotDictionary)[i].substring(0, 2));
     yMaxTime.setMinutes(parseInt(Object.keys(plotDictionary)[i].substring(3, 5)) + 20);
 
-    const yScale = d3.time.scale()
+    const yScale = d3.time.scale.utc()
       .domain([yMinTime, yMaxTime])
       .range([h - 20, 0 + padding]);
 
