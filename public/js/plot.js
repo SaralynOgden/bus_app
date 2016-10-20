@@ -104,8 +104,9 @@
 
   const yScaleTime = function(points, yScale) {
     for (let i = 0; i < points.length; i++) {
+      // logs associated y values but error happening not sure why
       console.log(yScale(points[i][1]));
-      yScale(points[i][1]);
+      points[i][1] = yScale(points[i][1]);
     }
   };
 
