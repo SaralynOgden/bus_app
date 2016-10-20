@@ -101,7 +101,7 @@
       .call(xAxis);
   };
 
-  const buildYAxis = function(i, svg) {
+  const buildYAxis = function(ploDictionary, i, svg) {
     let scheduledTime = new Date();
     scheduledTime.setHours(Object.keys(plotDictionary)[i].substring(0, 2));
     scheduledTime.setMinutes(Object.keys(plotDictionary)[i].substring(3, 5));
