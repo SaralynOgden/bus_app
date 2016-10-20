@@ -32,22 +32,22 @@
   const h = 350;
   const padding = 20;
 
-  // const svg = d3.select('#plots-container')
-  //   .append('div')
-  //   .classed('svg-container', true)
-  //   .attr('id', '#plot1')
-  //   .append('svg')
-  //   .attr("preserveAspectRatio", "xMinYMin meet")
-  //   .attr("viewBox", "0 0 600 350")
-  //   .classed("svg-content-responsive", true);
-  //
-  // const xScale = d3.scale.ordinal()
-  //   .domain(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'])
-  //   .rangeBands([0, w - padding]);
-  //
-  // const xAxis = d3.svg.axis();
-  // xAxis.scale(xScale);
-  // xAxis.orient("bottom");
+  const svg = d3.select('#plots-container')
+    .append('div')
+    .classed('svg-container', true)
+    .attr('id', '#plot1')
+    .append('svg')
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .attr("viewBox", "0 0 600 350")
+    .classed("svg-content-responsive", true);
+
+  const xScale = d3.scale.ordinal()
+    .domain(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'])
+    .rangeBands([0, w - padding]);
+
+  const xAxis = d3.svg.axis();
+  xAxis.scale(xScale);
+  xAxis.orient("bottom");
 
   // const getRandomColor = function() {
   //     var letters = '0123456789ABCDEF';
@@ -59,33 +59,33 @@
   // };
 
   // render circles based on dataSet points
-  // const renderCircles = function(data) {
-  //   const circles = svg.selectAll('circle').data(data);
-  //
-  //   circles.enter().append('circle').attr('r', 2);
-  //
-  //   circles
-  //     .attr('cx', (d) => {
-  //     return d[0];
-  //     })
-  //     .attr('cy', (d) => {
-  //       return d[1];
-  //     })
-  //     .style('fill', black);
-  // };
-  //
-  // renderCircles();
+  const renderCircles = function(data) {
+    const circles = svg.selectAll('circle').data(data);
+
+    circles.enter().append('circle').attr('r', 2);
+
+    circles
+      .attr('cx', (d) => {
+      return d[0];
+      })
+      .attr('cy', (d) => {
+        return d[1];
+      })
+      .style('fill', black);
+  };
+
+  renderCircles(actualTimeArray[0]);
 
   // appending x and y axis to svg
-  // svg.append("g")
-  //      .attr("class", "axis")
-  //      .attr("transform", "translate(50," + (h - padding) + ")")
-  //      .call(xAxis);
-  //
-  // svg.append("g")
-  //     .attr("class", "axis")
-  //     .attr("transform", "translate(50, 0)")
-  //     .call(yAxis);
+  svg.append("g")
+       .attr("class", "axis")
+       .attr("transform", "translate(50," + (h - padding) + ")")
+       .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "axis")
+      .attr("transform", "translate(50, 0)")
+      .call(yAxis);
 
   const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
     const actualTimeJS = getJSDateFromThisWeek(actualTime, dateCreated),
