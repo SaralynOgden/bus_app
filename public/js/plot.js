@@ -105,7 +105,7 @@
   const buildYAxis = function(i, svg, plotDictionary, points) {
     let yMinTime = new Date();
     yMinTime.setHours(Object.keys(plotDictionary)[i].getHours());
-    yMinTime.setMinutes(parseInt(Object.keys(plotDictionary)[i].getMinutes())) - 20);
+    yMinTime.setMinutes(parseInt(Object.keys(plotDictionary)[i].getMinutes()) - 20);
 
     let yMaxTime = new Date();
     yMaxTime.setHours(Object.keys(plotDictionary)[i].getHours());
