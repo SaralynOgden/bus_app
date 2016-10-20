@@ -35,7 +35,7 @@
   const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
     const actualTimeJS = getJSDateFromThisWeek(actualTime, dateCreated),
           days = [107, 224, 340, 455, 572];
-    console.log(actualTimeJS);
+
     actualTimeArray.push([days[actualTimeJS.getDay()], actualTimeJS]);
   };
 
@@ -101,6 +101,10 @@
     const scheduledTime = Object.keys(plotDictionary)[i];
     const points = plotDictionary[scheduledTime];
 
+    for (let j = 0; j < points.length; j++) {
+      yScale(points[j][1]);
+    }
+    
     const renderCircles = function(points) {
       const circles = svg.selectAll('circle').data(points);
 
