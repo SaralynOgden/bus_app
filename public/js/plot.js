@@ -17,13 +17,6 @@
     window.location.href = '/';
   }
 
-  const test = moment().diff(moment().startOf('week'),'days');
-  console.log(test);
-  const today = new Date();
-  const date = moment().add(1, 'days');
-  console.log(date.format());
-
-
   const getJSDateFromThisWeek = function(actualTime, dateCreated) {
     const today = new Date();
 
@@ -50,9 +43,6 @@
       } else {
         actualTimeArray = [];
       }
-
-      console.log('tripDatum = ')
-      console.log(tripDatum);
       insertPointsIntoArray(tripDatum.actualTime, actualTimeArray, tripDatum.createdAt);
       plotDictionary[scheduledTime] = dateArray;
     }
@@ -62,10 +52,8 @@
 
   $.getJSON(`/data/where?tripId=${tripId}&stopNumber=${stopNumber}`)
     .done((processedTripData) => {
-      console.log(processedTripData);
       const plotDictionary = getPlotDictionary(processedTripData);
 
-      console.log(plotDictionary);
     })
     .fail(() => {
       Materialize.toast('Unable to retrieve data', 3000);
