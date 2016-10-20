@@ -19,37 +19,41 @@
    window.location.href = '/';
   }
 
+  const w = 600;
+  const h = 350;
+  const padding = 20;
+
   const getJSDateFromThisWeek = function(actualTime, dateCreated) {
     const today = new Date(),
       createdDate = new Date(Date.parse(dateCreated));
       console.log(`date created ${dateCreated}`);
-      console.log(`created date ${createdDate}`);
+      console.log(`created date ${created Date}`);
 
     moment().add(createdDate.getDay() - today.getDay(), 'days');
 
     return moment().set({hour: parseInt(actualTime.substring(0,2)), minute: parseInt(actualTime.substring(3,5))}).toDate();
   };
 
-  const w = 600;
-  const h = 350;
-  const padding = 20;
-
-  const svg = d3.select('#plots-container')
-    .append('div')
-    .classed('svg-container', true)
-    .attr('id', '#plot1')
-    .append('svg')
-    .attr("preserveAspectRatio", "xMinYMin meet")
-    .attr("viewBox", "0 0 600 350")
-    .classed("svg-content-responsive", true);
-
-  const xScale = d3.scale.ordinal()
-    .domain(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'])
-    .rangeBands([0, w - padding]);
-
-  const xAxis = d3.svg.axis();
-  xAxis.scale(xScale);
-  xAxis.orient("bottom");
+  // const w = 600;
+  // const h = 350;
+  // const padding = 20;
+  //
+  // const svg = d3.select('#plots-container')
+  //   .append('div')
+  //   .classed('svg-container', true)
+  //   .attr('id', '#plot1')
+  //   .append('svg')
+  //   .attr("preserveAspectRatio", "xMinYMin meet")
+  //   .attr("viewBox", "0 0 600 350")
+  //   .classed("svg-content-responsive", true);
+  //
+  // const xScale = d3.scale.ordinal()
+  //   .domain(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'])
+  //   .rangeBands([0, w - padding]);
+  //
+  // const xAxis = d3.svg.axis();
+  // xAxis.scale(xScale);
+  // xAxis.orient("bottom");
 
   // render circles based on dataSet points
   // const renderCircles = function(data) {
@@ -125,17 +129,82 @@
     return plotDictionary;
   };
 
-  // const plot = function(plotDictionary) {
-  //
-  // };
+  const buildPlots = function(plotDictionary) {
+  let numberOfPlots = Object.keys(plotDictionary).length;
+  for (let i = 0; i < numberOfPlots; i++) {
+    const svg = d3.select('#plots-container')
+      .append('div')
+      .classed('svg-container', true)
+      .attr('id', `#plot${i}`)
+      .append('svg')
+      .attr("preserveAspectRatio", "xMinYMin meet")
+      .attr("viewBox", "0 0 600 350")
+      .classed("svg-content-responsive", true);
+
+    const xScale = d3.scale.ordinal()
+        .domain(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'])
+        .rangeBands([0, w - padding]);
+
+    const xAxis = d3.svg.axis();
+      xAxis.scale(xScale);
+      xAxis.orient("bottom");
+
+    let yMinTime = new Date();
+    yMinTime.setHours(Object.keys(plotDictionary)[i].substring(0, 2));
+    yMinTime.setMinutes(parseInt(Object.keys(plotDictionary)[i].substring(3, 5)) - 20);
+
+    let yMaxTime = new Date();
+    yMaxTime.setHours(Object.keys(plotDictionary)[i].substring(0, 2));
+    yMaxTime.setMinutes(parseInt(Object.keys(plotDictionary)[i].substring(3, 5)) + 20);
+
+    const yScale = d3.time.scale()
+      .domain([yMinTime, yMaxTime])
+      .range([h - 20, 0 + padding]);
+
+    const yAxis = d3.svg.axis()
+      .outerTickSize(0)
+      .scale(yScale)
+      .orient('left')
+      .ticks(5)
+      .tickFormat(d3.time.format("%-I:%M %p"));
+
+    const schedTime = Object.keys(plotDictionary)[i];
+    const points = plotDictionary[schedTime];
+
+    const renderCircles = function(points) {
+      const circles = svg.selectAll('circle').data(points);
+
+      circles.enter().append('circle').attr('r', 2);
+
+      circles
+        .attr('cx', (d) => {
+          return d[0];
+        })
+        .attr('cy', (d) => {
+          return d[1];
+        })
+        .style('fill', 'black');
+    };
+
+    renderCircles(points);
+
+    svg.append("g")
+      .attr("class", "axis")
+      .attr("transform", "translate(50," + (h - padding) + ")")
+      .call(xAxis);
+
+    svg.append("g")
+      .attr("class", "axis")
+      .attr("transform", "translate(50, 0)")
+      .call(yAxis);
+  }
+};
 
   $.getJSON(`/data/where?tripId=${tripId}&stopNumber=${stopNumber}`)
     .done((processedTripData) => {
       console.log(processedTripData);
       const plotDictionary = getPlotDictionary(processedTripData);
-      // console.log(plotDictionary);
-      // plot(plotDictionary);
-
+      buildPlot(plotDictionary);
     })
     .fail(() => {
       Materialize.toast('Unable to retrieve data', 3000);
