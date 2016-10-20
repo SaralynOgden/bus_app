@@ -58,14 +58,14 @@
 
     moment().add(createdDate.getDay() - today.getDay(), 'days');
 
-    return moment().set({hour: parseInt(actualTime.substring(0,2)), minute: parseInt(actualTime.substring(3,5))}).toDate();
+    return moment().set({hour: parseInt(actualTime.substring(0,2)) - 7, minute: parseInt(actualTime.substring(3,5))}).toDate();
   };
 
   const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
     const actualTimeJS = getJSDateFromThisWeek(actualTime, dateCreated),
           days = [107, 224, 340, 455, 572];
 
-    actualTimeArray.push([days[actualTimeJS.getDay() - 1], actualTimeJS]);
+    actualTimeArray.push([days[actualTimeJS.getDay() - 1], moment(actualTimeJS).tz('gmt').toDate()]);
   };
 
   const getPlotDictionary = function(processedTripData) {
@@ -114,7 +114,7 @@
     yMaxTime.setHours(Object.keys(plotDictionary)[i].substring(0, 2));
     yMaxTime.setMinutes(parseInt(Object.keys(plotDictionary)[i].substring(3, 5)) + 20);
 
-    const yScale = d3.time.scale.utc()
+    const yScale = d3.time.scale()
       .domain([yMinTime, yMaxTime])
       .range([h - 20, 0 + padding]);
 
