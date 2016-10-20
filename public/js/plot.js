@@ -29,8 +29,6 @@
   const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
     const actualTimeJS = getJSDateFromThisWeek(actualTime, dateCreated),
           days = [107, 224, 340, 455, 572];
-    console.log('actualTimeJS = ')
-    console.log(actualTimeJS);
 
     actualTimeArray.push([days[actualTimeJS.getDay()], yScale(actualTime)]);
   };
@@ -39,10 +37,7 @@
     const plotDictionary = {};
 
     for (let tripDatum of processedTripData) {
-      console.log('tripDatum = ');
-      console.log(tripDatum);
       const scheduledTime = tripDatum.scheduledTime;
-      console.log(`scheduled time = ${scheduledTime}`);
       let actualTimeArray;
 
       if (scheduledTime in plotDictionary) {
@@ -50,8 +45,7 @@
       } else {
         actualTimeArray = [];
       }
-      console.log('actualTimeArray = ');
-      console.log(actualTimeArray);
+      console.log(tripDatum.createdAt);
       insertPointsIntoArray(tripDatum.actualTime, actualTimeArray, tripDatum.createdAt);
       plotDictionary[scheduledTime] = dateArray;
     }
