@@ -120,7 +120,7 @@
       .call(xAxis);
   };
 
-  const buildYAxis = function(plotDictionary, i, svg) {
+  const buildYAxis = function(plotDictionary, i, svg, points) {
     let scheduledTime = new Date();
     scheduledTime.setHours(Object.keys(plotDictionary)[i].substring(0, 2));
     scheduledTime.setMinutes(Object.keys(plotDictionary)[i].substring(3, 5));
