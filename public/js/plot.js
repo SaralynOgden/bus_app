@@ -20,9 +20,10 @@
   }
 
   const getJSDateFromThisWeek = function(actualTime, dateCreated) {
-    const today = new Date();
+    const today = new Date(),
+      createdDate = new Date(Date.parse(dateCreated));
 
-    moment().add(dateCreated.getDay() - today.getDay(), 'days');
+    moment().add(createdDate.getDay() - today.getDay(), 'days');
     return moment().set({hour: parseInt(actualTime.substring(0,2)), minute: parseInt(actualTime.substring(3,5))})
   };
 
@@ -45,7 +46,7 @@
       } else {
         actualTimeArray = [];
       }
-      console.log(tripDatum.createdAt);
+
       insertPointsIntoArray(tripDatum.actualTime, actualTimeArray, tripDatum.createdAt);
       plotDictionary[scheduledTime] = dateArray;
     }
