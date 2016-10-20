@@ -120,7 +120,7 @@
       .scale(yScale)
       .orient('left')
       .ticks(5)
-      .tickFormat(d3.time.format("%-I:%M %p"));
+      .tickFormat(d3.time.format("%H:%M %p"));
 
     svg.append("g")
       .attr("class", "axis")
