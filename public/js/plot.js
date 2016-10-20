@@ -24,13 +24,14 @@
       createdDate = new Date(Date.parse(dateCreated));
 
     moment().add(createdDate.getDay() - today.getDay(), 'days');
+
     return moment().set({hour: parseInt(actualTime.substring(0,2)), minute: parseInt(actualTime.substring(3,5))}).toDate();
   };
 
   const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
     const actualTimeJS = getJSDateFromThisWeek(actualTime, dateCreated),
           days = [107, 224, 340, 455, 572];
-    console.log(actualTimeJS);
+    // console.log(actualTimeJS);
 
     actualTimeArray.push([days[actualTimeJS.getDay()], 5]); // yScale(actualTime)
   };
@@ -61,8 +62,12 @@
 
   $.getJSON(`/data/where?tripId=${tripId}&stopNumber=${stopNumber}`)
     .done((processedTripData) => {
+      console.log('processedTripData');
+      console.log(processedTripData);
+
       const plotDictionary = getPlotDictionary(processedTripData);
 
+      console.log('plotDictionary');
       console.log(plotDictionary);
 
       plot(plotDictionary);
