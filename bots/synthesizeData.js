@@ -4,8 +4,8 @@ const knex = require('../knex');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 
 const getEndTimeClosestToNow = function(currentDateInPST) {
-	const minutes = currentDateInPDT.getMinutes();
-	let hour = currentDateInPDT.getHours();
+	const minutes = currentDateInPST.getMinutes();
+	let hour = currentDateInPST.getHours();
 	if (minutes < 45) {
 		if (minutes > 15) {
 			return `${hour}:30:00`;
