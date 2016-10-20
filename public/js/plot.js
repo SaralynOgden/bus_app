@@ -86,7 +86,15 @@
   //     .attr("class", "axis")
   //     .attr("transform", "translate(50, 0)")
   //     .call(yAxis);
+  const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
+    const actualTimeJS = getJSDateFromThisWeek(actualTime, dateCreated),
+          days = [107, 224, 340, 455, 572];
 
+    actualTimeArray.push([days[actualTimeJS.getDay()], yScale(actualTimeJS)]);
+
+    return actualTimeJS;
+  };
+  
   const actualTime = insertPointsIntoArray();
 
   let yMinTime = new Date();
@@ -117,15 +125,6 @@
       .attr("class", "axis")
       .attr("transform", "translate(50, 0)")
       .call(yAxis);
-
-  const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
-    const actualTimeJS = getJSDateFromThisWeek(actualTime, dateCreated),
-          days = [107, 224, 340, 455, 572];
-
-    actualTimeArray.push([days[actualTimeJS.getDay()], yScale(actualTimeJS)]);
-
-    return actualTimeJS;
-  };
 
   const getPlotDictionary = function(processedTripData) {
     const plotDictionary = {};
