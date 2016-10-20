@@ -73,7 +73,7 @@
 
     for (let tripDatum of processedTripData) {
       const scheduledTime = moment(getJSDateFromThisWeek(tripDatum.scheduledTime)).format('HH:mm:ss');
-      console.log(`scheduled time = ${tripDatum.scheduledTime}`);
+      console.log(`scheduled time = ${scheduledTime}`);
       let actualTimeArray;
 
       if (scheduledTime in plotDictionary) {
