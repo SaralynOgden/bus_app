@@ -1,14 +1,15 @@
 'use strict';
+const moment = require('moment');
 
 const getTime = function(minutes) {
   let d = new Date();
   d.setHours(8);
   d.setMinutes(minutes);
-  return d;
+  return d.toLocaleTimeString();
 };
 
 const getDay = function(day) {
-  let d = `${day} Oct 20 2016 13:55:29 GMT-0700 (PDT)`;
+  const d = moment().day(day).toDate();
   return d;
 };
 
@@ -24,200 +25,200 @@ exports.seed = function(knex) {
           scheduled_time: getTime(11),
           actual_time: getTime(16),
           distance: 95,
-          created_at: getDay('Mon'),
-          updated_at: getDay('Mon')
+          created_at: getDay(1),
+          updated_at: getDay(1)
         }, {
           id: 2,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(13),
           distance: 95,
-          created_at: getDay('Mon'),
-          updated_at: getDay('Mon')
+          created_at: getDay(1),
+          updated_at: getDay(1)
         }, {
           id: 3,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(14),
           distance: 95,
-          created_at: getDay('Mon'),
-          updated_at: getDay('Mon')
+          created_at: getDay(1),
+          updated_at: getDay(1)
         }, {
           id: 4,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(13),
           distance: 95,
-          created_at: getDay('Mon'),
-          updated_at: getDay('Mon')
+          created_at: getDay(1),
+          updated_at: getDay(1)
         }, {
           id: 5,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(7),
           distance: 95,
-          created_at: getDay('Mon'),
-          updated_at: getDay('Mon')
+          created_at: getDay(1),
+          updated_at: getDay(1)
         }, {
           id: 6,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(5),
           distance: 95,
-          created_at: getDay('Tue'),
-          updated_at: getDay('Tue')
+          created_at: getDay(2),
+          updated_at: getDay(2)
         }, {
           id: 7,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(9),
           distance: 95,
-          created_at: getDay('Tue'),
-          updated_at: getDay('Tue')
+          created_at: getDay(2),
+          updated_at: getDay(2)
         }, {
           id: 8,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(16),
           distance: 95,
-          created_at: getDay('Tue'),
-          updated_at: getDay('Tue')
+          created_at: getDay(2),
+          updated_at: getDay(2)
         }, {
           id: 9,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(13),
           distance: 95,
-          created_at: getDay('Tue'),
-          updated_at: getDay('Tue')
+          created_at: getDay(2),
+          updated_at: getDay(2)
         }, {
           id: 10,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(14),
           distance: 95,
-          created_at: getDay('Tue'),
-          updated_at: getDay('Tue')
+          created_at: getDay(2),
+          updated_at: getDay(2)
         }, {
           id: 11,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(18),
           distance: 95,
-          created_at: getDay('Wed'),
-          updated_at: getDay('Wed')
+          created_at: getDay(3),
+          updated_at: getDay(3)
         }, {
           id: 12,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(15),
           distance: 95,
-          created_at: getDay('Wed'),
-          updated_at: getDay('Wed')
+          created_at: getDay(3),
+          updated_at: getDay(3)
         }, {
           id: 13,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(11),
           distance: 95,
-          created_at: getDay('Wed'),
-          updated_at: getDay('Wed')
+          created_at: getDay(3),
+          updated_at: getDay(3)
         }, {
           id: 14,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(14),
           distance: 95,
-          created_at: getDay('Wed'),
-          updated_at: getDay('Wed')
+          created_at: getDay(3),
+          updated_at: getDay(3)
         }, {
           id: 15,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(14),
           distance: 95,
-          created_at: getDay('Wed'),
-          updated_at: getDay('Wed')
+          created_at: getDay(3),
+          updated_at: getDay(3)
         }, {
           id: 16,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(13),
           distance: 95,
-          created_at: getDay('Thu'),
-          updated_at: getDay('Thu')
+          created_at: getDay(4),
+          updated_at: getDay(4)
         }, {
           id: 17,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(12),
           distance: 95,
-          created_at: getDay('Thu'),
-          updated_at: getDay('Thu')
+          created_at: getDay(4),
+          updated_at: getDay(4)
         }, {
           id: 18,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(18),
           distance: 95,
-          created_at: getDay('Thu'),
-          updated_at: getDay('Thu')
+          created_at: getDay(4),
+          updated_at: getDay(4)
         }, {
           id: 19,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(14),
           distance: 95,
-          created_at: getDay('Thu'),
-          updated_at: getDay('Thu')
+          created_at: getDay(4),
+          updated_at: getDay(4)
         }, {
           id: 20,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(8),
           distance: 95,
-          created_at: getDay('Thu'),
-          updated_at: getDay('Thu')
+          created_at: getDay(4),
+          updated_at: getDay(4)
         }, {
           id: 21,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(13),
           distance: 95,
-          created_at: getDay('Fri'),
-          updated_at: getDay('Fri')
+          created_at: getDay(5),
+          updated_at: getDay(5)
         }, {
           id: 22,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(18),
           distance: 95,
-          created_at: getDay('Fri'),
-          updated_at: getDay('Fri')
+          created_at: getDay(5),
+          updated_at: getDay(5)
         }, {
           id: 23,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(20),
           distance: 95,
-          created_at: getDay('Fri'),
-          updated_at: getDay('Fri')
+          created_at: getDay(5),
+          updated_at: getDay(5)
         }, {
           id: 24,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(11),
           distance: 95,
-          created_at: getDay('Fri'),
-          updated_at: getDay('Fri')
+          created_at: getDay(5),
+          updated_at: getDay(5)
         }, {
           id: 25,
           trip_id: 1,
           scheduled_time: getTime(11),
           actual_time: getTime(11),
           distance: 95,
-          created_at: getDay('Fri'),
-          updated_at: getDay('Fri')
+          created_at: getDay(5),
+          updated_at: getDay(5)
         },
 
         // 8:18 am
@@ -227,200 +228,200 @@ exports.seed = function(knex) {
           scheduled_time: getTime(18),
           actual_time: getTime(16),
           distance: 95,
-          created_at: getDay('Mon'),
-          updated_at: getDay('Mon')
+          created_at: getDay(1),
+          updated_at: getDay(1)
         }, {
           id: 27,
           trip_id: 1,
           scheduled_time: getTime(18),
           actual_time: getTime(19),
           distance: 95,
-          created_at: getDay('Mon'),
-          updated_at: getDay('Mon')
+          created_at: getDay(1),
+          updated_at: getDay(1)
         }, {
           id: 28,
           trip_id: 1,
           scheduled_time: getTime(18),
           actual_time: getTime(20),
           distance: 95,
-          created_at: getDay('Mon'),
-          updated_at: getDay('Mon')
+          created_at: getDay(1),
+          updated_at: getDay(1)
         }, {
           id: 29,
           trip_id: 1,
           scheduled_time: getTime(18),
           actual_time: getTime(23),
           distance: 95,
-          created_at: getDay('Mon'),
-          updated_at: getDay('Mon')
+          created_at: getDay(1),
+          updated_at: getDay(1)
         }, {
           id: 30,
           trip_id: 1,
           scheduled_time: getTime(18),
           actual_time: getTime(13),
           distance: 95,
-          created_at: getDay('Mon'),
-          updated_at: getDay('Mon')
+          created_at: getDay(1),
+          updated_at: getDay(1)
         }, {
           id: 31,
           trip_id: 1,
           scheduled_time: getTime(18),
           actual_time: getTime(20),
           distance: 95,
-          created_at: getDay('Tue'),
-          updated_at: getDay('Tue')
+          created_at: getDay(2),
+          updated_at: getDay(2)
         }, {
           id: 32,
           trip_id: 1,
           scheduled_time: getTime(18),
           actual_time: getTime(22),
           distance: 95,
-          created_at: getDay('Tue'),
-          updated_at: getDay('Tue')
+          created_at: getDay(2),
+          updated_at: getDay(2)
         }, {
           id: 33,
           trip_id: 1,
           scheduled_time: getTime(18),
           actual_time: getTime(24),
           distance: 95,
-          created_at: getDay('Tue'),
-          updated_at: getDay('Tue')
+          created_at: getDay(2),
+          updated_at: getDay(2)
         }, {
           id: 34,
           trip_id: 1,
           scheduled_time: getTime(18),
           actual_time: getTime(19),
           distance: 95,
-          created_at: getDay('Tue'),
-          updated_at: getDay('Tue')
+          created_at: getDay(2),
+          updated_at: getDay(2)
         }, {
           id: 35,
           trip_id: 1,
           scheduled_time: getTime(18),
           actual_time: getTime(19),
           distance: 95,
-          created_at: getDay('Tue'),
-          updated_at: getDay('Tue')
+          created_at: getDay(2),
+          updated_at: getDay(2)
         }, {
           id: 36,
           trip_id: 1,
           scheduled_time: getTime(18),
           actual_time: getTime(20),
           distance: 95,
-          created_at: getDay('Wed'),
-          updated_at: getDay('Wed')
+          created_at: getDay(3),
+          updated_at: getDay(3)
         }, {
           id: 37,
           trip_id: 1,
           scheduled_time: getTime(18),
           actual_time: getTime(25),
           distance: 95,
-          created_at: getDay('Wed'),
-          updated_at: getDay('Wed')
+          created_at: getDay(3),
+          updated_at: getDay(3)
         }, {
           id: 38,
           trip_id: 1,
           scheduled_time: getTime(18),
           actual_time: getTime(23),
           distance: 95,
-          created_at: getDay('Wed'),
-          updated_at: getDay('Wed')
+          created_at: getDay(3),
+          updated_at: getDay(3)
         }, {
           id: 39,
           trip_id: 1,
           scheduled_time: getTime(18),
           actual_time: getTime(22),
           distance: 95,
-          created_at: getDay('Wed'),
-          updated_at: getDay('Wed')
+          created_at: getDay(3),
+          updated_at: getDay(3)
         }, {
           id: 40,
           trip_id: 1,
           scheduled_time: getTime(18),
           actual_time: getTime(15),
           distance: 95,
-          created_at: getDay('Wed'),
-          updated_at: getDay('Wed')
+          created_at: getDay(3),
+          updated_at: getDay(3)
         }, {
           id: 41,
           trip_id: 1,
           scheduled_time: getTime(18), // first graph scheduled_time = 8:18 am
           actual_time: getTime(17),
           distance: 95,
-          created_at: getDay('Thu'),
-          updated_at: getDay('Thu')
+          created_at: getDay(4),
+          updated_at: getDay(4)
         }, {
           id: 42,
           trip_id: 1,
           scheduled_time: getTime(18),
           actual_time: getTime(13),
           distance: 95,
-          created_at: getDay('Thu'),
-          updated_at: getDay('Thu')
+          created_at: getDay(4),
+          updated_at: getDay(4)
         }, {
           id: 43,
           trip_id: 1,
           scheduled_time: getTime(18),
           actual_time: getTime(23),
           distance: 95,
-          created_at: getDay('Thu'),
-          updated_at: getDay('Thu')
+          created_at: getDay(4),
+          updated_at: getDay(4)
         }, {
           id: 44,
           trip_id: 1,
           scheduled_time: getTime(18),
           actual_time: getTime(24),
           distance: 95,
-          created_at: getDay('Thu'),
-          updated_at: getDay('Thu')
+          created_at: getDay(4),
+          updated_at: getDay(4)
         }, {
           id: 45,
           trip_id: 1,
           scheduled_time: getTime(18),
           actual_time: getTime(14),
           distance: 95,
-          created_at: getDay('Thu'),
-          updated_at: getDay('Thu')
+          created_at: getDay(4),
+          updated_at: getDay(4)
         }, {
           id: 46,
           trip_id: 1,
           scheduled_time: getTime(18),
           actual_time: getTime(19),
           distance: 95,
-          created_at: getDay('Fri'),
-          updated_at: getDay('Fri')
+          created_at: getDay(5),
+          updated_at: getDay(5)
         }, {
           id: 47,
           trip_id: 1,
           scheduled_time: getTime(18),
           actual_time: getTime(23),
           distance: 95,
-          created_at: getDay('Fri'),
-          updated_at: getDay('Fri')
+          created_at: getDay(5),
+          updated_at: getDay(5)
         }, {
           id: 48,
           trip_id: 1,
           scheduled_time: getTime(18),
           actual_time: getTime(22),
           distance: 95,
-          created_at: getDay('Fri'),
-          updated_at: getDay('Fri')
+          created_at: getDay(5),
+          updated_at: getDay(5)
         }, {
           id: 49,
           trip_id: 1,
           scheduled_time: getTime(18),
           actual_time: getTime(25),
           distance: 95,
-          created_at: getDay('Fri'),
-          updated_at: getDay('Fri')
+          created_at: getDay(5),
+          updated_at: getDay(5)
         }, {
           id: 50,
           trip_id: 1,
           scheduled_time: getTime(18),
           actual_time: getTime(28),
           distance: 95,
-          created_at: getDay('Fri'),
-          updated_at: getDay('Fri')
+          created_at: getDay(5),
+          updated_at: getDay(5)
         },
 
         // 8:33 am
@@ -430,201 +431,201 @@ exports.seed = function(knex) {
           scheduled_time: getTime(33),
           actual_time: getTime(32),
           distance: 95,
-          created_at: getDay('Mon'),
-          updated_at: getDay('Mon')
+          created_at: getDay(1),
+          updated_at: getDay(1)
         }, {
           id: 52,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(29),
           distance: 95,
-          created_at: getDay('Mon'),
-          updated_at: getDay('Mon')
+          created_at: getDay(1),
+          updated_at: getDay(1)
         }, {
           id: 53,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(23),
           distance: 95,
-          created_at: getDay('Mon'),
-          updated_at: getDay('Mon')
+          created_at: getDay(1),
+          updated_at: getDay(1)
         }, {
           id: 54,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(36),
           distance: 95,
-          created_at: getDay('Mon'),
-          updated_at: getDay('Mon')
+          created_at: getDay(1),
+          updated_at: getDay(1)
         }, {
           id: 55,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(37),
           distance: 95,
-          created_at: getDay('Mon'),
-          updated_at: getDay('Mon')
+          created_at: getDay(1),
+          updated_at: getDay(1)
         }, {
           id: 56,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(34),
           distance: 95,
-          created_at: getDay('Tue'),
-          updated_at: getDay('Tue')
+          created_at: getDay(2),
+          updated_at: getDay(2)
         }, {
           id: 57,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(38),
           distance: 95,
-          created_at: getDay('Tue'),
-          updated_at: getDay('Tue')
+          created_at: getDay(2),
+          updated_at: getDay(2)
         }, {
           id: 58,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(39),
           distance: 95,
-          created_at: getDay('Tue'),
-          updated_at: getDay('Tue')
+          created_at: getDay(2),
+          updated_at: getDay(2)
         }, {
           id: 59,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(34),
           distance: 95,
-          created_at: getDay('Tue'),
-          updated_at: getDay('Tue')
+          created_at: getDay(2),
+          updated_at: getDay(2)
         }, {
           id: 60,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(37),
           distance: 95,
-          created_at: getDay('Tue'),
-          updated_at: getDay('Tue')
+          created_at: getDay(2),
+          updated_at: getDay(2)
         }, {
           id: 61,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(33),
           distance: 95,
-          created_at: getDay('Wed'),
-          updated_at: getDay('Wed')
+          created_at: getDay(3),
+          updated_at: getDay(3)
         }, {
           id: 62,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(33),
           distance: 95,
-          created_at: getDay('Wed'),
-          updated_at: getDay('Wed')
+          created_at: getDay(3),
+          updated_at: getDay(3)
         }, {
           id: 63,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(33),
           distance: 95,
-          created_at: getDay('Wed'),
-          updated_at: getDay('Wed')
+          created_at: getDay(3),
+          updated_at: getDay(3)
         }, {
           id: 64,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(35),
           distance: 95,
-          created_at: getDay('Wed'),
-          updated_at: getDay('Wed')
+          created_at: getDay(3),
+          updated_at: getDay(3)
         }, {
           id: 65,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(34),
           distance: 95,
-          created_at: getDay('Wed'),
-          updated_at: getDay('Wed')
+          created_at: getDay(3),
+          updated_at: getDay(3)
         }, {
           id: 66,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(35),
           distance: 95,
-          created_at: getDay('Thu'),
-          updated_at: getDay('Thu')
+          created_at: getDay(4),
+          updated_at: getDay(4)
         }, {
           id: 67,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(37),
           distance: 95,
-          created_at: getDay('Thu'),
-          updated_at: getDay('Thu')
+          created_at: getDay(4),
+          updated_at: getDay(4)
         }, {
           id: 68,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(34),
           distance: 95,
-          created_at: getDay('Thu'),
-          updated_at: getDay('Thu')
+          created_at: getDay(4),
+          updated_at: getDay(4)
         }, {
           id: 69,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(38),
           distance: 95,
-          created_at: getDay('Thu'),
-          updated_at: getDay('Thu')
+          created_at: getDay(4),
+          updated_at: getDay(4)
         }, {
           id: 70,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(33),
           distance: 95,
-          created_at: getDay('Thu'),
-          updated_at: getDay('Thu')
+          created_at: getDay(4),
+          updated_at: getDay(4)
         }, {
           id: 71,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(35),
           distance: 95,
-          created_at: getDay('Fri'),
-          updated_at: getDay('Fri')
+          created_at: getDay(5),
+          updated_at: getDay(5)
         }, {
           id: 72,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(30),
           distance: 95,
-          created_at: getDay('Fri'),
-          updated_at: getDay('Fri')
+          created_at: getDay(5),
+          updated_at: getDay(5)
         }, {
           id: 73,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(29),
           distance: 95,
-          created_at: getDay('Fri'),
-          updated_at: getDay('Fri')
+          created_at: getDay(5),
+          updated_at: getDay(5)
         }, {
           id: 74,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(28),
           distance: 95,
-          created_at: getDay('Fri'),
-          updated_at: getDay('Fri')
+          created_at: getDay(5),
+          updated_at: getDay(5)
         }, {
           id: 75,
           trip_id: 1,
           scheduled_time: getTime(33),
           actual_time: getTime(35),
           distance: 95,
-          created_at: getDay('Fri'),
-          updated_at: getDay('Fri')
-        }]);
+          created_at: getDay(5),
+          updated_at: getDay(5)
+      }]);
     })
     .then(() => {
       return knex.raw(
