@@ -70,7 +70,7 @@
       .style('fill', 'black');
   };
 
-  const buildAxes = function (i, svg) {
+  const buildAxes = function (i, svg, plotDictionary) {
     const xScale = d3.scale.ordinal()
         .domain(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'])
         .rangeBands([0, w - padding]);
