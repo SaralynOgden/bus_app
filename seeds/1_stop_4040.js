@@ -14,9 +14,9 @@ const getDay = function(day) {
 
 exports.seed = function(knex) {
   // Deletes ALL existing entries
-  return knex('stop_4040_raw').del()
+  return knex('stop_4040').del()
     .then(() => {
-      return knex('stop_4040_raw').insert([
+      return knex('stop_4040').insert([
         // 8:11 am
         {
           id: 1,
