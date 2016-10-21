@@ -52,7 +52,6 @@
 
       $.ajax(options)
         .done((deletedTrip) => {
-          console.log('hello!');
           $(`#trip_${tripId}`).remove();
         })
         .fail(() => {
@@ -92,7 +91,7 @@
                     <td>${getHumanReadableTime(startTime)}</td>
                     <td>${getHumanReadableTime(endTime)}</td>
                     <td>
-                      <span id="delete_trip_${tripId}">
+                      <span class="delete-trip" id="delete_trip_${tripId}">
                         X
                       </span>
                     </td>
