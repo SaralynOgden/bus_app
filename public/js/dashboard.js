@@ -41,8 +41,7 @@
 
       $.ajax(options)
         .done((deletedTrip) => {
-          $(`${deletedTrip.busNumber + deletedTrip.stopNumber +
-                 deletedTrip.startTime + deletedTrip.endTime}`).remove();
+          $(`#trip_${tripId}`).remove();
         })
         .fail(() => {
           Materialize.toast(
