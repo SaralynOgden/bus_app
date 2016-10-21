@@ -40,7 +40,9 @@ router.get('/trips/:id', (req, res, next) => {
 
 router.get('/trips', (req, res, next) => {
   knex('trips')
+    .orderByRaw('cast(bus_number as numeric) ASC')
     .then((rows) => {
+      console.log(rows);
       const trips = camelizeKeys(rows);
 
       res.send(trips);

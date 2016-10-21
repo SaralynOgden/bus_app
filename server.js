@@ -37,13 +37,15 @@ const users = require('./routes/users'),
       tokens = require('./routes/tokens.js'),
       trips = require('./routes/trips.js'),
       tripsUsers = require('./routes/trips_users.js'),
-      data = require('./routes/data.js');
+      data = require('./routes/data.js'),
+      dashboardVerification = require('./routes/dashboard_verification.js');
 
 app.use(users);
 app.use(tokens);
 app.use(trips);
 app.use(tripsUsers);
 app.use(data);
+app.use(dashboardVerification);
 
 app.use((_req, res) => {
   res.sendStatus(404);

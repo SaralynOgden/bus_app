@@ -2,6 +2,17 @@
 'use strict';
 
 (function() {
+
+  $.getJSON('/dashboard')
+    .done((result) => {
+      if (!result) {
+        window.location.href = '/browse_mode.html';
+      }
+    })
+    .fail((err) => {
+      console.log(err);
+    });
+
   $('select').material_select();
 
   $('#start-time-drop-down, #end-time-drop-down').material_select();

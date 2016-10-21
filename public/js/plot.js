@@ -169,7 +169,7 @@
       })
       .style('fill', 'none')
       .style('stroke', 'black')
-      .style("stroke-width", 1)
+      .style('stroke-width', 1)
   };
 
 
