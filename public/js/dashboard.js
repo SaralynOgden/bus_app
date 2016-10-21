@@ -92,7 +92,7 @@
                     <td>${getHumanReadableTime(startTime)}</td>
                     <td>${getHumanReadableTime(endTime)}</td>
                     <td class="delete-button">
-                      <span class="delete-span" id="delete_trip_${tripId}">
+                      <span class="delete-span animated slideInRight" id="delete_trip_${tripId}">
                       </span>
                     </td>
                   </tr>`);
