@@ -86,7 +86,7 @@ INDEX.HTML
 }
 
 .main-info {
-  margin-top: 175px;
+  margin-top: 140px;
 }
 
 .welcome-header {
@@ -145,24 +145,38 @@ PLOT.HTML
 
 *******************************************************************************/
 
+
 .axis path,
 .axis line {
   fill: none;
   stroke: black;
-  stroke-width: .5;
+  stroke-width: 0.75;
 }
 
 .axis text {
   font-family: sans-serif;
-  font-size: 10px;
+  font-size: 17px;
 }
 
 .svg-content-responsive {
-  margin: 100px;
+  margin: 0 15% 0 12%;
 }
 
 #plot-headers {
-  margin-left: 100px;
+  margin: 0 auto;
+  width: 75%;
+  overflow: hidden;
+  background-color: #333;
+  padding: 0.5%;
+  border-radius: 5px;
+}
+
+#plot-headers li {
+  font-size: 17px;
+  float: left;
+  margin-left: 3.5%;
+  display: block;
+  color: white;
 }
 
 /******************************************************************************
