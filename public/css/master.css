@@ -116,8 +116,9 @@ INDEX.HTML
 DASHBOARD.HTML
 
 *******************************************************************************/
-.delete-trip {
-  color: red;
+.delete-button {
+  height: 35px;
+  width: 35px;
 }
 
 .remove-margin {
