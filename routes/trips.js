@@ -84,7 +84,7 @@ router.post('/trips', (req, res, next) => {
 router.delete('/trips/:id', (req, res, next) => {
   let trip;
   const id = req.params.id;
-  console.log(`inside route and id is ${id}`);
+
   if (isNaN(id)) { return next(boom.create(404, 'Not Found')); }
   knex('trips')
     .where('id', id)
