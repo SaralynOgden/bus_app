@@ -52,6 +52,7 @@
 
       $.ajax(options)
         .done((deletedTrip) => {
+          console.log(`deleted trip:${deletedTrip}`);
           $(`#trip_${tripId}`).remove();
         })
         .fail(() => {
@@ -98,10 +99,12 @@
                   </tr>`);
 
     $('tbody').append($row);
+
     $(`#trip_${tripId}`).click((event) => {
       event.preventDefault();
       window.location.href = url;
     });
+
     $(`#delete_trip_${tripId}`)
       .click(deleteTrip(tripId));
   };
