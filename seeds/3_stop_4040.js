@@ -1,16 +1,19 @@
+/* eslint-disable camelcase, max-len, max-lines */
 'use strict';
+
 const moment = require('moment');
 
 const getTime = function(minutes) {
-  let d = new Date();
-  d.setHours(1);
-  d.setMinutes(minutes);
-  return `${d.getHours()}:${d.getMinutes()}:00`;//d.toLocaleTimeString();
+  const day = new Date();
+
+  day.setHours(1);
+  day.setMinutes(minutes);
+
+  return `${day.getHours()}:${day.getMinutes()}:00`; // d.toLocaleTimeString();
 };
 
 const getDay = function(day) {
-  const d = moment().day(day).add(8, 'hours').toDate();
-  return d;
+  return moment().day(day).add(8, 'hours').toDate();
 };
 
 exports.seed = function(knex) {
@@ -625,11 +628,11 @@ exports.seed = function(knex) {
           distance: 95,
           created_at: getDay(5),
           updated_at: getDay(5)
-      }]);
+        }]);
     })
-    .then(() => {
-      return knex.raw(
-        "SELECT setval('stop_4040_id_seq', (SELECT MAX(id) FROM stop_4040));"
-      );
-    })
+      .then(() => {
+        return knex.raw(
+          "SELECT setval('stop_4040_id_seq', (SELECT MAX(id) FROM stop_4040));"
+        );
+      });
 };

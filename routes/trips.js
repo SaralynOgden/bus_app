@@ -6,8 +6,6 @@ const router = express.Router(); // eslint-disable-line new-cap
 const knex = require('../knex');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 const boom = require('boom');
-// const ev = require('express-validation');
-// const validations = require('../validations/user_buses');
 
 const createTables = function(stopNumber) {
   knex.schema.createTableIfNotExists(`stop_${stopNumber}_raw`, (table) => {
@@ -42,7 +40,6 @@ router.get('/trips', (req, res, next) => {
   knex('trips')
     .orderByRaw('cast(bus_number as numeric) ASC')
     .then((rows) => {
-      console.log(rows);
       const trips = camelizeKeys(rows);
 
       res.send(trips);

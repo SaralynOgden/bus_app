@@ -51,20 +51,25 @@ const getBusIndices = function(arrivalsAndDepartures, busNumber) {
   return busesWithNumber;
 };
 
+// eslint-disable-next-line max-params
 const insertBusData = function(ajaxResult, busIndices, stopNumber, tripId) {
   for (let i = 0; i < busIndices.length; i++) {
     const busInfo = ajaxResult.data.entry.arrivalsAndDepartures[busIndices[i]];
     const insertRow = {
       tripId,
-      scheduledTime: moment.utc(busInfo.scheduledArrivalTime).format('HH:mm:ss'),
-      actualTime: moment.utc(busInfo.predictedArrivalTime).format('HH:mm:ss'),
+      scheduledTime: moment.utc(busInfo.scheduledArrivalTime)
+                           .format('HH:mm:ss'),
+      actualTime: moment.utc(busInfo.predictedArrivalTime)
+                        .format('HH:mm:ss'),
       distance: parseInt(busInfo.distanceFromStop)
     };
 
     if (busInfo.predictedArrivalTime !== 0) {
       knex(`stop_${stopNumber}_raw`)
         .insert(decamelizeKeys(insertRow), '*')
-        .catch((err) => console.error(err));
+        .catch((err) => {
+          throw err;
+        });
     }
   }
 };
@@ -83,7 +88,8 @@ module.exports = {
   start() {
     // Move time be on PST to match start and end times
     const currentTimeJS = new Date(Date.now() - 7 * 60 * 60 * 1000);
-    const currentTimeSQL = `${currentTimeJS.getHours()}:${currentTimeJS.getMinutes()}:00`;
+    const currentTimeSQL = `${currentTimeJS.getHours()}:
+${currentTimeJS.getMinutes()}:00`;
 
     knex('trips')
       .where('start_time', '<', currentTimeSQL)
@@ -93,13 +99,20 @@ module.exports = {
         const currentStopDictionary = getCurrentStopDictionary(currentTrips);
 
         for (const stopNumber in currentStopDictionary) {
-          getJSON(`http://api.pugetsound.onebusaway.org/api/where/arrivals-and-departures-for-stop/1_${stopNumber}.json?key=bf764a2e-308a-43f5-9fdc-24a6e6447ae0`)
+          getJSON(`http://api.pugetsound.onebusaway.org/api/where/arrivals-and\
+-departures-for-stop/1_${stopNumber}.json?key=bf764a2e-308a-43f5-\
+9fdc-24a6e6447ae0`)
             .then((ajaxResult) => {
-              addTripsInArrayToStopTable(ajaxResult, currentStopDictionary[stopNumber], stopNumber);
+              addTripsInArrayToStopTable(ajaxResult,
+                currentStopDictionary[stopNumber], stopNumber);
             })
-            .catch((err) => console.err(err));
+            .catch((err) => {
+              throw err;
+            });
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        throw err;
+      });
   }
 };

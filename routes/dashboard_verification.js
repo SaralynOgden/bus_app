@@ -2,7 +2,6 @@
 
 const express = require('express');
 const router = express.Router(); // eslint-disable-line new-cap
-const knex = require('../knex');
 const jwt = require('jsonwebtoken');
 
 const authorize = function(req, res, next) {

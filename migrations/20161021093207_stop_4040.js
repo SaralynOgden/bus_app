@@ -1,10 +1,11 @@
+/*eslint-disable camelcase*/
 'use strict';
 
 exports.up = function(knex) {
-  return knex.schema.createTable('stop_2580', (table) => {
+  return knex.schema.createTable('stop_4040', (table) => {
     table.increments();
     table.integer('trip_id').references('id').inTable('trips')
-          .onDelete('CASCADE').index();
+        .onDelete('CASCADE').index();
     table.time('scheduled_time').notNullable().index();
     table.time('actual_time').notNullable();
     table.integer('distance').notNullable().defaultTo('52800');
@@ -13,5 +14,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTable('stop_2580');
+  return knex.schema.dropTable('stop_4040');
 };

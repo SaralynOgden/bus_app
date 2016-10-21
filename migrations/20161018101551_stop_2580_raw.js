@@ -1,7 +1,7 @@
 'use strict';
 
 exports.up = function(knex) {
-  return knex.schema.createTable(`stop_2580_raw`, (table) => {
+  return knex.schema.createTable('stop_2580_raw', (table) => {
     table.increments();
     table.integer('trip_id').references('id').inTable('trips')
         .onDelete('CASCADE').index();
