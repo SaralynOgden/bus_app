@@ -42,10 +42,9 @@
 
   const earliestDeparture = getHumanReadableTime(startTime);
   const latestDeparture = getHumanReadableTime(endTime);
-
-  const w = 600;
-  const h = 350;
-  const padding = 20;
+  const width = 900;
+  const height = 500;
+  const padding = 110;
 
   $('#bus-number').append(` ${busNumber}`);
   $('#stop-number').append(` ${stopNumber}`);
@@ -86,38 +85,24 @@
     return plotDictionary;
   };
 
-  const renderCircles = function(points, svg) {
-    const circles = svg.selectAll('circle').data(points);
-
-    circles.enter().append('circle').attr('r', 2);
-
-    circles
-      .attr('cx', (d) => {
-        return d[0];
-      })
-      .attr('cy', (d) => {
-        return d[1];
-      })
-      .style('fill', 'black');
-  };
-
-
   const buildXAxis = function (i, svg, plotDictionary) {
     const xScale = d3.scale.ordinal()
       .domain(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'])
-      .rangeBands([0, w - padding]);
+      .rangeBands([padding, width]);
 
     const xAxis = d3.svg.axis();
-      xAxis.scale(xScale);
-      xAxis.orient("bottom");
+      xAxis.scale(xScale)
+           .orient("bottom")
+           .outerTickSize(0)
+           .ticks(5);
 
     svg.append("g")
       .attr("class", "axis")
-      .attr("transform", "translate(50," + (h - padding) + ")")
+      .attr("transform", `translate(0,${height - padding})`)
       .call(xAxis);
   };
 
-  const buildYAxis = function(plotDictionary, i, svg) {
+  const buildYAxis = function(plotDictionary, i, svg, points) {
     let scheduledTime = new Date();
     scheduledTime.setHours(Object.keys(plotDictionary)[i].substring(0, 2));
     scheduledTime.setMinutes(Object.keys(plotDictionary)[i].substring(3, 5));
@@ -131,8 +116,8 @@
     yMaxTime.setMinutes(parseInt(Object.keys(plotDictionary)[i].substring(3, 5)) + 20);
 
     const yScale = d3.time.scale()
-      .domain([yMinTime, yMaxTime])
-      .range([h - 20, 0 + padding]);
+      .domain([yMinTime, yMaxTime]).nice()
+      .range([height - padding, padding]);
 
     const yAxis = d3.svg.axis()
       .outerTickSize(0)
@@ -143,16 +128,43 @@
 
     svg.append("g")
       .attr("class", "axis")
-      .attr("transform", "translate(50, 0)")
+      .attr("transform", `translate(${padding}, 0)`)
       .call(yAxis);
 
     svg.append('svg:line')
-        .attr('x1', 50)
-        .attr('x2', w - padding)
+        .attr('x1', padding)
+        .attr('x2', width)
         .attr('y1', yScale(scheduledTime))
         .attr('y2', yScale(scheduledTime))
-        .style('stroke', '#4DA778');
+        .style('stroke', '#4DA778')
+        .style("stroke-dasharray", ('5, 5'))
+        .attr('stroke-width' , 2)
+
+    yScaleTime(points, yScale);
   };
+
+  const yScaleTime = function(points, yScale) {
+    for (let i = 0; i < points.length; i++) {
+      points[i][1] = yScale(points[i][1]);
+    }
+  };
+
+  const renderCircles = function(points, svg) {
+    console.log(points);
+    const circles = svg.selectAll('circle').data(points);
+
+    circles.enter().append('circle').attr('r', 4);
+
+    circles
+      .attr('cx', (d) => {
+        return d[0];
+      })
+      .attr('cy', (d) => {
+        return d[1];
+      })
+      .style('stroke', 'black');
+  };
+
 
   const buildPlots = function(plotDictionary) {
     let numberOfPlots = Object.keys(plotDictionary).length;
@@ -163,14 +175,27 @@
         .attr('id', `#plot${i}`)
         .append('svg')
         .attr("preserveAspectRatio", "xMinYMin meet")
-        .attr("viewBox", "0 0 600 350")
+        .attr('height', height)
+        .attr('width', width)
         .classed("svg-content-responsive", true);
 
       const scheduledTime = Object.keys(plotDictionary)[i];
       const points = plotDictionary[scheduledTime];
       buildXAxis(i, svg);
-      buildYAxis(plotDictionary, i, svg);
+      buildYAxis(plotDictionary, i, svg, points);
       renderCircles(points, svg);
+
+      svg.append("text")
+        .attr("text-anchor", "middle")
+        .attr(`transform`, `translate(${(padding - 80) / 2}, ${height / 2})rotate(-90)`)
+        .attr('font-size', 20)
+        .text('Time');
+
+      svg.append("text")
+        .attr("text-anchor", "middle")
+        .attr(`transform`, `translate(${(width + 100)/2}, ${height - padding / 2})`)
+        .attr('font-size', 20)
+        .text('Day');
     }
   };
 
