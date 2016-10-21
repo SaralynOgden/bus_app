@@ -44,6 +44,7 @@
 
   const deleteTrip = function(id) {
     console.log('am i inside deleteTrip');
+    console.log(id);
     return function(_event) {
       const options = {
         dataType: 'json',
@@ -106,8 +107,7 @@
     //   window.location.href = url;
     // });
 
-    $(`#delete_trip_${tripId}`)
-      .click(deleteTrip(tripId));
+    $(`#delete_trip_${tripId}`).click(deleteTrip(tripId));
   };
 
   $.getJSON('/trips_users')
