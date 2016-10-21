@@ -139,12 +139,21 @@ ul.dropdown-content.select-dropdown li span {
   margin-left: 12px;
 }
 
+#another-route {
+  text-align: center;
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+  height: 40px;
+  width: 200px;
+  padding: 10px;
+}
+
 /******************************************************************************
 
 PLOT.HTML
 
-*******************************************************************************/
-
+*******************************************************************************
 
 .axis path,
 .axis line {
@@ -167,7 +176,7 @@ PLOT.HTML
   width: 75%;
   overflow: hidden;
   background-color: #333;
-  padding: 0.5%;
+  padding: 1%;
   border-radius: 5px;
 }
 
