@@ -62,6 +62,11 @@
     const actualTimeJS = getJSDateFromThisWeek(actualTime); //508 664
     const days = [190, 350, 508, 664, 824];
 
+    console.log('date created stuff = ');
+    console.log(moment(dateCreated));
+    console.log(moment(dateCreated).toDate());
+    console.log(moment(dateCreated).toDate().getDay() - 1);
+
     actualTimeArray.push([days[moment(dateCreated).toDate().getDay() - 1], actualTimeJS]);
   };
 
