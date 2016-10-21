@@ -49,7 +49,7 @@
       const options = {
         dataType: 'json',
         type: 'DELETE',
-        url: `/trip/${id}`
+        url: `/trips/${id}`
       };
 
       $.ajax(options)
