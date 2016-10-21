@@ -117,30 +117,9 @@ DASHBOARD.HTML
 
 *******************************************************************************/
 .delete-button {
-  background: red;
-  width: 3px;
-  border-bottom: 2px solid black;
-}
-
-.delete-span {
-  display: none;
-  left: 18px;
-  position: relative;
-  letter-spacing: 3.5px;
-  font-size: 10px;
-  width: 3px;
-  color: white;
-  z-index: 100;
-}
-
-.delete-button:hover {
-  width: 100px;
-  transition: .4s ease all;
-}
-
-.delete-button:hover > .delete-span {
-  display: block;
-  transition: .4s ease all;
+  height: 25px;
+  width: 25px;
+  cursor: pointer;
 }
 
 .remove-margin {
