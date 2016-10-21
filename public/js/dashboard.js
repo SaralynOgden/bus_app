@@ -92,7 +92,7 @@
                     <td>${getHumanReadableTime(startTime)}</td>
                     <td>${getHumanReadableTime(endTime)}</td>
                     <td class="delete-button">
-                      <span id="delete_trip_${tripId}">
+                      <span class="test" id="delete_trip_${tripId}">
                       </span>
                     </td>
                   </tr>`);

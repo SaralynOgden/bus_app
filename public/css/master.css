@@ -119,8 +119,12 @@ DASHBOARD.HTML
 .delete-button {
   background: red;
   height: auto;
-  width: 3px;
+  width: 1px;
   border-bottom: 2px solid black;
+}
+
+.test {
+  width: 1px;
 }
 
 .remove-margin {
