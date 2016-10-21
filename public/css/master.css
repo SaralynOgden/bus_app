@@ -116,6 +116,11 @@ INDEX.HTML
 DASHBOARD.HTML
 
 *******************************************************************************/
+.trip-container {
+  position: relative;
+  z-index: -100;
+}
+
 .delete-trip {
   position: relative;
   z-index: 100;

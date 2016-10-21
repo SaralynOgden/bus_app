@@ -86,13 +86,13 @@
 
   const createRow = function(tripId, busNumber, stopNumber, startTime, endTime) {
     const url = `/plot.html?tripId=${tripId}&stopNumber=${stopNumber}&busNumber=${busNumber}&startTime=${startTime}&endTime=${endTime}`;
-    const $row = $(`<tr id="trip_${tripId}">
+    const $row = $(`<tr class="trip-container" id="trip_${tripId}">
                     <td>${busNumber}</td>
                     <td>${stopNumber}</td>
                     <td>${getHumanReadableTime(startTime)}</td>
                     <td>${getHumanReadableTime(endTime)}</td>
-                    <td>
-                      <span class="delete-trip" id="delete_trip_${tripId}">
+                    <td class="delete-trip">
+                      <span id="delete_trip_${tripId}">
                         <img class="delete-button" src="../images/delete.png"/>
                       </span>
                     </td>
