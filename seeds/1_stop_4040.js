@@ -3,7 +3,7 @@ const moment = require('moment');
 
 const getTime = function(minutes) {
   let d = new Date();
-  d.setHours(15);
+  d.setHours(1);
   d.setMinutes(minutes);
   return `${d.getHours()}:${d.getMinutes()}:00`;//d.toLocaleTimeString();
 };
