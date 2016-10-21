@@ -59,8 +59,8 @@
   };
 
   const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
-    const actualTimeJS = getJSDateFromThisWeek(actualTime);
-    const days = [107, 224, 340, 455, 572];
+    const actualTimeJS = getJSDateFromThisWeek(actualTime); //508 664
+    const days = [190, 350, 508, 664, 824];
 
     actualTimeArray.push([days[moment(dateCreated).toDate().getDay() - 1], actualTimeJS]);
   };
