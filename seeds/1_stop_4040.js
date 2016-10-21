@@ -9,7 +9,7 @@ const getTime = function(minutes) {
 };
 
 const getDay = function(day) {
-  const d = moment().day(day).toDate();
+  const d = moment().day(day).add(8, 'hours').toDate();
   return d;
 };
 
