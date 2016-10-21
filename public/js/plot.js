@@ -30,7 +30,7 @@ window.QUERY_PARAMETERS;
       hour = parseInt(hourStr) - 12;
     } else if (parseInt(hourStr) === 10 || parseInt(hourStr) === 11) {
       timeOfDay = 'am';
-      hour = time.substr(0, 2);
+      hour = hourStr;
     } else {
       timeOfDay = 'am';
       hour = time.substr(1, 1);
