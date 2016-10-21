@@ -116,6 +116,11 @@ INDEX.HTML
 DASHBOARD.HTML
 
 *******************************************************************************/
+.delete-trip {
+  position: relative;
+  z-index: 100;
+}
+
 .delete-button {
   height: 25px;
   width: 25px;
