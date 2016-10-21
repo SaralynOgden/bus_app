@@ -92,7 +92,7 @@
                     <td>${getHumanReadableTime(endTime)}</td>
                     <td>
                       <span class="delete-trip" id="delete_trip_${tripId}">
-                        <img src="public/images/delete.png"/>
+                        <img src="../images/delete.png"/>
                       </span>
                     </td>
                   </tr>`);
