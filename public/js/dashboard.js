@@ -41,6 +41,7 @@
 
       $.ajax(options)
         .done((deletedTrip) => {
+          console.log('hello!');
           $(`#trip_${tripId}`).remove();
         })
         .fail(() => {
