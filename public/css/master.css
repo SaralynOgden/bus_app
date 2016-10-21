@@ -116,20 +116,10 @@ INDEX.HTML
 DASHBOARD.HTML
 
 *******************************************************************************/
-.trip-container {
-  position: relative;
-  z-index: -100;
-}
-
-.delete-trip {
-  position: relative;
-  z-index: 100;
-}
-
 .delete-button {
-  height: 25px;
-  width: 25px;
-  cursor: pointer;
+  background: red;
+  height: 100px;
+  width: 5px;
 }
 
 .remove-margin {

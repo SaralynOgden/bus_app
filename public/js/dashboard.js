@@ -91,9 +91,8 @@
                     <td>${stopNumber}</td>
                     <td>${getHumanReadableTime(startTime)}</td>
                     <td>${getHumanReadableTime(endTime)}</td>
-                    <td class="delete-trip">
+                    <td class="delete-button">
                       <span id="delete_trip_${tripId}">
-                        <img class="delete-button" src="../images/delete.png"/>
                       </span>
                     </td>
                   </tr>`);
