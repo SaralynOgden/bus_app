@@ -53,7 +53,7 @@
       $.ajax(options)
         .done((deletedTrip) => {
           $(`#trip_${id}`).remove();
-          window.location.href = 'dashboard.html';
+          // window.location.href = dashboard.html;
         })
         .fail(() => {
           Materialize.toast(
@@ -102,10 +102,10 @@
 
     $(`#delete_trip_${tripId}`).click(deleteTrip(tripId));
 
-    $(`#trip_${tripId}`).click((event) => {
-      event.preventDefault();
-      window.location.href = url;
-    });
+    // $(`#trip_${tripId}`).click((event) => {
+    //   event.preventDefault();
+    //   window.location.href = url;
+    // });
   };
 
   $.getJSON('/trips_users')
