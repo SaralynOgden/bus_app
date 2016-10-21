@@ -4,11 +4,11 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
-const express = require('express'),
-      app = express(),
-      bodyParser = require('body-parser'),
-      cookieParser = require('cookie-parser'),
-      morgan = require('morgan');
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const morgan = require('morgan');
 
 require('./clock');
 
@@ -33,12 +33,12 @@ const path = require('path');
 
 app.use(express.static(path.join('public')));
 
-const users = require('./routes/users'),
-      tokens = require('./routes/tokens.js'),
-      trips = require('./routes/trips.js'),
-      tripsUsers = require('./routes/trips_users.js'),
-      data = require('./routes/data.js'),
-      dashboardVerification = require('./routes/dashboard_verification.js');
+const users = require('./routes/users');
+const tokens = require('./routes/tokens.js');
+const trips = require('./routes/trips.js');
+const tripsUsers = require('./routes/trips_users.js');
+const data = require('./routes/data.js');
+const dashboardVerification = require('./routes/dashboard_verification.js');
 
 app.use(users);
 app.use(tokens);

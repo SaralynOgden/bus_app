@@ -7,8 +7,6 @@ const knex = require('../knex');
 const jwt = require('jsonwebtoken');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 const boom = require('boom');
-// const ev = require('express-validation');
-// const validations = require('../validations/trips_users');
 
 const authorize = function(req, res, next) {
   jwt.verify(req.cookies.token, process.env.JWT_SECRET, (err, decoded) => {
