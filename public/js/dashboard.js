@@ -55,7 +55,7 @@
       $.ajax(options)
         .done((deletedTrip) => {
           console.log(`deleted trip:${deletedTrip}`);
-          $(`#trip_${tripId}`).remove();
+          $(`#trip_${id}`).remove();
         })
         .fail(() => {
           Materialize.toast(
