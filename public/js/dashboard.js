@@ -20,8 +20,7 @@
   $('#start-time-drop-down').on('change', function() {
     // eslint-disable-next-line no-invalid-this
     const startTime = $(this).val();
-    let endOption1;
-    let endOption2;
+    let endOption;
     const hour = parseInt(startTime.split(':')[0]);
     const minutes = startTime.split(':')[1].split(' ')[0];
     const timeOfDay = startTime.split(':')[1].split(' ')[1];
@@ -29,15 +28,12 @@
     $('#end-time-drop-down').children(':not(#first-end-time)').remove();
 
     if ((minutes) === '30') {
-      endOption1 = $(`<option id="endOption1">${hour + 1}:00 ${timeOfDay}</option>`);
-      endOption2 = $(`<option id="endOption2">${hour + 1}:30 ${timeOfDay}</option>`);
+      endOption = $(`<option id="endOption2">${hour + 1}:30 ${timeOfDay}</option>`);
     } else if ((minutes) === '00') {
-      endOption1 = $(`<option id="endOption1">${hour}:30 ${timeOfDay}</option>`);
-      endOption2 = $(`<option id="endOption2">${hour + 1}:00 ${timeOfDay}</option>`);
+      endOption = $(`<option id="endOption2">${hour + 1}:00 ${timeOfDay}</option>`);
     }
 
-    $('#end-time-drop-down').append(endOption1);
-    $('#end-time-drop-down').append(endOption2);
+    $('#end-time-drop-down').append(endOption);
 
     $('#end-time-drop-down').material_select();
   });
