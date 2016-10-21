@@ -143,7 +143,7 @@
         .attr('y2', yScale(scheduledTime))
         .style('stroke', '#4DA778')
         .style("stroke-dasharray", ('5, 5'))
-        .attr('stroke-width' , 2)
+        .attr('stroke-width' , 1)
 
     yScaleTime(points, yScale);
   };
@@ -169,7 +169,7 @@
       })
       .style('fill', 'none')
       .style('stroke', 'black')
-      .style("stroke-width", 2)
+      .style("stroke-width", 1)
   };
 
 
