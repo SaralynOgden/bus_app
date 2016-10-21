@@ -153,7 +153,7 @@
     console.log(points);
     const circles = svg.selectAll('circle').data(points);
 
-    circles.enter().append('circle').attr('r', 4);
+    circles.enter().append('circle').attr('r', 5).attr('class', 'circles');
 
     circles
       .attr('cx', (d) => {
@@ -162,7 +162,9 @@
       .attr('cy', (d) => {
         return d[1];
       })
-      .style('stroke', 'black');
+      .style('fill', 'none')
+      .style('stroke', 'black')
+      .style("stroke-width", 2)
   };
 
 
