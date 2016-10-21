@@ -43,6 +43,7 @@
   });
 
   const deleteTrip = function(id) {
+    console.log('am i inside deleteTrip');
     return function(_event) {
       const options = {
         dataType: 'json',
@@ -100,10 +101,10 @@
 
     $('tbody').append($row);
 
-    $(`#trip_${tripId}`).click((event) => {
-      event.preventDefault();
-      window.location.href = url;
-    });
+    // $(`#trip_${tripId}`).click((event) => {
+    //   event.preventDefault();
+    //   window.location.href = url;
+    // });
 
     $(`#delete_trip_${tripId}`)
       .click(deleteTrip(tripId));
