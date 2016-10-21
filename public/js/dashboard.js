@@ -1,8 +1,7 @@
-/* eslint-disable no-undef */
+/* eslint-disable no-undef, max-params*/
 'use strict';
 
 (function() {
-
   $.getJSON('/dashboard')
     .done((result) => {
       if (!result) {
@@ -10,7 +9,7 @@
       }
     })
     .fail((err) => {
-      console.log(err);
+      return err;
     });
 
   $('select').material_select();
@@ -29,11 +28,15 @@
     $('#end-time-drop-down').children(':not(#first-end-time)').remove();
 
     if ((minutes) === '30') {
-      endOption1 = $(`<option id="endOption1">${hour + 1}:00 ${timeOfDay}</option>`);
-      endOption2 = $(`<option id="endOption2">${hour + 1}:30 ${timeOfDay}</option>`);
+      endOption1 = $(`<option id="endOption1">${hour + 1}:00 \
+${timeOfDay}</option>`);
+      endOption2 = $(`<option id="endOption2">${hour + 1}:30 \
+${timeOfDay}</option>`);
     } else if ((minutes) === '00') {
-      endOption1 = $(`<option id="endOption1">${hour}:30 ${timeOfDay}</option>`);
-      endOption2 = $(`<option id="endOption2">${hour + 1}:00 ${timeOfDay}</option>`);
+      endOption1 = $(`<option id="endOption1">${hour}:30 \
+${timeOfDay}</option>`);
+      endOption2 = $(`<option id="endOption2">${hour + 1}:00 \
+${timeOfDay}</option>`);
     }
 
     $('#end-time-drop-down').append(endOption1);
@@ -51,7 +54,7 @@
       };
 
       $.ajax(options)
-        .done((deletedTrip) => {
+        .done(() => {
           $(`#trip_${id}`).remove();
           window.location.href = 'dashboard.html';
         })
@@ -65,13 +68,14 @@
   // added to convert times from military to normal
   const getHumanReadableTime = function(time) {
     let hour;
+    const hourStr = time.substr(0, 2);
     const minute = time.substr(2, 3);
     let timeOfDay;
 
-    if (parseInt(time.substr(0, 2)) > 12) {
+    if (parseInt(hourStr) > 12) {
       timeOfDay = 'pm';
       hour = parseInt(time.substr(0, 2)) - 12;
-    } else if (parseInt(time.substr(0, 2)) === 10 || parseInt(time.substr(0, 2)) === 11) {
+    } else if (parseInt(time.substr(0, 2)) === 10 || parseInt(hourStr) === 11) {
       timeOfDay = 'am';
       hour = time.substr(0, 2);
     } else {
@@ -84,8 +88,11 @@
     return time;
   };
 
-  const createRow = function(tripId, busNumber, stopNumber, startTime, endTime) {
-    const url = `/plot.html?tripId=${tripId}&stopNumber=${stopNumber}&busNumber=${busNumber}&startTime=${startTime}&endTime=${endTime}`;
+  /* eslint-disable-next-line max-len, max-params */
+  const createRow = function(tripId, busNumber, stopNumber,
+                            startTime, endTime) {
+    const url = `/plot.html?tripId=${tripId}&stopNumber=${stopNumber}& \
+busNumber=${busNumber}&startTime=${startTime}&endTime=${endTime}`;
     const $row = $(`<tr class="trip-container" id="trip_${tripId}">
                     <td>${busNumber}</td>
                     <td>${stopNumber}</td>
@@ -116,10 +123,12 @@
       }
     })
     .fail((err) => {
-      console.log(err);
+      return err;
     });
 
-  const checkIfAllFieldsHaveValues = function (stopNumber, busNumber, startTime, endTime) {
+  /* eslint-disable-next-line max-len */
+  const checkIfAllFieldsHaveValues = function(stopNumber, busNumber,
+    startTime, endTime) {
     if (!stopNumber || !stopNumber.trim()) {
       return Materialize.toast('Stop number must not be blank', 3000);
     }
@@ -168,17 +177,18 @@
           type: 'POST',
           url: '/trips_users'
         };
+
         $.ajax(tripsUsersOptions)
-          .fail((err) => console.log(err));
+          .fail((err) => err);
       })
-      .fail((_err) => {
-        return Materialize.toast(
-          'Unable to create route. Please try again.', 3000);
-      });
+      .fail((err) => err);
   };
 
   const createIfBusStopExists = function(data) {
-    $.getJSON(`https://cors-anywhere.herokuapp.com/http://api.pugetsound.onebusaway.org/api/where/arrivals-and-departures-for-stop/1_${data.stopNumber}.json?key=bf764a2e-308a-43f5-9fdc-24a6e6447ae0`)
+    /* eslint-disable-next-line max-len */
+    $.getJSON(`https://cors-anywhere.herokuapp.com/http://api.pugetsound.
+onebusaway.org/api/where/arrivals-and-departures-for-stop/1_${data.stopNumber}.
+json?key=bf764a2e-308a-43f5-9fdc-24a6e6447ae0`)
     .done((obaObj) => {
       if (obaObj.code === 404) {
         return Materialize.toast('No such stop number', 3000);
@@ -190,7 +200,8 @@
         return Materialize.toast('No such bus number at stop', 3000);
       }
     })
-    .fail((err) => console.log(err));
+    .fail(() => Materialize.toast('There was a problem with your request. \
+Please try again.', 3000));
   };
 
   const addStopIfInfoIsCorrect = function(event) {

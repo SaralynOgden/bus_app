@@ -1,5 +1,4 @@
-/* eslint-disable no-undef */
-
+/* eslint-disable no-undef, max-statements, max-params */
 'use strict';
 
 (function() {
@@ -13,21 +12,23 @@
     });
   }
 
-  const { tripId, busNumber, stopNumber, startTime, endTime } = window.QUERY_PARAMETERS;
+  const { tripId, busNumber, stopNumber, startTime, endTime } =
+window.QUERY_PARAMETERS;
 
   if (!stopNumber) {
-   window.location.href = '/';
+    window.location.href = '/';
   }
 
   const getHumanReadableTime = function(time) {
     let hour;
+    const hourStr = time.substr(0, 2);
     const minute = time.substr(2, 3);
     let timeOfDay;
 
-    if (parseInt(time.substr(0, 2)) > 12) {
+    if (parseInt(hourStr) > 12) {
       timeOfDay = 'pm';
-      hour = parseInt(time.substr(0, 2)) - 12;
-    } else if (parseInt(time.substr(0, 2)) === 10 || parseInt(time.substr(0, 2)) === 11) {
+      hour = parseInt(hourStr) - 12;
+    } else if (parseInt(hourStr) === 10 || parseInt(hourStr) === 11) {
       timeOfDay = 'am';
       hour = time.substr(0, 2);
     } else {
@@ -53,28 +54,29 @@
 
   const getJSDateFromThisWeek = function(actualTime) {
     const today = new Date();
-    const adjustedDate = moment().set({hour: parseInt(actualTime.substring(0,2)) - 7, minute: parseInt(actualTime.substring(3,5))}).toDate();
+    const adjustedDate = moment().set({ hour:
+      parseInt(actualTime.substring(0, 2)) - 7,
+       minute: parseInt(actualTime.substring(3, 5)) }).toDate();
 
-    return moment(adjustedDate).set({year: today.getFullYear(), month: today.getMonth(), date: today.getDate()}).toDate();
+    return moment(adjustedDate).set({ year: today.getFullYear(),
+      month: today.getMonth(), date: today.getDate() }).toDate();
   };
 
-  const insertPointsIntoArray = function(actualTime, actualTimeArray, dateCreated) {
-    const actualTimeJS = getJSDateFromThisWeek(actualTime); //508 664
+  const insertPointsIntoArray = function(actualTime, actualTimeArray,
+    dateCreated) {
+    const actualTimeJS = getJSDateFromThisWeek(actualTime);
     const days = [190, 350, 508, 664, 824];
 
-    console.log('date created stuff = ');
-    console.log(moment(dateCreated));
-    console.log(moment(dateCreated).toDate());
-    console.log(moment(dateCreated).toDate().getDay() - 1);
-
-    actualTimeArray.push([days[moment(dateCreated).toDate().getDay() - 1], actualTimeJS]);
+    actualTimeArray.push([days[moment(dateCreated).toDate().getDay() - 1],
+    actualTimeJS]);
   };
 
   const getPlotDictionary = function(processedTripData) {
     const plotDictionary = {};
 
-    for (let tripDatum of processedTripData) {
-      const scheduledTime = moment(getJSDateFromThisWeek(tripDatum.scheduledTime)).format('HH:mm:ss');
+    for (const tripDatum of processedTripData) {
+      const scheduledTime = moment(getJSDateFromThisWeek(
+        tripDatum.scheduledTime)).format('HH:mm:ss');
       let actualTimeArray;
 
       if (scheduledTime in plotDictionary) {
@@ -83,42 +85,54 @@
         actualTimeArray = [];
       }
 
-      insertPointsIntoArray(tripDatum.actualTime, actualTimeArray, tripDatum.createdAt);
+      insertPointsIntoArray(tripDatum.actualTime, actualTimeArray,
+         tripDatum.createdAt);
       plotDictionary[scheduledTime] = actualTimeArray;
     }
 
     return plotDictionary;
   };
 
-  const buildXAxis = function (i, svg, plotDictionary) {
+  const buildXAxis = function(i, svg) {
     const xScale = d3.scale.ordinal()
       .domain(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'])
       .rangeBands([padding, width]);
-
     const xAxis = d3.svg.axis();
-      xAxis.scale(xScale)
-           .orient("bottom")
-           .outerTickSize(0)
-           .ticks(5);
 
-    svg.append("g")
-      .attr("class", "axis")
-      .attr("transform", `translate(0,${height - padding})`)
+    xAxis.scale(xScale)
+         .orient('bottom')
+         .outerTickSize(0)
+         .ticks(5);
+
+    svg.append('g')
+      .attr('class', 'axis')
+      .attr('transform', `translate(0,${height - padding})`)
       .call(xAxis);
   };
 
+  const yScaleTime = function(points, yScale) {
+    for (let i = 0; i < points.length; i++) {
+      points[i][1] = yScale(points[i][1]);
+    }
+  };
+
   const buildYAxis = function(plotDictionary, i, svg, points) {
-    let scheduledTime = new Date();
+    const scheduledTime = new Date();
+
     scheduledTime.setHours(Object.keys(plotDictionary)[i].substring(0, 2));
     scheduledTime.setMinutes(Object.keys(plotDictionary)[i].substring(3, 5));
 
-    let yMinTime = new Date();
-    yMinTime.setHours(Object.keys(plotDictionary)[i].substring(0, 2));
-    yMinTime.setMinutes(parseInt(Object.keys(plotDictionary)[i].substring(3, 5)) - 20);
+    const yMinTime = new Date();
 
-    let yMaxTime = new Date();
+    yMinTime.setHours(Object.keys(plotDictionary)[i].substring(0, 2));
+    yMinTime.setMinutes(
+      parseInt(Object.keys(plotDictionary)[i].substring(3, 5)) - 20);
+
+    const yMaxTime = new Date();
+
     yMaxTime.setHours(Object.keys(plotDictionary)[i].substring(0, 2));
-    yMaxTime.setMinutes(parseInt(Object.keys(plotDictionary)[i].substring(3, 5)) + 20);
+    yMaxTime.setMinutes(
+      parseInt(Object.keys(plotDictionary)[i].substring(3, 5)) + 20);
 
     const yScale = d3.time.scale()
       .domain([yMinTime, yMaxTime]).nice()
@@ -129,11 +143,11 @@
       .scale(yScale)
       .orient('left')
       .ticks(5)
-      .tickFormat(d3.time.format("%-I:%M %p"));
+      .tickFormat(d3.time.format('%-I:%M %p'));
 
-    svg.append("g")
-      .attr("class", "axis")
-      .attr("transform", `translate(${padding}, 0)`)
+    svg.append('g')
+      .attr('class', 'axis')
+      .attr('transform', `translate(${padding}, 0)`)
       .call(yAxis);
 
     svg.append('svg:line')
@@ -142,65 +156,61 @@
         .attr('y1', yScale(scheduledTime))
         .attr('y2', yScale(scheduledTime))
         .style('stroke', '#4DA778')
-        .style("stroke-dasharray", ('5, 5'))
-        .attr('stroke-width' , 1)
+        .style('stroke-dasharray', ('5, 5'))
+        .attr('stroke-width', 1);
 
     yScaleTime(points, yScale);
   };
 
-  const yScaleTime = function(points, yScale) {
-    for (let i = 0; i < points.length; i++) {
-      points[i][1] = yScale(points[i][1]);
-    }
-  };
-
   const renderCircles = function(points, svg) {
-    console.log(points);
     const circles = svg.selectAll('circle').data(points);
 
     circles.enter().append('circle').attr('r', 5).attr('class', 'circles');
 
     circles
-      .attr('cx', (d) => {
-        return d[0];
+      .attr('cx', (datum) => {
+        return datum[0];
       })
-      .attr('cy', (d) => {
-        return d[1];
+      .attr('cy', (datum) => {
+        return datum[1];
       })
       .style('fill', 'none')
       .style('stroke', 'black')
-      .style('stroke-width', 1)
+      .style('stroke-width', 1);
   };
 
-
   const buildPlots = function(plotDictionary) {
-    let numberOfPlots = Object.keys(plotDictionary).length;
+    const numberOfPlots = Object.keys(plotDictionary).length;
+
     for (let i = 0; i < numberOfPlots; i++) {
       const svg = d3.select('#plots-container')
         .append('div')
         .classed('svg-container', true)
         .attr('id', `#plot${i}`)
         .append('svg')
-        .attr("preserveAspectRatio", "xMinYMin meet")
+        .attr('preserveAspectRatio', 'xMinYMin meet')
         .attr('height', height)
         .attr('width', width)
-        .classed("svg-content-responsive", true);
+        .classed('svg-content-responsive', true);
 
       const scheduledTime = Object.keys(plotDictionary)[i];
       const points = plotDictionary[scheduledTime];
+
       buildXAxis(i, svg);
       buildYAxis(plotDictionary, i, svg, points);
       renderCircles(points, svg);
 
-      svg.append("text")
-        .attr("text-anchor", "middle")
-        .attr(`transform`, `translate(${(padding - 80) / 2}, ${height / 2})rotate(-90)`)
+      svg.append('text')
+        .attr('text-anchor', 'middle')
+        .attr('transform', `translate(${(padding - 80) / 2}, \
+          ${height / 2})rotate(-90)`)
         .attr('font-size', 20)
         .text('Time');
 
-      svg.append("text")
-        .attr("text-anchor", "middle")
-        .attr(`transform`, `translate(${(width + 100)/2}, ${height - padding / 2})`)
+      svg.append('text')
+        .attr('text-anchor', 'middle')
+        .attr('transform', `translate(${(width + 100) / 2}, \
+          ${height - padding / 2})`)
         .attr('font-size', 20)
         .text('Day');
     }
@@ -209,7 +219,7 @@
   $.getJSON(`/data/where?tripId=${tripId}&stopNumber=${stopNumber}`)
     .done((processedTripData) => {
       const plotDictionary = getPlotDictionary(processedTripData);
-      console.log(plotDictionary);
+
       buildPlots(plotDictionary);
     })
     .fail(() => {
