@@ -8,4 +8,4 @@ How does it work?
 
 Based on your bus route, bus number and what time periods you prefer to catch your bus, we can track which one will get you to your destination with less surprises along the way.
 
-Heroku: http://chase-klingel-bus-trends.herokuapp.com/index.html
+Heroku: http://bus-trends.herokuapp.com/
