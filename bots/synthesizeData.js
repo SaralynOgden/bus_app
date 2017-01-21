@@ -47,6 +47,7 @@ const getScheduledTimeDictionary = function(tripData) {
   return scheduledTimeDictionary;
 };
 
+
 const synthesizeTripData = function(trip) {
   const todaysSQLDate = getTodaysSQLDate();
 
@@ -90,5 +91,7 @@ module.exports = {
       .catch((err) => {
         throw err;
       });
-  }
+  },
+  getEndTimeClosestToNow,
+  getScheduledTimeDictionary
 };

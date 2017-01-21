@@ -114,5 +114,11 @@ ${currentTimeJS.getMinutes()}:00`;
       .catch((err) => {
         throw err;
       });
-  }
+  },
+  getCurrentStopDictionary,
+  getBusIndices,
+  getJSON,
+  getBusIndices,
+  insertBusData,
+  addTripsInArrayToStopTable
 };
